@@ -1,0 +1,25 @@
+<html lang="en" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:extend>
+<form wicket:id="form">
+    <div wicket:id="feedback">[FEEDBACK]</div>
+    <div>
+        <label>Current Name</label>
+        <span wicket:id="nameLabel">[CURRENT NAME]</span>
+        <a wicket:id="link"><span wicket:id="linkLabel">[TOGGLE NAME VISIBILITY]</span></a>
+    </div>
+    <div>
+        <label wicket:for="name"><wicket:label>[NEW NAME LABEL]</wicket:label></label>
+        <input type="text" wicket:id="name"/>
+    </div>
+    <div>
+        <label>Name Visible</label>
+        <input type="checkbox" wicket:id="check"/>
+    </div>
+    <div>
+        <button wicket:id="updateButton">Update</button>
+        <button wicket:id="resetButton">Reset</button>
+        <button wicket:id="clearButton">Clear</button>
+    </div>
+</form>
+</wicket:extend>
+</html>
