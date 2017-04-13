@@ -1,15 +1,18 @@
 buildscript {
 	ext {
 		kotlinVersion = '1.1.1'
+        dokkaVersion = '0.9.13'
 		springBootVersion = '1.5.2.RELEASE'
 	}
 	repositories {
 		mavenCentral()
+        jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}"
 	}
 }
 
@@ -20,6 +23,7 @@ subprojects {
 
 	version = '0.0.1-SNAPSHOT'
 	sourceCompatibility = 1.8
+    sourceSets.main.kotlin.exclude 'sample/**'
 
 	ext {
 		wicketVersion = '8.0.0-M4'
@@ -44,8 +48,25 @@ subprojects {
         compileOnly("javax.servlet:javax.servlet-api:${servletApiVersion}")
 		compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
 		compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+        testCompile("org.apache.wicket:wicket-core:${wicketVersion}")
 	}
 
+}
+
+project(':kwicket') {
+
+	apply plugin: 'org.jetbrains.dokka'
+
+	sourceSets.main.kotlin.exclude 'samples/**'
+
+	dokka {
+		/*linkMapping {
+			url = "https://kotlinlang.org/api/latest/jvm/stdlib/index.html"
+			dir = "src/main/kotlin"
+			suffix = "#K"
+		}*/
+		samples = ["src/main/kotlin/samples"]
+	}
 }
 
 project(':sample') {
@@ -58,7 +79,6 @@ project(':sample') {
 
     dependencies {
         compile("org.apache.wicket:wicket-core:${wicketVersion}")
-		compile("org.apache.wicket:wicket-devutils:${wicketVersion}")
         compile("javax.servlet:javax.servlet-api:${servletApiVersion}")
         compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
         compile("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")

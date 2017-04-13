@@ -6,10 +6,12 @@ import org.apache.wicket.markup.html.form.CheckBox
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.markup.html.panel.FeedbackPanel
+import org.apache.wicket.model.IModel
 import org.kwicket.AjaxSubmitHandler
 import org.kwicket.component.ajaxButton
 import org.kwicket.component.ajaxLink
 import org.kwicket.component.handleEvent
+import org.kwicket.component.listView
 import org.kwicket.component.q
 import org.kwicket.component.required
 import org.kwicket.component.updatable
@@ -17,6 +19,9 @@ import org.kwicket.component.visibleWhen
 import org.kwicket.model.model
 import org.kwicket.model.value
 import org.wicketstuff.annotation.mount.MountPath
+import java.io.Serializable
+
+data class Person(val firstName: String, val lastName: String): Serializable
 
 @MountPath("ajax")
 class AjaxPage : BasePage() {
@@ -26,6 +31,12 @@ class AjaxPage : BasePage() {
         val defaultShowLabel = true
         val showLabelModel = defaultShowLabel.model()
         val nameModel = defaultName.model<String?>()
+        val peopleModel: IModel<List<Person>> = listOf(Person("Babe", "Ruth"), Person("Hank", "Aaron")).model()
+
+        q(listView(id = "people", model = peopleModel, populate = { item ->
+            item.add(Label("firstName", { item.model.value.firstName } ))
+            item.add(Label("lastName", { item.model.value.lastName } ))
+        }))
 
         q(Form("form", nameModel))
         q(FeedbackPanel("feedback")
@@ -42,7 +53,7 @@ class AjaxPage : BasePage() {
                 .handleEvent(refreshOnAjaxResetHandler))
         val checkbox = q(CheckBox("check", showLabelModel)
                 .updatable())
-        queue(ajaxLink<String>(id = "link", handler = { target ->
+        q(ajaxLink<String>(id = "link", handler = { target ->
             showLabelModel.value = !showLabelModel.value
             target.add(nameLabel, linkLabel, checkbox)
         }))

@@ -3,6 +3,7 @@ package org.kwicket.model
 import org.apache.wicket.model.IModel
 import org.apache.wicket.model.LoadableDetachableModel
 import org.apache.wicket.model.Model
+import org.apache.wicket.model.util.ListModel
 import java.io.Serializable
 
 /**
@@ -11,8 +12,19 @@ import java.io.Serializable
  * @param T type of the [Serializable] value
  * @receiver [Serializable] value of type [T]
  * @return [IModel] of type [T]
+ * @sample [samples.org.kwicket.model.nonNullModelExample]
+ * @sample [samples.org.kwicket.model.nullableModelExample]
  */
 fun <T: Serializable?> T?.model(): IModel<T> = Model.of(this)
+
+/**
+ * Extension method that returns the [List] wrapped in an [IModel].
+ *
+ * @param T type of the items in the [List]
+ * @receiver [List] containing values of type [T]
+ * @return [IModel] of type [List] containing items of type [T]
+ */
+fun <T> List<T>.model(): IModel<List<T>> = ListModel(this)
 
 /**
  * Extension method that returns the lambda producer wrapped in a [LoadableDetachableModel].

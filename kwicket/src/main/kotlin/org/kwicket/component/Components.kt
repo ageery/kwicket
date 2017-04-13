@@ -9,6 +9,8 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.Button
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.markup.html.link.Link
+import org.apache.wicket.markup.html.list.ListItem
+import org.apache.wicket.markup.html.list.ListView
 import org.apache.wicket.model.IModel
 import org.apache.wicket.model.LoadableDetachableModel
 import org.kwicket.AjaxHandler
@@ -62,7 +64,7 @@ fun <C: Component> C.updatable(placeholder: Boolean? = null): C {
 /**
  * Specifies when the [Component] is visible via the [model] value.
  *
- * This is done by adding a [Behavior] that in its []Behavior#onConfigure] method calls the [Component.setVisible]
+ * This is done by adding a [Behavior] that in its [Behavior.onConfigure] method calls the [Component.setVisible]
  * method with the value of the [model].
  *
  * @receiver [Component] the visibility is being set on
@@ -117,7 +119,7 @@ fun <C: Component> C.enabledWhen(model: IModel<Boolean>): C {
 fun <C: Component> C.enabledWhen(isEnabled: () -> Boolean): C = enabledWhen(isEnabled.ldm())
 
 /**
- * Returns a new [AjaxLink] instance.  The implementation of the ajax [AjaxLink#onClick] method is specified by the [handler].
+ * Returns a new [AjaxLink] instance.  The implementation of the ajax [AjaxLink.onClick] method is specified by the [handler].
  *
  * @param id component identifier
  * @param model nullable model of the button
@@ -145,11 +147,11 @@ fun <T> link(id: String, model: IModel<T>? = null, handler: NonAjaxHandler): Lin
 }
 
 /**
- * Returns [Button] instance.  The implementations of the [Button#onSubmit] and [Button#onError]
+ * Returns [Button] instance.  The implementations of the [Button.onSubmit] and [Button.onError]
  * methods are specified by the [handler].
  *
  * @param id component identifier
- * @param model model of the button
+ * @param model model of the [Button]
  * @param handler submit and error handlers
  * @return [Button] instance
  */
@@ -171,11 +173,11 @@ fun button(id: String, model: IModel<String>? = null, handler: NonAjaxSubmitHand
 }
 
 /**
- * Returns an [AjaxButton] instance.  The implementations of the ajax [AjaxButton#onSubmit] and [AjaxButton#onError]
+ * Returns an [AjaxButton] instance.  The implementations of the ajax [AjaxButton.onSubmit] and [AjaxButton.onError]
  * methods are specified by the [handler].
  *
  * @param id component identifier
- * @param model model of the button
+ * @param model model of the [AjaxButton]
  * @param handler ajax submit and error handlers
  * @return [AjaxButton] instance
  */
@@ -201,4 +203,26 @@ fun ajaxButton(id: String, model: IModel<String>? = null, handler: IAjaxSubmitHa
 inline fun <reified C: Component, reified E> C.handleEvent(crossinline handler: (C, E) -> Unit): C {
     add(eventHandler(handler))
     return this
+}
+
+/**
+ * Returns a [ListView] instance.  The implementation of the ajax [ListView.populateItem]
+ * method is specified by the [populate] lambda.
+ *
+ * @param id component identifier
+ * @param model model of the [ListView]
+ * @param populate lambda that supplies the [ListView.populateItem] functionality
+ * @param reuseItems whether to reuse items in the [ListView]
+ * @return [ListView] instance
+ */
+fun <T> listView(id: String, model: IModel<List<T>>, reuseItems: Boolean? = null, populate: (ListItem<T>) -> Unit): ListView<T> {
+    val listView = object : ListView<T>(id, model) {
+        override fun populateItem(item: ListItem<T>) {
+            populate(item)
+        }
+    }
+    if (reuseItems != null) {
+        listView.reuseItems = reuseItems
+    }
+    return listView
 }
