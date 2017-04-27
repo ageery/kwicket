@@ -1,3 +1,15 @@
 body {
     padding-top: 70px;
 }
+
+#ajax-indicator {
+    position: absolute;
+    left: 45%;
+    top: 40%;
+    zoom: 4;
+    z-index: 1000;
+}
+
+.pad-top-10 {
+    margin-top: 10px;
+}

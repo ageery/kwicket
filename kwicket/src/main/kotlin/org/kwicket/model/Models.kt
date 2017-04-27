@@ -27,10 +27,10 @@ fun <T: Serializable?> T?.model(): IModel<T> = Model.of(this)
 fun <T> List<T>.model(): IModel<List<T>> = ListModel(this)
 
 /**
- * Extension method that returns the lambda producer wrapped in a [LoadableDetachableModel].
+ * Extension method that returns the getter producer wrapped in a [LoadableDetachableModel].
  *
- * @param T type returned by the lambda producer
- * @receiver lambda producer that returns objects of type [T]
+ * @param T type returned by the getter producer
+ * @receiver getter producer that returns objects of type [T]
  * @return [IModel] of type [() -> T?]
  */
 fun <T> (() -> T?).ldm(): IModel<T> = LoadableDetachableModel.of(this)

@@ -26,10 +26,11 @@ subprojects {
     sourceSets.main.kotlin.exclude 'sample/**'
 
 	ext {
-		wicketVersion = '8.0.0-M4'
+		wicketVersion = '8.0.0-M5'
 		wicketstuffVersion = wicketVersion
 		wicketBootstrapVersion = '2.0.0-M2'
         servletApiVersion = '3.1.0'
+		springVersion = '4.3.8.RELEASE'
 	}
 
 	compileKotlin {
@@ -45,10 +46,16 @@ subprojects {
 
 	dependencies {
 		compileOnly("org.apache.wicket:wicket-core:${wicketVersion}")
+		compileOnly("org.apache.wicket:wicket-extensions:${wicketVersion}")
+		compileOnly("org.apache.wicket:wicket-spring:${wicketVersion}")
+        compileOnly("org.wicketstuff:wicketstuff-annotation:${wicketstuffVersion}")
         compileOnly("javax.servlet:javax.servlet-api:${servletApiVersion}")
+		compileOnly("org.springframework:spring-web:${springVersion}")
+        compileOnly("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
+		compileOnly("org.wicketstuff:wicketstuff-annotationeventdispatcher:${wicketstuffVersion}")
 		compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
 		compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-        testCompile("org.apache.wicket:wicket-core:${wicketVersion}")
+        //testCompile("org.apache.wicket:wicket-core:${wicketVersion}")
 	}
 
 }
@@ -79,10 +86,17 @@ project(':sample') {
 
     dependencies {
         compile("org.apache.wicket:wicket-core:${wicketVersion}")
+		compile("org.apache.wicket:wicket-spring:${wicketVersion}")
+		compile("org.apache.wicket:wicket-extensions:${wicketVersion}")
         compile("javax.servlet:javax.servlet-api:${servletApiVersion}")
         compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
         compile("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
+		compile("de.agilecoders.wicket:wicket-bootstrap-extensions:${wicketBootstrapVersion}")
 		compile("org.wicketstuff:wicketstuff-annotation:${wicketstuffVersion}")
+		compile("org.wicketstuff:wicketstuff-annotationeventdispatcher:${wicketstuffVersion}")
+		compile("org.reflections:reflections:0.9.11")
+        runtime("com.h2database:h2")
         compile project(':kwicket')
     }
 }

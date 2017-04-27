@@ -1,15 +1,11 @@
 package org.kwicket.sample
 
-import org.apache.wicket.Component
 import org.apache.wicket.ajax.AjaxRequestTarget
+import org.wicketstuff.event.annotation.AbstractAjaxAwareEvent
+import org.wicketstuff.event.annotation.AbstractPayloadTypedEvent
 
-sealed class SampleAjaxEvent(val target: AjaxRequestTarget)
-class AjaxResetEvent(target: AjaxRequestTarget) : SampleAjaxEvent(target)
-class AjaxChangeEvent(target: AjaxRequestTarget, val successful: Boolean) : SampleAjaxEvent(target)
-
-class NonAjaxResetEvent
-
-val refreshOnAjaxEventHandler: (C: Component, SampleAjaxEvent) -> Unit = { c, e -> e.target.add(c) }
-val refreshOnSuccessHandler: (C: Component, AjaxChangeEvent) -> Unit = { c, e -> if (e.successful) e.target.add(c) }
-val refreshOnAjaxResetHandler: (C: Component, AjaxResetEvent) -> Unit = { c, e -> e.target.add(c) }
-
+class ValidationErrorEvent(target: AjaxRequestTarget) : AbstractAjaxAwareEvent(target)
+class CancelEvent(target: AjaxRequestTarget) : AbstractAjaxAwareEvent(target)
+class SaveEvent<T>(target: AjaxRequestTarget, payload: T) : AbstractPayloadTypedEvent<T>(target, payload)
+class DeleteEvent<T>(target: AjaxRequestTarget, payload: T) : AbstractPayloadTypedEvent<T>(target, payload)
+class EditEvent<T>(target: AjaxRequestTarget, payload: T) : AbstractPayloadTypedEvent<T>(target, payload)
