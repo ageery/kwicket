@@ -1,7 +1,9 @@
 Kotlin Wicket Parent
 ====================
 
-This project provides a set of Kotlin (mostly extension) methods for more fluently working with Wicket.
+[![Build Status](https://travis-ci.org/ageery/kwicket.svg?branch=master)](https://travis-ci.org/ageery/kwicket.svg?branch=master)
+
+This project provides a set of Kotlin (mostly extension) methods for more fluently working with Wicket in Kotlin.
 
 This includes:
 
