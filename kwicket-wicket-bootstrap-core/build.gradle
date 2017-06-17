@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':kwicket-core')
+    compileOnly("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
+}

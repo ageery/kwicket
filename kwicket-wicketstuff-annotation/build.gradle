@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':kwicket-core')
+    compileOnly("org.wicketstuff:wicketstuff-annotation:${wicketStuffVersion}")
+}

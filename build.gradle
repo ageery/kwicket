@@ -24,7 +24,7 @@ subprojects {
 	sourceCompatibility = 1.8
 
 	ext {
-		kotlinVerison = '1.1.2'
+		kotlinVerison = '1.1.2-5'
 		wicketVersion = '8.0.0-M6'
 		wicketStuffVersion = wicketVersion
 		wicketBootstrapVersion = '2.0.0-M5'
@@ -47,65 +47,6 @@ subprojects {
 		compileOnly("org.apache.wicket:wicket-core:${wicketVersion}")
 		compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
 		compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-	}
-
-}
-
-project(':kwicket-core') {
-
-}
-
-project(':kwicket-wicket-core') {
-
-	dependencies {
-		compile project(':kwicket-core')
-	}
-
-}
-
-project(':kwicket-wicket-extensions') {
-
-	dependencies {
-		compile project(':kwicket-core')
-		compile project(':kwicket-wicket-core')
-		compileOnly("org.apache.wicket:wicket-extensions:${wicketVersion}")
-	}
-
-}
-
-project(':kwicket-wicket-spring') {
-
-	dependencies {
-		compileOnly("org.springframework:spring-web:${springVersion}")
-		compileOnly("javax.servlet:javax.servlet-api:${servletApiVersion}")
-		compileOnly("org.apache.wicket:wicket-spring:${wicketVersion}")
-	}
-
-}
-
-project(':kwicket-wicketstuff-select2') {
-
-	dependencies {
-		compile project(':kwicket-core')
-		compileOnly("org.wicketstuff:wicketstuff-select2:${wicketStuffVersion}")
-	}
-
-}
-
-project(':kwicket-wicketstuff-annotation') {
-
-	dependencies {
-		compile project(':kwicket-core')
-		compileOnly("org.wicketstuff:wicketstuff-annotation:${wicketStuffVersion}")
-	}
-
-}
-
-project(':kwicket-wicket-bootstrap-core') {
-
-	dependencies {
-		compile project(':kwicket-core')
-		compileOnly("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
 	}
 
 }
