@@ -1,1 +1,7 @@
-include 'kwicket', 'sample'
+include 'kwicket-core', \
+        'kwicket-wicket-core', \
+        'kwicket-wicket-extensions',\
+        'kwicket-wicket-spring',\
+        'kwicket-wicketstuff-select2',\
+        'kwicket-wicketstuff-annotation',\
+        'kwicket-wicket-bootstrap-core'

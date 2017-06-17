@@ -1,19 +1,18 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.1.1'
-        dokkaVersion = '0.9.13'
-		springBootVersion = '1.5.2.RELEASE'
+		kotlinVersion = '1.1.2'
 	}
 	repositories {
 		mavenCentral()
         jcenter()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}"
 	}
+}
+
+allprojects {
+	apply plugin: 'maven'
 }
 
 subprojects {
@@ -23,14 +22,14 @@ subprojects {
 
 	version = '0.0.1-SNAPSHOT'
 	sourceCompatibility = 1.8
-    sourceSets.main.kotlin.exclude 'sample/**'
 
 	ext {
-		wicketVersion = '8.0.0-M5'
-		wicketstuffVersion = wicketVersion
-		wicketBootstrapVersion = '2.0.0-M2'
+		kotlinVerison = '1.1.2'
+		wicketVersion = '8.0.0-M6'
+		wicketStuffVersion = wicketVersion
+		wicketBootstrapVersion = '2.0.0-M5'
         servletApiVersion = '3.1.0'
-		springVersion = '4.3.8.RELEASE'
+		springVersion = '4.3.9.RELEASE'
 	}
 
 	compileKotlin {
@@ -46,57 +45,67 @@ subprojects {
 
 	dependencies {
 		compileOnly("org.apache.wicket:wicket-core:${wicketVersion}")
-		compileOnly("org.apache.wicket:wicket-extensions:${wicketVersion}")
-		compileOnly("org.apache.wicket:wicket-spring:${wicketVersion}")
-        compileOnly("org.wicketstuff:wicketstuff-annotation:${wicketstuffVersion}")
-        compileOnly("javax.servlet:javax.servlet-api:${servletApiVersion}")
-		compileOnly("org.springframework:spring-web:${springVersion}")
-        compileOnly("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
-		compileOnly("org.wicketstuff:wicketstuff-annotationeventdispatcher:${wicketstuffVersion}")
 		compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
 		compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-        //testCompile("org.apache.wicket:wicket-core:${wicketVersion}")
 	}
 
 }
 
-project(':kwicket') {
+project(':kwicket-core') {
 
-	apply plugin: 'org.jetbrains.dokka'
-
-	sourceSets.main.kotlin.exclude 'samples/**'
-
-	dokka {
-		/*linkMapping {
-			url = "https://kotlinlang.org/api/latest/jvm/stdlib/index.html"
-			dir = "src/main/kotlin"
-			suffix = "#K"
-		}*/
-		samples = ["src/main/kotlin/samples"]
-	}
 }
 
-project(':sample') {
+project(':kwicket-wicket-core') {
 
-    apply plugin: 'kotlin-allopen'
-    apply plugin: 'kotlin-spring'
-	apply plugin: 'org.springframework.boot'
+	dependencies {
+		compile project(':kwicket-core')
+	}
 
-    sourceSets.main.resources.srcDir 'src/main/kotlin'
+}
 
-    dependencies {
-        compile("org.apache.wicket:wicket-core:${wicketVersion}")
-		compile("org.apache.wicket:wicket-spring:${wicketVersion}")
-		compile("org.apache.wicket:wicket-extensions:${wicketVersion}")
-        compile("javax.servlet:javax.servlet-api:${servletApiVersion}")
-        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-        compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
-        compile("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
-		compile("de.agilecoders.wicket:wicket-bootstrap-extensions:${wicketBootstrapVersion}")
-		compile("org.wicketstuff:wicketstuff-annotation:${wicketstuffVersion}")
-		compile("org.wicketstuff:wicketstuff-annotationeventdispatcher:${wicketstuffVersion}")
-		compile("org.reflections:reflections:0.9.11")
-        runtime("com.h2database:h2")
-        compile project(':kwicket')
-    }
+project(':kwicket-wicket-extensions') {
+
+	dependencies {
+		compile project(':kwicket-core')
+		compile project(':kwicket-wicket-core')
+		compileOnly("org.apache.wicket:wicket-extensions:${wicketVersion}")
+	}
+
+}
+
+project(':kwicket-wicket-spring') {
+
+	dependencies {
+		compileOnly("org.springframework:spring-web:${springVersion}")
+		compileOnly("javax.servlet:javax.servlet-api:${servletApiVersion}")
+		compileOnly("org.apache.wicket:wicket-spring:${wicketVersion}")
+	}
+
+}
+
+project(':kwicket-wicketstuff-select2') {
+
+	dependencies {
+		compile project(':kwicket-core')
+		compileOnly("org.wicketstuff:wicketstuff-select2:${wicketStuffVersion}")
+	}
+
+}
+
+project(':kwicket-wicketstuff-annotation') {
+
+	dependencies {
+		compile project(':kwicket-core')
+		compileOnly("org.wicketstuff:wicketstuff-annotation:${wicketStuffVersion}")
+	}
+
+}
+
+project(':kwicket-wicket-bootstrap-core') {
+
+	dependencies {
+		compile project(':kwicket-core')
+		compileOnly("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
+	}
+
 }
