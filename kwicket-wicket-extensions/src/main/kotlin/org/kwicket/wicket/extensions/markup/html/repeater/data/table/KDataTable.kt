@@ -5,7 +5,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractTool
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
 open class KDataTable<T, S>(id: String,
                       columns: List<IColumn<T, S>>,
@@ -19,7 +19,7 @@ open class KDataTable<T, S>(id: String,
     : DataTable<T, S>(id, columns, dataProvider, rowsPerPage.toLong()) {
 
     init {
-        initComponent(outputMarkupId = outputMarkupId,
+        init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 behaviors = *behaviors)
         topToolbars?.let { it.invoke(this).forEach { toolbar -> addTopToolbar(toolbar) } }

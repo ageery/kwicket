@@ -9,15 +9,21 @@ import kotlin.reflect.jvm.javaGetter
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.jvmErasure
 
+/**
+ * [IModel] that applies the [props] to the [model] for getting and setting the model's value.
+ *
+ * @param T type of the [IModel]'s value/object
+ * @param model [IModel] whose value is
+ * @param props [PropChain] that is applied to the [model] value to get the value of the [IModel]
+ */
 class PropModel<T>(val model: IModel<*>, val props: PropChain<T>) : IModel<T> {
     override fun getObject(): T = if (model.value == null) null as T else props.getValue(model.value)
     override fun setObject(value: T) = props.setValue(model.value, value)
 }
 
-private class SetterInfo<T>(val name: String, val type: Class<out T>) : Serializable {
-    fun setValue(obj: Any, value: T) = obj::class.java.getMethod(name, type).invoke(obj, value)
-}
-
+/**
+ * Represents a [Serializable] chain of properties.
+ */
 class PropChain<T>(init: PropChainBuilder.() -> KProperty1<*, T>) : Serializable {
 
     private val getters: List<String>
@@ -55,6 +61,9 @@ class PropChain<T>(init: PropChainBuilder.() -> KProperty1<*, T>) : Serializable
 
 }
 
+/**
+ * Builder for creating a [PropChain] object.
+ */
 class PropChainBuilder {
 
     private var props: MutableList<KProperty1<*, *>> = mutableListOf()
@@ -75,5 +84,9 @@ class PropChainBuilder {
     val getterNamees: Sequence<String>
         get() = props.asSequence().map { it.javaGetter!!.name }
 
+}
+
+private class SetterInfo<T>(val name: String, val type: Class<out T>) : Serializable {
+    fun setValue(obj: Any, value: T) = obj::class.java.getMethod(name, type).invoke(obj, value)
 }
 

@@ -15,7 +15,6 @@ fun <A : WebApplication> A.enableBootstrap(version: String? = null,
                                            jsResourceReference: ResourceReference? = null,
                                            modernizrResourceReference: ResourceReference? = null,
                                            jsResourceFilterName: String? = null,
-                                           updateSecurityManager: Boolean? = null,
                                            activeThemeProvider: ActiveThemeProvider? = null,
                                            themeProvider: ThemeProvider? = null,
                                            useCdnResources: Boolean? = null): A {

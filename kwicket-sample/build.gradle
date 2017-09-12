@@ -1,0 +1,49 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'kotlin-spring'
+
+dependencies {
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-tomcat')
+    compileOnly('javax.servlet:javax.servlet-api:3.1.0')
+
+    compile project(':kwicket-core')
+
+    compile("org.apache.wicket:wicket-core:${wicketVersion}")
+    compile project(':kwicket-wicket-core')
+
+    compile("org.apache.wicket:wicket-extensions:${wicketVersion}")
+    compile project(':kwicket-wicket-extensions')
+
+    compile("org.apache.wicket:wicket-spring:${wicketVersion}")
+    compile project(':kwicket-wicket-spring')
+
+    compile("org.wicketstuff:wicketstuff-annotation:${wicketStuffVersion}")
+    compile project(':kwicket-wicketstuff-annotation')
+
+    compile("org.wicketstuff:wicketstuff-select2:${wicketStuffVersion}")
+    compile project(':kwicket-wicketstuff-select2')
+
+    compile("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
+    compile project(':kwicket-wicket-bootstrap-core')
+
+    compile("de.agilecoders.wicket:wicket-bootstrap-core:${wicketBootstrapVersion}")
+    compile project(':kwicket-wicket-bootstrap-core')
+
+    compile("de.agilecoders.wicket:wicket-bootstrap-extensions:${wicketBootstrapVersion}")
+    compile("de.agilecoders.wicket:wicket-bootstrap-themes:${wicketBootstrapVersion}")
+
+}

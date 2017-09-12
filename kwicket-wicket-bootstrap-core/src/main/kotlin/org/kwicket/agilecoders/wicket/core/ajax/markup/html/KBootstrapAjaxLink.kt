@@ -6,7 +6,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.model.IModel
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
 open class KBootstrapAjaxLink<T>(id: String,
                             model: IModel<T>? = null,
@@ -21,7 +21,7 @@ open class KBootstrapAjaxLink<T>(id: String,
     : BootstrapAjaxLink<T>(id, model, type, label) {
 
     init {
-        initComponent(
+        init(
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 outputMarkupId = outputMarkupId,
                 behaviors = *behaviors)

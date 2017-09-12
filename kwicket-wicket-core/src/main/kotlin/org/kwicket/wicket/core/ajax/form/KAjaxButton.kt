@@ -7,22 +7,30 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.IModel
 import org.kwicket.AjaxHandler
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
+import org.slf4j.LoggerFactory
 
-class KAjaxButton(id: String,
+/**
+ * [AjaxButton] with named and default constructor arguments.
+ */
+open class KAjaxButton(id: String,
                   model: IModel<String>? = null,
+                  form: Form<*>? = null,
                   val onSubmit: AjaxHandler,
                   val onError: AjaxHandler? = null,
                   defaultFormProcessing: Boolean? = null,
-                  form: Form<*>? = null,
                   outputMarkupId: Boolean? = null,
                   outputMarkupPlaceholderTag: Boolean? = null,
                   vararg behaviors: Behavior)
     : AjaxButton(id, model, form) {
 
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(KAjaxButton::class.java)
+    }
+
     init {
         defaultFormProcessing?.let { this.defaultFormProcessing = it }
-        initComponent(outputMarkupId = outputMarkupId,
+        init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 behaviors = *behaviors)
     }
@@ -32,7 +40,8 @@ class KAjaxButton(id: String,
     }
 
     override fun onError(target: AjaxRequestTarget) {
-        onError?.invoke(target) ?: throw WicketRuntimeException("No onError handler defined for ${javaClass.name} with id=$id")
+        onError?.invoke(target) ?: LOGGER.warn("The onError() method was invoked on component " +
+                "${javaClass.name} with id='$id' but no onError handler was defined.")
     }
 
 }

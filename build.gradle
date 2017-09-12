@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.1.2'
+		kotlinVersion = '1.1.4-3'
 	}
 	repositories {
 		mavenCentral()
@@ -11,20 +11,23 @@ buildscript {
 	}
 }
 
+group = 'org.kwicket'
+version = "0.0.1-SNAPSHOT"
+
 allprojects {
-	apply plugin: 'maven'
+	apply plugin: 'maven-publish'
 }
 
 subprojects {
 
 	apply plugin: 'kotlin'
-	apply plugin: 'eclipse'
 
-	version = '0.0.1-SNAPSHOT'
 	sourceCompatibility = 1.8
 
-	ext {
-		kotlinVerison = '1.1.2-5'
+    sourceSets.main.resources.srcDirs += "src/main/kotlin"
+
+    ext {
+		kotlinVersion = '1.1.4-3'
 		wicketVersion = '8.0.0-M6'
 		wicketStuffVersion = wicketVersion
 		wicketBootstrapVersion = '2.0.0-M5'
@@ -49,4 +52,20 @@ subprojects {
 		compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
 	}
 
+	publishing {
+		publications {
+			maven(MavenPublication) {
+				from components.java
+			}
+		}
+	}
+
+}
+
+publishing {
+	publications {
+		parent(MavenPublication) {
+			artifactId 'kwicket-parent'
+		}
+	}
 }

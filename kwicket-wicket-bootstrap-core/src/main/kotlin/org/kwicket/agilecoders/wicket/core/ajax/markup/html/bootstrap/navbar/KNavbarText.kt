@@ -4,7 +4,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarText
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.model.IModel
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
 open class KNavbarText(id: String = Navbar.componentId(),
                        model: IModel<String?>,
@@ -15,7 +15,7 @@ open class KNavbarText(id: String = Navbar.componentId(),
     : NavbarText(id, model) {
 
     init {
-        initComponent(outputMarkupId = outputMarkupId,
+        init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 behaviors = *behaviors)
         position?.let { this.position(it) }

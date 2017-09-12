@@ -5,7 +5,7 @@ import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFal
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractToolbar
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
 class KAjaxFallbackDefaultDataTable<T, S>(id: String,
                                           columns: List<IColumn<T, S>>,
@@ -19,7 +19,7 @@ class KAjaxFallbackDefaultDataTable<T, S>(id: String,
     : AjaxFallbackDefaultDataTable<T, S>(id, columns, dataProvider, rowsPerPage) {
 
     init {
-        initComponent(outputMarkupId = outputMarkupId,
+        init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 behaviors = *behaviors)
         topToolbars?.let { it.invoke(this).forEach { toolbar -> addTopToolbar(toolbar) } }

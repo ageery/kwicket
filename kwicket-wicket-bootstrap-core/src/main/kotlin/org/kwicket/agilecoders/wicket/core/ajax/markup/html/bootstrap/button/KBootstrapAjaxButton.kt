@@ -8,7 +8,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.IModel
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
 open class KBootstrapAjaxButton(id: String,
                                 model: IModel<String>? = null,
@@ -25,7 +25,7 @@ open class KBootstrapAjaxButton(id: String,
     : BootstrapAjaxButton(id, model, form, type) {
 
     init {
-        initComponent(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 outputMarkupId = outputMarkupId,
                 behaviors = *behaviors)
         defaultFormProcessing?.let { this.defaultFormProcessing = it }

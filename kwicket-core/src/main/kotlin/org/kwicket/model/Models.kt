@@ -7,37 +7,39 @@ import org.apache.wicket.model.util.ListModel
 import java.io.Serializable
 
 /**
- * Extension method that returns the [Serializable] object wrapped in an [IModel].
+ * Creates an [IModel] for a [Serializable] object.
  *
  * @param T type of the [Serializable] value
  * @receiver [Serializable] value of type [T]
  * @return [IModel] of type [T]
- * @sample [samples.org.kwicket.model.nonNullModelExample]
- * @sample [samples.org.kwicket.model.nullableModelExample]
  */
-fun <T: Serializable?> T.model(): IModel<T> = Model.of(this)
+val <T : Serializable?> T.model: IModel<T>
+    get() = Model.of(this)
 
 /**
- * Extension method that returns the [List] wrapped in an [IModel].
+ * Creates an [IModel] for a [List].
  *
  * @param T type of the items in the [List]
  * @receiver [List] containing values of type [T]
  * @return [IModel] of type [List] containing items of type [T]
  */
-fun <T> List<T>.listModel(): IModel<List<T>> = ListModel(this)
+@Suppress("UNCHECKED_CAST")
+val <T, L : List<T>> L.listModel: IModel<L>
+    get() = ListModel(this) as IModel<L>
 
 /**
- * Extension method that returns the producer wrapped in a [LoadableDetachableModel].
+ * Creates an [IModel] that uses the @receiver lambda to produce its value.
  *
  * @param T type returned by the producer
  * @receiver producer that returns objects of type [T]
  * @return [IModel] of type [() -> T?]
  */
-fun <T> (() -> T).ldm(): IModel<T> = LoadableDetachableModel.of(this)
+val <T> (() -> T).ldm: IModel<T>
+    get() = LoadableDetachableModel.of(this)
 
 /**
- * Extension property for [IModel] that provides a way of accessing and setting the object value of an [IModel]
- * without having to use the special Kotlin backtick syntax (since object is a reserved word in Kotlin).
+ * Provides a readable/writable property with the name of "value" that returns the "object" of the [IModel],
+ * without having to use the special Kotlin backtick syntax (since "object" is a reserved word in Kotlin).
  */
 var <T> IModel<T>.value: T
     get() = `object`
@@ -46,13 +48,22 @@ var <T> IModel<T>.value: T
     }
 
 /**
- * Extension method (and operator) that returns a new [IModel<T>] created from applying a (M) -> T lambda to an
- * [IModel<M>].
+ * Creates an [IModel] where the value is obtained from applying the [lambda] to the @receiver [IModel] value/object.
+ *
+ * @receiver [IModel] where the value is used when generating the value of the returned [IModel]
+ * @param lambda the lambda to apply to the @receiver for creating a new [IModel]
+ * @return [IModel] where the value comes from applying the [lambda] to the @receiver [IModel] value/object
  */
-infix operator fun <M, T> IModel<M>.plus(lambda: (M) -> T): IModel<T> = { this.value?.let { lambda.invoke(it)} ?: null as T }.ldm()
+infix operator fun <M, T> IModel<M>.plus(lambda: (M) -> T): IModel<T> =
+        object : LoadableDetachableModel<T>() {
+            override fun load(): T = lambda(this@plus.value)
+        }
 
 /**
- * Extension method (and operator) that returns a new [IModel<T>] created from applying a [PropChain<T>] to
- * a [IModel<M>]
+ * Creates a readable/writable [IModel] where the value is obtained from applying the [PropModel] to the @receiver [IModel].
+ *
+ * @receiver [IModel] where the value is used when generating the value of the returned [IModel]
+ * @param chain [PropChain] used for getting a value from the @receiver [IModel]
+ * @return readable/writable [IModel] where the value is obtained from applying the [PropModel] to the @receiver [IModel]
  */
 infix operator fun <T> IModel<*>.plus(chain: PropChain<T>): IModel<T> = PropModel(this, chain)

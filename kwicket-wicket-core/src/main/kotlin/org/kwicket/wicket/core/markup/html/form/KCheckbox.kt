@@ -3,10 +3,12 @@ package org.kwicket.wicket.core.markup.html.form
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.CheckBox
 import org.apache.wicket.model.IModel
-import org.kwicket.component.initComponent
-import org.kwicket.component.initFormComponent
+import org.kwicket.component.init
 
-class KCheckbox(id: String,
+/**
+ * [Checkbox] with named and default constructor arguments.
+ */
+open class KCheckbox(id: String,
                 model: IModel<Boolean>,
                 outputMarkupPlaceholderTag: Boolean? = null,
                 outputMarkupId: Boolean? = null,
@@ -14,7 +16,9 @@ class KCheckbox(id: String,
                 vararg behaviors: Behavior) : CheckBox(id, model) {
 
     init {
-        initComponent(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag, outputMarkupId = outputMarkupId, behaviors = *behaviors)
-        initFormComponent(label = label)
+        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+                outputMarkupId = outputMarkupId,
+                behaviors = *behaviors,
+                label = label)
     }
 }

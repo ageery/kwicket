@@ -3,9 +3,11 @@ package org.kwicket.wicket.core.markup.html.form
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.IModel
-import org.kwicket.component.initComponent
-import org.kwicket.component.initFormComponent
+import org.kwicket.component.init
 
+/**
+ * [TextField] with named and default constructor arguments.
+ */
 open class KTextField<T>(id: String,
                          model: IModel<T?>? = null,
                          type: Class<T>? = null,
@@ -19,12 +21,13 @@ open class KTextField<T>(id: String,
     : TextField<T>(id, model, type) {
 
     init {
-        initComponent(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 outputMarkupId = outputMarkupId,
                 visible = visible,
                 enabled = enabled,
-                behaviors = *behaviors)
-        initFormComponent(required = required, label = label)
+                behaviors = *behaviors,
+                required = required,
+                label = label)
     }
 
 }

@@ -4,9 +4,12 @@ import org.apache.wicket.WicketRuntimeException
 import org.apache.wicket.markup.html.form.Button
 import org.apache.wicket.model.IModel
 import org.kwicket.NonAjaxHandler
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
-class KButton(id: String,
+/**
+ * [Button] with named and default constructor arguments.
+ */
+open class KButton(id: String,
               model: IModel<String>? = null,
               defaultFormProcessing: Boolean? = null,
               val onSubmit: NonAjaxHandler,
@@ -16,7 +19,7 @@ class KButton(id: String,
     : Button(id, model) {
 
     init {
-        initComponent(outputMarkupId = outputMarkupId,
+        init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag)
         this.defaultFormProcessing = defaultFormProcessing ?: this.defaultFormProcessing
     }

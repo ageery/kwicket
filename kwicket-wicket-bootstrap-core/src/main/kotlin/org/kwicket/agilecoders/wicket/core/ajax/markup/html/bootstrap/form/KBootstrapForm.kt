@@ -4,7 +4,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormType
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.model.IModel
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
 open class KBootstrapForm<T>(id: String,
                         model: IModel<T>? = null,
@@ -15,7 +15,7 @@ open class KBootstrapForm<T>(id: String,
     : BootstrapForm<T>(id, model) {
 
     init {
-        initComponent(outputMarkupId = outputMarkupId,
+        init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 behaviors = *behaviors)
         type?.let { type(it) }

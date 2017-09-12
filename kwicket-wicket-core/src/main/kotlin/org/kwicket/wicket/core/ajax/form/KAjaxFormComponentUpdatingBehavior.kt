@@ -5,7 +5,10 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior
 import org.kwicket.AjaxHandler
 
-class KAjaxFormComponentUpdatingBehavior(event: String,
+/**
+ * [AjaxFormComponentUpdatingBehavior] with named and default constructor arguments.
+ */
+open class KAjaxFormComponentUpdatingBehavior(event: String,
                                          val onUpdate: AjaxHandler? = null,
                                          val onError: AjaxHandler? = null,
                                          val updateAjaxAttributes: ((AjaxRequestAttributes) -> Unit)? = null)

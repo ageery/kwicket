@@ -4,8 +4,11 @@ import org.apache.wicket.Page
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.link.BookmarkablePageLink
 import org.apache.wicket.request.mapper.parameter.PageParameters
-import org.kwicket.component.initComponent
+import org.kwicket.component.init
 
+/**
+ * [BookmarkablePageLink] with named and default constructor arguments.
+ */
 open class KBookmarkablePageLink<C: Page>(id: String,
                                           page: Class<C>,
                                           params: PageParameters? = null,
@@ -17,7 +20,7 @@ open class KBookmarkablePageLink<C: Page>(id: String,
     : BookmarkablePageLink<C>(id, page, params) {
 
     init {
-        initComponent(outputMarkupId = outputMarkupId,
+        init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 visible = visible,
                 enabled = enabled,
