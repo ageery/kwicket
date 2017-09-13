@@ -35,7 +35,7 @@ class ManageCustomersPage : BasePage() {
 
     init {
         modal = q(PanelModal(id = "modal"))
-        val searchModel: IModel<String?> = null.model
+        val searchModel: IModel<String?> = null.model()
         val form = q(KBootstrapForm(id = "form",
                 model = searchModel,
                 type = FormType.Inline,
@@ -43,13 +43,13 @@ class ManageCustomersPage : BasePage() {
         table = q(KAjaxFallbackDefaultDataTable<Customer, CustomerSort>(id = "table",
                 outputMarkupId = true,
                 columns = listOf(
-                        KLambdaColumn(displayModel = "First Name".model,
+                        KLambdaColumn(displayModel = "First Name".model(),
                                 sort = CustomerSort.FirstName,
                                 function = { it.firstName }),
-                        KLambdaColumn(displayModel = "Last Name".model,
+                        KLambdaColumn(displayModel = "Last Name".model(),
                                 sort = CustomerSort.LastName,
                                 function = { it.lastName }),
-                        LinkColumn(displayModel = "Action".model,
+                        LinkColumn(displayModel = "Action".model(),
                                 links = { id, model ->
                                     listOf(
                                             KBootstrapAjaxLink(id = id, model = model,
@@ -59,7 +59,7 @@ class ManageCustomersPage : BasePage() {
                                             KBootstrapAjaxLink(id = id, model = model,
                                                     icon = GlyphIconType.edit, onClick = { target, _ ->
                                                 modal.show(target = target,
-                                                        panel = { EditCustomerPanel(it, model.value.toEdit.model) })
+                                                        panel = { EditCustomerPanel(it, model.value.toEdit.model()) })
                                             }))
                                 })
                 ),
@@ -68,7 +68,7 @@ class ManageCustomersPage : BasePage() {
                             customerService.find(term = searchModel.value, sort = sort, asc = asc,
                                     first = first.toInt(), count = count.toInt())
                         },
-                        modeler = { it.model }),
+                        modeler = { it.model() }),
                 rowsPerPage = 10,
                 behaviors = KTableBehavior(hover = true, bordered = true, condensed = true, striped = true)))
         q(KTextField(id = "search",
@@ -76,19 +76,19 @@ class ManageCustomersPage : BasePage() {
                 behaviors = InputBehavior()))
         q(KBootstrapAjaxButton(id = "searchButton",
                 icon = GlyphIconType.search,
-                model = "Search".model,
+                model = "Search".model(),
                 onSubmit = { _, _ -> table.refresh() }))
         q(KBootstrapAjaxButton(id = "addButton",
                 icon = GlyphIconType.plus,
-                model = "Add".model,
+                model = "Add".model(),
                 onSubmit = { target, _ ->
                     modal.show(target = target,
-                            panel = { EditCustomerPanel(it, EditCustomer().model) })
+                            panel = { EditCustomerPanel(it, EditCustomer().model()) })
                 }))
         q(KBootstrapAjaxButton(id = "resetButton",
                 defaultFormProcessing = false,
                 icon = GlyphIconType.refresh,
-                model = "Reset".model,
+                model = "Reset".model(),
                 onSubmit = { _, _ ->
                     searchModel.value = null
                     form.clearInput()

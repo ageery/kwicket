@@ -7,8 +7,8 @@ import org.kwicket.component.init
 import org.kwicket.model.model
 
 open class KFormGroup(id: String,
-                      label: IModel<String> = "".model,
-                      help: IModel<String> = "".model,
+                      label: IModel<String> = "".model(),
+                      help: IModel<String> = "".model(),
                       outputMarkupId: Boolean? = null,
                       outputMarkupPlaceholderTag: Boolean? = null,
                       visible: Boolean? = null,

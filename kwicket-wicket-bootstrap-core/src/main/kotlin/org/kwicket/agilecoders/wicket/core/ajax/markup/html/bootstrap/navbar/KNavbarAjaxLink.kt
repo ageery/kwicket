@@ -11,7 +11,7 @@ import org.kwicket.model.model
 
 open class KNavbarAjaxLink<T>(id: String = Navbar.componentId(),
                               model: IModel<T>? = null,
-                              label: IModel<String?> = "".model,
+                              label: IModel<String?> = "".model(),
                               icon: IconType? = null,
                               val onClick: (AjaxRequestTarget, KNavbarAjaxLink<T>) -> Unit,
                               outputMarkupId: Boolean? = null,

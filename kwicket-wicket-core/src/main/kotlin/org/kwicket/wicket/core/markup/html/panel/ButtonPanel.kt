@@ -28,7 +28,7 @@ open class ButtonPanel(id: String,
                 escapeModelStrings = escapeModelStrings,
                 renderBodyOnly = renderBodyOnly,
                 behaviors = *behaviors)
-        q(KListView(id = "buttons", model = buttons("button", form).listModel,
+        q(KListView(id = "buttons", model = buttons("button", form).listModel(),
                 populate = { item -> item.q(item.model.value) }))
     }
 

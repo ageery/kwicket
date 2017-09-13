@@ -29,7 +29,7 @@ class LinkPanel<T>(id: String,
                 renderBodyOnly = renderBodyOnly,
                 behaviors = *behaviors)
         add(KListView(id = "links",
-                model = links.invoke("link", model).listModel,
+                model = links.invoke("link", model).listModel(),
                 populate = { item -> item.add(item.model.value) }))
     }
 

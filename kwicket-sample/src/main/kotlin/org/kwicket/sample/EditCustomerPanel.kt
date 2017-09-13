@@ -34,7 +34,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
         q(InputFormGroup(id = "firstName",
                 field = {
                     KTextField(id = it,
-                            label = "First Name".model,
+                            label = "First Name".model(),
                             required = true,
                             model = model + PropChain { +EditCustomer::firstName },
                             behaviors = *arrayOf(InputBehavior(), maximumLength(maxFirstNameLength)))
@@ -42,7 +42,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
         q(InputFormGroup(id = "lastName",
                 field = {
                     KTextField(id = it,
-                            label = "Last Name".model,
+                            label = "Last Name".model(),
                             required = true,
                             model = model + PropChain { +EditCustomer::lastName },
                             behaviors = *arrayOf(InputBehavior(), maximumLength(maxLastNameLength)))
@@ -50,7 +50,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
         q(InputFormGroup(id = "city",
                 field = {
                     KTextField(id = it,
-                            label = "City".model,
+                            label = "City".model(),
                             required = true,
                             model = model + PropChain { +EditCustomer::city },
                             behaviors = *arrayOf(InputBehavior(), maximumLength(maxCityLength)))
@@ -58,7 +58,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
         q(SelectFormGroup(id = "country",
                 field = {
                     KSelect2Choice(id = it,
-                            label = "Country".model,
+                            label = "Country".model(),
                             required = true,
                             width = "100%",
                             closeOnSelect = true,
@@ -73,16 +73,16 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                 }))
     }
 
-    override val modalInfo = ModalInfo(title = { "${if (model.value.id == null) "Add" else "Edit"} Customer" }.ldm,
+    override val modalInfo = ModalInfo(title = { "${if (model.value.id == null) "Add" else "Edit"} Customer" }.ldm(),
             footerButtons = {
                 listOf(
                         KBootstrapAjaxButton(id = it,
-                                model = "Save".model,
+                                model = "Save".model(),
                                 form = form,
                                 onSubmit = { target, button -> send(button, Broadcast.BUBBLE, SaveEvent(target = target, content = model.value)) },
                                 onError = { target,  _ -> target.add(this) }),
                         KBootstrapAjaxButton(id = it,
-                                model = "Cancel".model,
+                                model = "Cancel".model(),
                                 defaultFormProcessing = false,
                                 form = form,
                                 onSubmit = { target, button -> send(button, Broadcast.BUBBLE, CancelEvent(target)) }))

@@ -8,6 +8,19 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
 
+/**
+ * Returns a non-null [AjaxRequestTarget].
+ *
+ * If [target] is not null, [target] is returned.
+ *
+ * Otherwise, the active [AjaxRequestTarget] is looked up in the request cycle. If there is no non-null
+ * [AjaxRequestTarget] available, throws an exception.
+ *
+ * @receiver context in which to look up the [AjaxRequestTarget] (if necessary)
+ * @return non-null [AjaxRequestTarget]
+ * @throws WicketRuntimeException if [target] is null and there is no active [AjaxRequestTarget]
+ * @param target perhaps null [AjaxRequestTarget]
+ */
 fun Component.target(target: AjaxRequestTarget?): AjaxRequestTarget =
         target ?: requestCycle.find(AjaxRequestTarget::class.java)
                 .orElseThrow { WicketRuntimeException("No AjaxRequestTarget found") }
@@ -39,11 +52,7 @@ fun <C : Component, M : MarkupContainer> M.q(component: C): C {
  * @param target nullable [AjaxRequestTarget] to be used for adding/refreshing the @receiver
  * @throws WicketRuntimeException if [target] is null and there is active [AjaxRequestTarget] in the [RequestCycle]
  */
-fun <C : Component> C.refresh(x: AjaxRequestTarget? = null) = x?.add(this) ?: target(x)
-        //requestCycle.find(AjaxRequestTarget::class.java)
-//                .orElseThrow { WicketRuntimeException("No AjaxRequestTarget found") }
-                .add(this)
-
+fun <C : Component> C.refresh(target: AjaxRequestTarget? = null) = target(target = target).add(this)
 
 /**
  * Initializes a [Component].

@@ -5,6 +5,7 @@ import org.apache.wicket.model.LoadableDetachableModel
 import org.apache.wicket.model.Model
 import org.apache.wicket.model.util.ListModel
 import java.io.Serializable
+import kotlin.reflect.KProperty1
 
 /**
  * Creates an [IModel] for a [Serializable] object.
@@ -13,8 +14,7 @@ import java.io.Serializable
  * @receiver [Serializable] value of type [T]
  * @return [IModel] of type [T]
  */
-val <T : Serializable?> T.model: IModel<T>
-    get() = Model.of(this)
+fun <T : Serializable?> T.model(): IModel<T> = Model.of(this)
 
 /**
  * Creates an [IModel] for a [List].
@@ -24,8 +24,7 @@ val <T : Serializable?> T.model: IModel<T>
  * @return [IModel] of type [List] containing items of type [T]
  */
 @Suppress("UNCHECKED_CAST")
-val <T, L : List<T>> L.listModel: IModel<L>
-    get() = ListModel(this) as IModel<L>
+fun <T, L : List<T>> L.listModel(): IModel<L> = ListModel(this) as IModel<L>
 
 /**
  * Creates an [IModel] that uses the @receiver lambda to produce its value.
@@ -34,8 +33,7 @@ val <T, L : List<T>> L.listModel: IModel<L>
  * @receiver producer that returns objects of type [T]
  * @return [IModel] of type [() -> T?]
  */
-val <T> (() -> T).ldm: IModel<T>
-    get() = LoadableDetachableModel.of(this)
+fun <T> (() -> T).ldm(): IModel<T> = LoadableDetachableModel.of(this)
 
 /**
  * Provides a readable/writable property with the name of "value" that returns the "object" of the [IModel],
@@ -67,3 +65,12 @@ infix operator fun <M, T> IModel<M>.plus(lambda: (M) -> T): IModel<T> =
  * @return readable/writable [IModel] where the value is obtained from applying the [PropModel] to the @receiver [IModel]
  */
 infix operator fun <T> IModel<*>.plus(chain: PropChain<T>): IModel<T> = PropModel(this, chain)
+
+/**
+ * Creates a readable/writable [IModel] where the value is obtained from applying the [KProperty1] to the @receiver [IModel].
+ *
+ * @receiver [IModel] where the value is used when generating the value of the returned [IModel]
+ * @param prop [KProperty1] used for getting a value from the @receiver [IModel]
+ * @return readable/writable [IModel] where the value is obtained from applying the [KProperty1] to the @receiver [IModel]
+ */
+infix operator fun <T> IModel<*>.plus(prop: KProperty1<*, T>): IModel<T> = PropModel(this, prop)
