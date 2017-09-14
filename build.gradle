@@ -11,11 +11,11 @@ buildscript {
 	}
 }
 
-group = 'org.kwicket'
-version = "0.0.1-SNAPSHOT"
-
 allprojects {
 	apply plugin: 'maven-publish'
+
+	group = 'org.kwicket'
+	version = "0.0.1-SNAPSHOT"
 }
 
 subprojects {

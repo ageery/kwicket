@@ -73,4 +73,4 @@ infix operator fun <T> IModel<*>.plus(chain: PropChain<T>): IModel<T> = PropMode
  * @param prop [KProperty1] used for getting a value from the @receiver [IModel]
  * @return readable/writable [IModel] where the value is obtained from applying the [KProperty1] to the @receiver [IModel]
  */
-infix operator fun <T> IModel<*>.plus(prop: KProperty1<*, T>): IModel<T> = PropModel(this, prop)
+infix operator fun <M, T> IModel<M>.plus(prop: KProperty1<M, T>): IModel<T> = PropModel(this, prop)

@@ -2,9 +2,7 @@ package org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal
 import org.apache.wicket.MarkupContainer
-import org.apache.wicket.WicketRuntimeException
 import org.apache.wicket.ajax.AjaxRequestTarget
-import org.apache.wicket.core.request.handler.IPartialPageRequestHandler
 import org.apache.wicket.markup.html.list.ListView
 import org.kwicket.component.q
 import org.kwicket.component.target
