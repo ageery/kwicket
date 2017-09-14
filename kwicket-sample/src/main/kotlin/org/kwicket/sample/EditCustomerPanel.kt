@@ -11,7 +11,6 @@ import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.KBoot
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.SelectFormGroup
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.HasModalInfo
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalInfo
-import org.kwicket.behavior.onConfig
 import org.kwicket.component.q
 import org.kwicket.model.ldm
 import org.kwicket.model.model
@@ -24,11 +23,10 @@ import org.kwicket.wicket.core.markup.html.form.KTextField
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 import org.kwicket.wicketstuff.select2.KSelect2Choice
 import org.kwicket.wicketstuff.select2.SimpleChoiceProvider
-import kotlin.reflect.KProperty1
 
 class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo, KPanel(id = id, model = model) {
 
-    val form: Form<EditCustomer>
+    private val form: Form<EditCustomer>
 
     init {
         form = q(KBootstrapForm(id = "form", model = model))

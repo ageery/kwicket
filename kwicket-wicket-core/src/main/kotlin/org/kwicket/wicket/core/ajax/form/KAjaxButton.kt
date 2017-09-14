@@ -13,14 +13,14 @@ import org.slf4j.LoggerFactory
  * [AjaxButton] with named and default constructor arguments.
  */
 open class KAjaxButton(id: String,
-                  model: IModel<String>? = null,
-                  form: Form<*>? = null,
-                  val onSubmit: AjaxHandler,
-                  val onError: AjaxHandler? = null,
-                  defaultFormProcessing: Boolean? = null,
-                  outputMarkupId: Boolean? = null,
-                  outputMarkupPlaceholderTag: Boolean? = null,
-                  vararg behaviors: Behavior)
+                       model: IModel<String>? = null,
+                       form: Form<*>? = null,
+                       private val onSubmit: AjaxHandler,
+                       private val onError: AjaxHandler? = null,
+                       defaultFormProcessing: Boolean? = null,
+                       outputMarkupId: Boolean? = null,
+                       outputMarkupPlaceholderTag: Boolean? = null,
+                       vararg behaviors: Behavior)
     : AjaxButton(id, model, form) {
 
     companion object {

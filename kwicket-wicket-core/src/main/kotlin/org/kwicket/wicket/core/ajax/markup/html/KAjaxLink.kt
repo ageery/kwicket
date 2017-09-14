@@ -9,13 +9,12 @@ import org.kwicket.model.value
 
 class KAjaxLink<T>(id: String,
                    model: IModel<T>? = null,
-                   val onClick: AjaxClickHandler<T>,
+                   private val onClick: AjaxClickHandler<T>,
                    outputMarkupId: Boolean? = null,
                    outputMarkupPlaceholderTag: Boolean? = null) : AjaxLink<T>(id, model) {
 
     init {
-        init(
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 outputMarkupId = outputMarkupId)
     }
 

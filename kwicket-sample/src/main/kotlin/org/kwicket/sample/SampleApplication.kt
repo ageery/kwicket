@@ -8,12 +8,10 @@ import org.kwicket.wicket.core.protocol.http.KWebApplication
 import org.kwicket.wicket.core.protocol.http.KWicketFilter
 import org.kwicket.wicket.spring.enableSpringIoC
 import org.kwicket.wicketstuff.annotation.enableMountAnnotations
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.stereotype.Service
 import java.util.*
 import javax.servlet.Filter
 

@@ -23,7 +23,7 @@ class CustomerServiceImpl(@Autowired val customers: MutableList<Customer>) : Cus
                     listOf(customer.lastName, customer.firstName)
                             .map { it.toLowerCase() }
                             .any { it.contains(other = t) }
-                } ?: true
+                } != false
     }
 
     private fun filter(term: String?) = customers

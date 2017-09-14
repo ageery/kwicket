@@ -12,8 +12,8 @@ open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
 }
 
-class VisibleWhen(val isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
-class EnabledWhen(val isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
+class VisibleWhen(isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
+class EnabledWhen(isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
 
 fun <C: Component> C.onConfig(handler: (C) -> Unit): C {
     add(object : Behavior() {

@@ -1,7 +1,6 @@
 package org.kwicket.wicket.core.markup.html.list
 
 import org.apache.wicket.behavior.Behavior
-import org.apache.wicket.markup.html.link.Link
 import org.apache.wicket.markup.html.list.ListItem
 import org.apache.wicket.markup.html.list.ListView
 import org.apache.wicket.model.IModel

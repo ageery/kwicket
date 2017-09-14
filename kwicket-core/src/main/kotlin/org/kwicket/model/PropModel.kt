@@ -16,7 +16,7 @@ import kotlin.reflect.jvm.jvmErasure
  * @param model [IModel] whose value is
  * @param props [PropChain] that is applied to the [model] value to get the value of the [IModel]
  */
-class PropModel<T>(val model: IModel<*>, val props: PropChain<T>) : IModel<T> {
+class PropModel<T>(val model: IModel<*>, private val props: PropChain<T>) : IModel<T> {
 
     constructor(model: IModel<*>, prop: KProperty1<*, T>) : this(model = model, props = PropChain { +prop })
 
@@ -90,7 +90,7 @@ class PropChainBuilder {
 }
 
 private class SetterInfo<T>(val name: String, val type: Class<out T>) : Serializable {
-    fun setValue(obj: Any, value: T): Unit {
+    fun setValue(obj: Any, value: T) {
         obj::class.java.getMethod(name, type).invoke(obj, value)
     }
 }

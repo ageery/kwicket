@@ -7,7 +7,7 @@ import org.apache.wicket.model.IModel
 
 open class KNavbarDropDownButton(model: IModel<String>,
                                  icon: IModel<IconType>? = null,
-                                 val submenus: (String) -> List<AbstractLink>)
+                                 private val submenus: (String) -> List<AbstractLink>)
     : NavbarDropDownButton(model, icon) {
 
     override fun newSubMenuButtons(buttonMarkupId: String): MutableList<AbstractLink> = submenus.invoke(buttonMarkupId).toMutableList()

@@ -12,7 +12,7 @@ import org.kwicket.component.init
  */
 open class KLink<T>(id: String,
                     model: IModel<T>? = null,
-                    val onClick: NonAjaxHandler? = null,
+                    private val onClick: NonAjaxHandler? = null,
                     outputMarkupId: Boolean? = null,
                     outputMarkupPlaceholderTag: Boolean? = null,
                     visible: Boolean? = null,

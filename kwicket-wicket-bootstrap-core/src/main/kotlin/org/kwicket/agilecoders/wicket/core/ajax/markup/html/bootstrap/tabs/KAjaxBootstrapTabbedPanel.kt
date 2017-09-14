@@ -7,6 +7,4 @@ import org.apache.wicket.model.IModel
 open class KAjaxBootstrapTabbedPanel<T: ITab>(id: String,
                                               tabs: List<T>,
                                               model: IModel<Int>? = null)
-    : AjaxBootstrapTabbedPanel<T>(id, tabs, model) {
-
-}
+    : AjaxBootstrapTabbedPanel<T>(id, tabs, model)

@@ -31,10 +31,9 @@ class ManageCustomersPage : BasePage() {
     private lateinit var customerService: CustomerService
 
     private val table: Component
-    private val modal: PanelModal
+    private val modal: PanelModal = q(PanelModal(id = "modal"))
 
     init {
-        modal = q(PanelModal(id = "modal"))
         val searchModel: IModel<String?> = null.model()
         val form = q(KBootstrapForm(id = "form",
                 model = searchModel,

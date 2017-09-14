@@ -10,12 +10,12 @@ import org.kwicket.component.init
  * [Button] with named and default constructor arguments.
  */
 open class KButton(id: String,
-              model: IModel<String>? = null,
-              defaultFormProcessing: Boolean? = null,
-              val onSubmit: NonAjaxHandler,
-              val onError: NonAjaxHandler? = null,
-              outputMarkupId: Boolean? = null,
-              outputMarkupPlaceholderTag: Boolean? = null)
+                   model: IModel<String>? = null,
+                   defaultFormProcessing: Boolean? = null,
+                   private val onSubmit: NonAjaxHandler,
+                   private val onError: NonAjaxHandler? = null,
+                   outputMarkupId: Boolean? = null,
+                   outputMarkupPlaceholderTag: Boolean? = null)
     : Button(id, model) {
 
     init {

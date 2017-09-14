@@ -1,71 +1,71 @@
 buildscript {
-	ext {
-		kotlinVersion = '1.1.4-3'
-	}
-	repositories {
-		mavenCentral()
+    ext {
+        kotlinVersion = '1.1.4-3'
+    }
+    repositories {
+        mavenCentral()
         jcenter()
-	}
-	dependencies {
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-	}
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+    }
 }
 
 allprojects {
-	apply plugin: 'maven-publish'
+    apply plugin: 'maven-publish'
 
-	group = 'org.kwicket'
-	version = "0.0.1-SNAPSHOT"
+    group = 'org.kwicket'
+    version = "0.0.1-SNAPSHOT"
 }
 
 subprojects {
 
-	apply plugin: 'kotlin'
+    apply plugin: 'kotlin'
 
-	sourceCompatibility = 1.8
+    sourceCompatibility = 1.8
 
     sourceSets.main.resources.srcDirs += "src/main/kotlin"
 
     ext {
-		kotlinVersion = '1.1.4-3'
-		wicketVersion = '8.0.0-M6'
-		wicketStuffVersion = wicketVersion
-		wicketBootstrapVersion = '2.0.0-M5'
+        kotlinVersion = '1.1.4-3'
+        wicketVersion = '8.0.0-M7'
+        wicketStuffVersion = wicketVersion
+        wicketBootstrapVersion = '2.0.0-M6'
         servletApiVersion = '3.1.0'
-		springVersion = '4.3.9.RELEASE'
-	}
+        springVersion = '4.3.11.RELEASE'
+    }
 
-	compileKotlin {
-		kotlinOptions.jvmTarget = sourceCompatibility
-	}
-	compileTestKotlin {
-		kotlinOptions.jvmTarget = sourceCompatibility
-	}
+    compileKotlin {
+        kotlinOptions.jvmTarget = sourceCompatibility
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = sourceCompatibility
+    }
 
-	repositories {
-		mavenCentral()
-	}
+    repositories {
+        mavenCentral()
+    }
 
-	dependencies {
-		compileOnly("org.apache.wicket:wicket-core:${wicketVersion}")
-		compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
-		compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-	}
+    dependencies {
+        compileOnly("org.apache.wicket:wicket-core:${wicketVersion}")
+        compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
+        compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    }
 
-	publishing {
-		publications {
-			maven(MavenPublication) {
-				from components.java
-			}
-		}
-	}
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
+    }
 
 }
 
 publishing {
-	publications {
-		parent(MavenPublication) {
-			artifactId 'kwicket-parent'
-		}
-	}
+    publications {
+        parent(MavenPublication) {
+            artifactId 'kwicket-parent'
+        }
+    }
 }

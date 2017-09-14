@@ -1,7 +1,6 @@
 package org.kwicket.wicket.core.markup.html.panel
 
 import org.apache.wicket.behavior.Behavior
-import org.apache.wicket.markup.html.link.Link
 import org.apache.wicket.markup.html.panel.GenericPanel
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init

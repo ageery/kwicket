@@ -10,7 +10,7 @@ class SimpleChoiceProvider<T>(toDisplayValue: (T) -> String,
         toChoices = { ids -> ids.map { idToValue(it) }.toMutableList() },
         query = { term, page, response ->
             val list = allChoices()
-                    .filter { choice -> term?.let { toDisplayValue(choice).contains(ignoreCase = true, other = it) } ?: true }
+                    .filter { choice -> term?.let { toDisplayValue(choice).contains(ignoreCase = true, other = it) } != false }
                     .drop(page * itemsPerPage)
                     .take(itemsPerPage)
                     .toList()
