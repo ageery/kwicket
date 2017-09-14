@@ -1,9 +1,7 @@
-kWicket
-=======
+kWicket: Wicket with Kotlin characteristics
+===========================================
 
-Wicket with Kotlin characteristics
-
-The kWicket project provides Kotlin idiomatic extensions for the Apache Wicket web framework.
+The kWicket project provides Kotlin idiomatic extensions for the Apache Wicket web framework (versions 8 and up).
 
 Models
 ------
@@ -44,19 +42,19 @@ Behaviors
 ---------
  
 * `<C: Component> C.onConfig(handler: (C) -> Unit)`
-```
+```kotlin
 KLabel(id = "firstName", 
     model = personModel + Person::firstName)
     .onConfig({ it.setVisible = false })
 ```    
 * `VisibleWhen(val isVisible: () -> Boolean)`
-```
+```kotlin
 KTextField(id = "firstName", 
     model = model + Person::firstName, 
     behaviors = VisibleWhen( { model.value.type == PersonType.INDIVIDUAL } ))
 ```
 * `EnabledWhen(val isEnabled: () -> Boolean)` 
-```
+```kotlin
 KTextField(id = "firstName", 
     model = model + Person::firstName, 
     behaviors = EnabledWhen( { user.role.contains(Roles.EDITOR)  } ))
@@ -90,7 +88,7 @@ Null parameters do not affect the component. The following are named parameters 
     * vararg behaviors: Behavior
 
 For example: 
-```
+```kotlin
 val greeting = KLabel(id = "greeting", 
     model = "Hello".model(),  
     outputPlaceholderTag = true, 
@@ -103,7 +101,7 @@ Classes that extend from `FormComponent` have a couple of other named parameters
     * label: IModel<String>? = null
 
 For example:
-```
+```kotlin
 val firstNameField = KTextField(id = "firstName",
     model = personModel + Person::firstName,
     label = "First Name".model(),
@@ -112,7 +110,101 @@ val firstNameField = KTextField(id = "firstName",
 
 In addition to the common named and default parameters that all of the enhanced components share, some classes
 also have additional class-specific named parameters (e.g., `KTextField(type: Class<T>? = null)`, 
-`KAjaxButton(defaultFormProcessing: Boolean? = null)`). 
+`KAjaxButton(defaultFormProcessing: Boolean? = null)`).
 
+Enhanced Component List
+-----------------------
 
+###Containers
+* KWebMarkupContainer
+* KPanel
+* KGenericPanel
+* KFeedbackPanel
+* KListView
+* LinkPanel
+* ButtonPanel
 
+###Links
+* KLink
+* KAjaxLink
+* KBookmarkablePageLink
+* KBootstrapAjaxLink
+
+###Buttons
+* KButton
+* KAjaxButton
+* KBootstrapAjaxButton
+
+###Labels
+* KLabel
+* KMultiLineLabel
+
+###Form Components
+* KForm
+* KBootstrapForm
+* KFormGroup
+* KCheckbox
+* KTextField
+* KTextArea
+* InputFormGroup
+* SelectFormGroup
+
+###Tables
+* KDataTable
+* KAjaxFallbackDefaultDataTable
+* KAbstractColumn
+* KLambdaColumn
+* KFilterToolbar
+* KNoRecordsToolbar
+* LinkColumn
+* KTableBehavior
+* KSortableDataProvider
+
+###Tabs
+* KAbstractTab
+* KAjaxBootstrapTabbedPanel
+
+###Modals
+* PanelModal
+* ModalInfo
+* HasModalInfo
+
+###select2
+* KSelect2Choice
+* KSelect2MultiChoice
+* KChoiceProvider
+* SimpleChoiceProvider
+
+###Behaviors
+* KAjaxEventBehavior
+* KThrottleSettings
+* KAjaxFormComponentUpdatingBehavior
+
+###Other
+* KWebApplication
+* KWicketFilter
+
+Usage
+-----
+
+The kWicket libraries do not declare run-time dependencies on any Wicket libraries. To use the kWicket libraries,
+declare your dependencies on the appropriate Wicket libraries _and_ also add the kWicket dependencies.
+
+```
+    ...
+    ext {
+        wicketVersion = '8.0.0-M7'
+        kWicketVersion = '0.0.1'
+    }
+    ...
+    compile("org.apache.wicket:wicket-core:${wicketVersion}")
+    compile ("org.kwicket:kwicket-core:${kWicketVersion}")
+    
+```
+
+Building
+--------
+
+To build the project, from the root of the project type `gradlew clean build`.
+
+To run the sample project, from the root of the project type `gradlew bootRun`.
