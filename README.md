@@ -249,6 +249,8 @@ declare your dependencies on the appropriate Wicket libraries _and_ also add the
 To get started using kWicket, see the [kWicket Starter](https://github.com/ageery/kwicket-starter) project for a 
 simple, working example.
 
+For examples of kWicket usage, see the kwicket-sample module.
+
 Building
 --------
 
