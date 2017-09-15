@@ -18,7 +18,7 @@ be escaped with backticks. To avoid this, the read/write extension property `val
 (e.g., `val myModel: IModel<List<String>> = listOf("here", "there")`).  
 
 * `(() -> Unit).ldm()` - Creates a `LoadableDetachableModel` where the value is provided by the lambda 
-(e.g., `val nowModel: IModel<LocalDateTime> = { LocalDateTime.now() }`)
+(e.g., `val nowModel: IModel<LocalDateTime> = { LocalDateTime.now() }.ldm()`)
 
 * `IModel<M> + ((M) -> N))` - Creates a `LoadableDetachableModel<N>` where the value is provided by applying the
 lambda to the value of the model (e.g., `val firstNameModel: IModel<String> = personModel + { it.firstName }`)
@@ -33,8 +33,7 @@ Components
 ----------
 
 * `Component.q(Component)` - `queue` the child component in the parent component and returns the child component
-(e.g., `val nameField: FormComponent<String> = q(TextField("name", nameModel))`). Note that the [MarkupContainer.queue]
-method returns the container whereas this method returns the component that was added.
+(e.g., `val nameField: FormComponent<String> = q(TextField("name", nameModel))`).
 
 * `Component.refresh(AjaxRequestTarget?)` - Refreshes the component via ajax; if the target is null, looks up the
 current one in the request (e.g., `nameField.refresh(target)`) 
@@ -116,7 +115,7 @@ also have additional class-specific named parameters (e.g., `KTextField(type: Cl
 Enhanced Component List
 -----------------------
 
-###Containers
+### Containers
 * KWebMarkupContainer
 * KPanel
 * KGenericPanel
@@ -125,22 +124,22 @@ Enhanced Component List
 * LinkPanel
 * ButtonPanel
 
-###Links
+### Links
 * KLink
 * KAjaxLink
 * KBookmarkablePageLink
 * KBootstrapAjaxLink
 
-###Buttons
+### Buttons
 * KButton
 * KAjaxButton
 * KBootstrapAjaxButton
 
-###Labels
+### Labels
 * KLabel
 * KMultiLineLabel
 
-###Form Components
+### Form Components
 * KForm
 * KBootstrapForm
 * KFormGroup
@@ -150,7 +149,7 @@ Enhanced Component List
 * InputFormGroup
 * SelectFormGroup
 
-###Tables
+### Tables
 * KDataTable
 * KAjaxFallbackDefaultDataTable
 * KAbstractColumn
@@ -161,27 +160,27 @@ Enhanced Component List
 * KTableBehavior
 * KSortableDataProvider
 
-###Tabs
+### Tabs
 * KAbstractTab
 * KAjaxBootstrapTabbedPanel
 
-###Modals
+### Modals
 * PanelModal
 * ModalInfo
 * HasModalInfo
 
-###select2
+### select2
 * KSelect2Choice
 * KSelect2MultiChoice
 * KChoiceProvider
 * SimpleChoiceProvider
 
-###Behaviors
+### Behaviors
 * KAjaxEventBehavior
 * KThrottleSettings
 * KAjaxFormComponentUpdatingBehavior
 
-###Other
+### Other
 * KWebApplication
 * KWicketFilter
 
