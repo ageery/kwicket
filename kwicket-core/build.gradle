@@ -1,15 +1,2 @@
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-
-//publishing {
-//    publications {
-//        core(MavenPublication) {
-//            from components.java
-//            //groupId "${groupId}"
-//            //groupId "org.kwicket"
-//            //groupId "$group"
-//            //artifactId 'kwicket-core'
-//            //version "${version}"
-//        }
-//    }
-//}

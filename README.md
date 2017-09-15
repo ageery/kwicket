@@ -1,7 +1,8 @@
 kWicket: Wicket with Kotlin characteristics
 ===========================================
 
-The kWicket project provides Kotlin idiomatic extensions for the Apache Wicket web framework (versions 8 and up).
+The kWicket project provides [Kotlin](https://kotlinlang.org/) idiomatic extensions for the 
+[Apache Wicket](http://wicket.apache.org) web framework (versions 8 and up).
 
 Models
 ------
@@ -192,7 +193,7 @@ declare your dependencies on the appropriate Wicket libraries _and_ also add the
 
 `build.gradle`
 
-```
+```groovy
     ...
     repositories {
         mavenCentral()
@@ -206,8 +207,10 @@ declare your dependencies on the appropriate Wicket libraries _and_ also add the
         kWicketVersion = '0.0.1'
     }
     ...
-    compile("org.apache.wicket:wicket-core:${wicketVersion}")
-    compile ("org.kwicket:kwicket-core:${kWicketVersion}")
+    dependencies {
+        compile("org.apache.wicket:wicket-core:${wicketVersion}")
+        compile ("org.kwicket:kwicket-core:${kWicketVersion}")
+    }
     ...
 ```
 
@@ -242,6 +245,9 @@ declare your dependencies on the appropriate Wicket libraries _and_ also add the
     </dependencies>
     ...
 ```
+
+To get started using kWicket, see the [kWicket Starter](https://github.com/ageery/kwicket-starter) project for a 
+simple, working example.
 
 Building
 --------

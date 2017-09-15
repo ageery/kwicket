@@ -32,8 +32,7 @@ class SampleApplication {
 
 }
 
-class SampleWebApplication(configurationType: RuntimeConfigurationType = RuntimeConfigurationType.DEVELOPMENT)
-    : KWebApplication(configurationType = configurationType) {
+class SampleWebApplication(configurationType: RuntimeConfigurationType): KWebApplication(configurationType = configurationType) {
 
     override fun getHomePage() = ManageCustomersPage::class.java
 
