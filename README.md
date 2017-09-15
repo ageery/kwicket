@@ -190,7 +190,16 @@ Usage
 The kWicket libraries do not declare run-time dependencies on any Wicket libraries. To use the kWicket libraries,
 declare your dependencies on the appropriate Wicket libraries _and_ also add the kWicket dependencies.
 
+`build.gradle`
+
 ```
+    ...
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://dl.bintray.com/ageery/maven'
+        }
+    }
     ...
     ext {
         wicketVersion = '8.0.0-M7'
@@ -199,7 +208,39 @@ declare your dependencies on the appropriate Wicket libraries _and_ also add the
     ...
     compile("org.apache.wicket:wicket-core:${wicketVersion}")
     compile ("org.kwicket:kwicket-core:${kWicketVersion}")
-    
+    ...
+```
+
+`pom.xml`
+
+```xml
+    ...
+    <repositories>
+        <repository>
+          <id>kwicket</id>
+          <name>kWicket Repo</name>
+          <url>https://dl.bintray.com/ageery/maven</url>
+        </repository>
+    </repositories>
+    ...
+    <properties>
+        <wicketVersion>8.0.0-M7</wicketVersion>
+        <kwicketVersion>0.0.1</kwicketVersion>
+    </properties>
+    ...
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-core</artifactId>
+            <version>${wicketVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kwicket</groupId>
+            <artifactId>kwicket-core</artifactId>
+            <version>${kwicketVersion}</version>
+        </dependency>
+    </dependencies>
+    ...
 ```
 
 Building

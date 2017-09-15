@@ -47,3 +47,7 @@ dependencies {
     compile("de.agilecoders.wicket:wicket-bootstrap-themes:${wicketBootstrapVersion}")
 
 }
+
+bintray {
+    publications = []
+}
