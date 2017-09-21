@@ -61,6 +61,10 @@ subprojects {
     task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
         outputFormat = 'javadoc'
         outputDirectory = javadoc.destinationDir
+
+        externalDocumentationLink {
+            url = new URL("https://ci.apache.org/projects/wicket/apidocs/8.x/")
+        }
     }
 
     task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
@@ -68,7 +72,7 @@ subprojects {
         from javadoc.destinationDir
     }
 
-    task sourceJar(type: Jar) {
+    task sourcesJar(type: Jar) {
         classifier = 'sources'
         from sourceSets.main.allSource
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -78,7 +82,7 @@ subprojects {
         publications {
             maven(MavenPublication) {
                 from components.java
-                artifact sourceJar
+                artifact sourcesJar
                 artifact javadocJar
             }
         }
