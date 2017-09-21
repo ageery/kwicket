@@ -1,6 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.1.4-3'
+        dokkaVersion = '0.9.15'
         bintrayVersion = '1.7.3'
     }
     repositories {
@@ -10,6 +11,7 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:${bintrayVersion}")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}")
     }
 }
 
@@ -19,6 +21,7 @@ subprojects {
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
     apply plugin: 'com.jfrog.bintray'
+    apply plugin: 'org.jetbrains.dokka'
 
     group = 'org.kwicket'
     version = '0.0.2-SNAPSHOT'
@@ -51,10 +54,32 @@ subprojects {
         compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     }
 
+    jar {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
+    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+        outputFormat = 'javadoc'
+        outputDirectory = javadoc.destinationDir
+    }
+
+    task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    task sourceJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
     publishing {
         publications {
             maven(MavenPublication) {
                 from components.java
+                artifact sourceJar
+                artifact javadocJar
             }
         }
     }
