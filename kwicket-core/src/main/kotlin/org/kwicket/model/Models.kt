@@ -3,6 +3,7 @@ package org.kwicket.model
 import org.apache.wicket.model.IModel
 import org.apache.wicket.model.LoadableDetachableModel
 import org.apache.wicket.model.Model
+import org.apache.wicket.model.ResourceModel
 import org.apache.wicket.model.util.ListModel
 import java.io.Serializable
 import kotlin.reflect.KProperty1
@@ -74,3 +75,13 @@ infix operator fun <T> IModel<*>.plus(chain: PropChain<T>): IModel<T> = PropMode
  * @return readable/writable [IModel] where the value is obtained from applying the [KProperty1] to the @receiver [IModel]
  */
 infix operator fun <M, T> IModel<M>.plus(prop: KProperty1<M, T>): IModel<T> = PropModel(this, prop)
+
+/**
+ * Creates a [ResourceModel] using the resource key and the optional default value.
+ *
+ * @param defaultValue optional model of the default value for the model
+ * @receiver resource key
+ * @return [IModel<String>] where the value comes from a property file with the given resource key
+ */
+fun String.resModel(defaultValue: IModel<String>? = null): IModel<String> =
+        ResourceModel(this, defaultValue)
