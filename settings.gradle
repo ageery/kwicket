@@ -6,4 +6,5 @@ include 'kwicket-core', \
         'kwicket-wicketstuff-select2',\
         'kwicket-wicketstuff-annotation',\
         'kwicket-wicket-bootstrap-core', \
+        'kwicket-wicket-webjars',\
         'kwicket-sample'
