@@ -15,6 +15,7 @@ import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelMod
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
 import org.kwicket.component.q
 import org.kwicket.component.refresh
+import org.kwicket.model.ldm
 import org.kwicket.model.model
 import org.kwicket.model.value
 import org.kwicket.wicket.core.markup.html.form.KTextField
@@ -97,23 +98,32 @@ class ManageCustomersPage : BasePage() {
     }
 
     override fun onEvent(event: IEvent<*>) {
+        super.onEvent(event)
         val payload = event.payload
         when (payload) {
-            is CancelEvent -> modal.close(payload.target)
+            is CancelEvent -> {
+                modal.close(payload.target)
+                info(msg = "Edit Canceled".model())
+            }
             is SaveEvent<*> ->
                 when (payload.content) {
                     is EditCustomer -> {
                         modal.close(payload.target)
-                        if (payload.content.id == null) customerService.insert(payload.content.fromEdit)
-                        else customerService.update(payload.content.fromEdit)
-                        table.refresh()
+                        val customer = payload.content.fromEdit
+                        val fullname = customer.fullName
+                        val action = if (payload.content.id == null) "added" else "updated"
+                        if (payload.content.id == null) customerService.insert(customer) else customerService.update(customer)
+                        success(msg = { "Customer '${fullname}' successfully ${action}" }.ldm(),
+                                refresh = table)
                     }
                 }
             is DeleteEvent<*> ->
                 when (payload.content) {
                     is Customer -> {
+                        val fullname = payload.content.fullName
                         customerService.delete(payload.content)
-                        table.refresh()
+                        success(msg = { "Customer '${fullname}' successfully deleted" }.ldm(),
+                                refresh = table)
                     }
                 }
         }

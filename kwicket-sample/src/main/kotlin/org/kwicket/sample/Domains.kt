@@ -26,6 +26,9 @@ data class Customer(val id: UUID, var firstName: String, var age: Int? = null, v
         val maxLastNameLength: Int = 25
     }
 
+    val fullName: String
+        get() = "${firstName} ${lastName}"
+
 }
 
 data class EditCustomer(val id: UUID? = null,

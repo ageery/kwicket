@@ -8,8 +8,11 @@
 </head>
 <body>
 <i wicket:id="ajax-indicator" style="display: none" class="ajax-loader-mask"> </i>
-<nav wicket:id="navbar" class="bs-docs-nav">[NAVIGATION]</nav>
-<div class="container">
+<div wicket:id="feedback" class="feedback-panel">[FEEDBACK]</div>
+<div role="navigation">
+    <div wicket:id="navbar">[NAVBAR]</div>
+</div>
+<div class="container main-content">
     <wicket:child/>
 </div>
 </body>

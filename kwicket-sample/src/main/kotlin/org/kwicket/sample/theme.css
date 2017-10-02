@@ -2,6 +2,10 @@
     padding-top: 10px;
 }
 
+.padding-bottom-10 {
+    padding-bottom: 10px;
+}
+
 .ajax-loader-mask {
     position: absolute;
     left: 45%;
@@ -47,4 +51,15 @@ tfoot > tr > td {
     float: right;
     font-family: FontAwesome;
     content: "\f0dc";
+}
+
+.feedback-panel {
+    position: absolute;
+    left: 35%;
+    top: 30px;
+    z-index: 10000;
+}
+
+div.container.main-content {
+    padding-top: 60px;
 }
