@@ -10,10 +10,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:${bintrayVersion}")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}")
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}"
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayVersion")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion")
+        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:$artifactoryVersion")
     }
 }
 
@@ -55,9 +55,9 @@ subprojects {
     }
 
     dependencies {
-        compileOnly("org.apache.wicket:wicket-core:${wicketVersion}")
-        compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
-        compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+        compileOnly("org.apache.wicket:wicket-core:$wicketVersion")
+        compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
+        compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     }
 
     jar {
@@ -107,8 +107,8 @@ subprojects {
             githubRepo = 'ageery/kwicket'
             githubReleaseNotesFile = 'README.md'
             version {
-                name = "${version}"
-                vcsTag = "kwicket-${version}"
+                name = "$version"
+                vcsTag = "kwicket-$version"
             }
         }
     }
