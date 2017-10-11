@@ -1,5 +1,6 @@
 package org.kwicket
 
+import com.github.openjson.JSONObject
 import org.apache.wicket.ajax.AjaxRequestTarget
 
 /**
@@ -15,3 +16,14 @@ typealias AjaxClickHandler<T> = (AjaxRequestTarget, T?) -> Unit
 typealias NonAjaxHandler = () -> Unit
 
 typealias NonAjaxClickHandler<T> = (T?) -> Unit
+
+/**
+ * Converts an object to a JSON representation.
+ * @receiver Any object
+ * @param indent optional amount to indent the JSON by
+ * @return JSON representation of the @receiver
+ */
+fun Any.toJson(indent: Int? = null): String {
+    val json = JSONObject(this)
+    return indent?.let { json.toString(it) } ?: json.toString()
+}
