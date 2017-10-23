@@ -24,6 +24,6 @@ typealias NonAjaxClickHandler<T> = (T?) -> Unit
  * @return JSON representation of the @receiver
  */
 fun Any.toJson(indent: Int? = null): String {
-    val json = JSONObject(this)
+    val json = if (this is Map<*, *>) JSONObject(this) else JSONObject(this)
     return indent?.let { json.toString(it) } ?: json.toString()
 }
