@@ -1,5 +1,6 @@
 package org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.navbar
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.model.IModel
@@ -16,6 +17,8 @@ class KNavbar(id: String,
               enabled: Boolean? = null,
               escapeModelStrings: Boolean? = null,
               renderBodyOnly: Boolean? = null,
+              fluid: Boolean? = null,
+              components: ((String) -> List<List<INavbarComponent>>)? = null,
               vararg behaviors: Behavior)
     : Navbar(id, model) {
 
@@ -30,6 +33,8 @@ class KNavbar(id: String,
         position?.let { this.position = it }
         inverted?.let { this.setInverted(it) }
         brandName?.let { this.setBrandName(brandName) }
+        fluid?.let { if (it) this.fluid() }
+        components?.let { it.invoke(Navbar.componentId()).forEach { addComponents(it) } }
     }
 
 }
