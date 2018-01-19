@@ -71,7 +71,7 @@ fun <C : Component> C.refresh(target: AjaxRequestTarget? = null) = target(target
  *      if [escapeModelStrings] is not null
  * @param renderBodyOnly sets whether to only output the generated content or whether to also include the containing tag
  *      if [renderBodyOnly] is not null
- * @param behaviors [Array] of [Behavior]s to add to the [Component]
+ * @param behaviors [List] of [Behavior]s to add to the [Component]
  *
  * @receiver the [Component] to initialize
  * @return the initialized [Component]
@@ -111,7 +111,7 @@ fun <C : Component> C.init(outputMarkupId: Boolean? = null,
  *      if [escapeModelStrings] is not null
  * @param renderBodyOnly sets whether to only output the generated content or whether to also include the containing tag
  *      if [renderBodyOnly] is not null
- * @param behaviors [Array] of [Behavior]s to add to the [FormComponent]
+ * @param behaviors [List] of [Behavior]s to add to the [FormComponent]
  * @receiver the [FormComponent] to initialize
  * @return the initialized [FormComponent]
  */

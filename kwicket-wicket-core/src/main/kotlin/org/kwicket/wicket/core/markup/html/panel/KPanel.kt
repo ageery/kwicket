@@ -18,7 +18,7 @@ import org.kwicket.component.init
  * @param renderBodyOnly optional flag indicating whether only the [Component]'s HTML will be rendered or whether the
  *      tag the [Component] is attached to will also be rendered
  * @param escapeModelStrings optional flag indicating whether the [Component]'s model String values will be escaped
- * @param behaviors zero or more [Behavior]s to be added to the [Component]
+ * @param behaviors [List] of [Behavior]s to add to the [Component]
  */
 open class KPanel(id: String,
                   model: IModel<*>? = null,

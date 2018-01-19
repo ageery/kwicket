@@ -17,7 +17,7 @@ import org.kwicket.component.init
  * @param enabled optional flag indicating whether the [Component] is enabled
  * @param renderBodyOnly optional flag indicating whether only the [Component]'s HTML will be rendered or whether the
  *      tag the [Component] is attached to will also be rendered
- * @param behaviors zero or more [Behavior]s to be added to the [Component]
+ * @param behaviors [List] of [Behavior]s to add to the [Component]
  */
 open class KWebMarkupContainer(id: String,
                                model: IModel<*>? = null,

@@ -51,10 +51,10 @@ class ManageCustomersPage : BasePage() {
 
         q(KLabel(id = "t1",
                 //behaviors = listOf(AsyncModelLoadBehavior()),
-                model = AsyncModel { println("start - ${LocalDateTime.now()} - t1"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t1"); "t1" }))
+                model = AsyncModel(block = { println("start - ${LocalDateTime.now()} - t1"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t1"); "t1" })))
         q(KLabel(id = "t2",
                 //behaviors = listOf(AsyncModelLoadBehavior()),
-                model = AsyncModel { println("start - ${LocalDateTime.now()} - t2"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t2"); "t2" }))
+                model = AsyncModel(block = { println("start - ${LocalDateTime.now()} - t2"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t2"); "t2" })))
 
         val searchModel: IModel<String?> = null.model()
         val x = object : BigDecimalConverter() {
