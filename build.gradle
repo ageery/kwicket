@@ -32,7 +32,7 @@ subprojects {
     sourceSets.main.resources.srcDirs += "src/main/kotlin"
 
     ext {
-        kotlinVersion = '1.2.0'
+        kotlinVersion = '1.2.20'
         kotlinCoroutinesVersion = '0.19.3'
         wicketVersion = '8.0.0-M7'
         wicketStuffVersion = wicketVersion
