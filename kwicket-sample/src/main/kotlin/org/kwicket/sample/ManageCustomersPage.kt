@@ -16,9 +16,9 @@ import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.button.KBo
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.KBootstrapForm
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelModal
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
+import org.kwicket.behavior.AsyncLoadModel
 import org.kwicket.component.q
 import org.kwicket.component.refresh
-import org.kwicket.model.AsyncBatchLoader
 import org.kwicket.model.AsyncModel
 import org.kwicket.model.ldm
 import org.kwicket.model.model
@@ -48,7 +48,14 @@ class ManageCustomersPage : BasePage() {
     private val modal: PanelModal = q(PanelModal(id = "modal"))
 
     init {
-        val loader = AsyncBatchLoader()
+
+        q(KLabel(id = "t1",
+                behaviors = AsyncLoadModel(),
+                model = AsyncModel { println("start - ${LocalDateTime.now()} - t1"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t1"); "t1" }))
+        q(KLabel(id = "t2",
+                behaviors = AsyncLoadModel(),
+                model = AsyncModel { println("start - ${LocalDateTime.now()} - t2"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t2"); "t2" }))
+
         val searchModel: IModel<String?> = null.model()
         val x = object : BigDecimalConverter() {
             override fun getNumberFormat(locale: Locale?): NumberFormat = DecimalFormat.getCurrencyInstance()
@@ -63,10 +70,10 @@ class ManageCustomersPage : BasePage() {
         table = q(KAjaxFallbackDefaultDataTable<Customer, CustomerSort>(id = "table",
                 outputMarkupId = true,
                 columns = listOf(
-                        KLambdaColumn(displayModel = AsyncModel(loader) { delay(time = 3, unit = TimeUnit.SECONDS); println("${LocalDateTime.now()} - first name"); "First Name"}, //"First Name".model(),
+                        KLambdaColumn(displayModel = "First Name".model(),
                                 sort = CustomerSort.FirstName,
                                 function = { it.firstName }),
-                        KLambdaColumn(displayModel = AsyncModel(loader) { delay(time = 3, unit = TimeUnit.SECONDS); println("${LocalDateTime.now()} - last name"); "Last Name"}, //"Last Name".model(),
+                        KLambdaColumn(displayModel = "Last Name".model(),
                                 sort = CustomerSort.LastName,
                                 function = { it.lastName }),
                         LinkColumn(displayModel = "Action".model(),
@@ -96,11 +103,13 @@ class ManageCustomersPage : BasePage() {
                 behaviors = InputBehavior()))
         q(KBootstrapAjaxButton(id = "searchButton",
                 icon = GlyphIconType.search,
-                model = AsyncModel(loader) { delay(time = 3, unit = TimeUnit.SECONDS); println("${LocalDateTime.now()} - search"); "Search" }, //"Add".model(), //"Search".model(),
+                model = "Search".model(),
+                behaviors = *arrayOf(AsyncLoadModel()),
                 onSubmit = { _, _ -> table.refresh() }))
         q(KBootstrapAjaxButton(id = "addButton",
                 icon = GlyphIconType.plus,
-                model = AsyncModel(loader) { delay(time = 3, unit = TimeUnit.SECONDS); println("${LocalDateTime.now()} - add"); "Add" }, //"Add".model(),
+                model = "Add".model(),
+                behaviors = *arrayOf(AsyncLoadModel()),
                 onSubmit = { target, _ ->
                     modal.show(target = target,
                             panel = { EditCustomerPanel(it, EditCustomer().model()) })
