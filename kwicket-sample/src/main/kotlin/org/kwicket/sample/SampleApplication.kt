@@ -11,6 +11,7 @@ import org.apache.wicket.model.IModel
 import org.apache.wicket.util.time.Duration
 import org.kwicket.agilecoders.enableBootstrap
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.common.KNotificationMessage
+import org.kwicket.application.AsyncModelLoaderOnConfigureListener
 import org.kwicket.component.target
 import org.kwicket.model.model
 import org.kwicket.wicket.core.protocol.http.KWebApplication
@@ -50,6 +51,7 @@ class SampleWebApplication(configurationType: RuntimeConfigurationType) : KWebAp
         enableMountAnnotations(scanPackages = listOf("org.kwicket.sample"))
         enableBootstrap(themeProvider = SingleThemeProvider(BootstrapTheme()))
         enableSpringIoC()
+        componentOnConfigureListeners.add(AsyncModelLoaderOnConfigureListener())
     }
 
 }

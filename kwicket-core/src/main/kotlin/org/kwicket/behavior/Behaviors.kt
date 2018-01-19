@@ -13,8 +13,8 @@ open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
 }
 
-open class VisibleWhen(isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
-open class EnabledWhen(isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
+class VisibleWhen(isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
+class EnabledWhen(isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
 
 fun <C: Component> C.onConfig(handler: (C) -> Unit): C {
     add(object : Behavior() {
@@ -27,15 +27,19 @@ fun <C: Component> C.onConfig(handler: (C) -> Unit): C {
     return this
 }
 
-open class AsyncModelLoadBehavior : Behavior() {
+fun Component.asyncLoad() {
+    defaultModel.let { model ->
+        if (model is IAsyncModel<*>) {
+            model.loadAsync()
+        }
+    }
+}
+
+class AsyncModelLoadBehavior : Behavior() {
 
     override fun onConfigure(component: Component) {
         super.onConfigure(component)
-        component.defaultModel.let { model ->
-            if (model is IAsyncModel<*>) {
-                model.loadAsync()
-            }
-        }
+        component.asyncLoad()
     }
 
 }
