@@ -2,6 +2,7 @@ package org.kwicket.behavior
 
 import org.apache.wicket.Component
 import org.apache.wicket.behavior.Behavior
+import org.kwicket.model.IAsyncModel
 
 open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
@@ -12,8 +13,8 @@ open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
 }
 
-class VisibleWhen(isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
-class EnabledWhen(isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
+open class VisibleWhen(isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
+open class EnabledWhen(isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
 
 fun <C: Component> C.onConfig(handler: (C) -> Unit): C {
     add(object : Behavior() {
@@ -24,4 +25,17 @@ fun <C: Component> C.onConfig(handler: (C) -> Unit): C {
         }
     })
     return this
+}
+
+open class AsyncLoadModel : Behavior() {
+
+    override fun onConfigure(component: Component) {
+        super.onConfigure(component)
+        component.defaultModel.let { model ->
+            if (model is IAsyncModel<*>) {
+                model.loadAsync()
+            }
+        }
+    }
+
 }
