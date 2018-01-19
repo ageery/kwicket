@@ -1,6 +1,7 @@
 package org.kwicket.sample
 
 import java.io.Serializable
+import java.time.LocalDate
 import java.util.*
 
 enum class CustomerSort {
@@ -19,7 +20,11 @@ data class Address(var city: String, var country: Country) : Serializable {
     }
 }
 
-data class Customer(val id: UUID, var firstName: String, var age: Int? = null, var lastName: String, val address: Address) : Serializable {
+data class Customer(val id: UUID,
+                    var firstName: String,
+                    var age: Int? = null,
+                    var lastName: String,
+                    val address: Address) : Serializable {
 
     companion object {
         val maxFirstNameLength: Int = 15

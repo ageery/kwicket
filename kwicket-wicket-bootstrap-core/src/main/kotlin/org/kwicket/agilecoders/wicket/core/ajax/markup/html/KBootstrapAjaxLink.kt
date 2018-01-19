@@ -8,6 +8,7 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 
+// FIXME: change the icon to a model...
 open class KBootstrapAjaxLink<T>(id: String,
                             model: IModel<T>? = null,
                             type: Buttons.Type = Buttons.Type.Default,

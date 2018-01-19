@@ -7,6 +7,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
+import org.apache.wicket.util.convert.IConverter
 
 /**
  * Returns a non-null [AjaxRequestTarget].

@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.1.51'
+        kotlinVersion = '1.2.0'
         dokkaVersion = '0.9.15'
         bintrayVersion = '1.7.3'
         artifactoryVersion = '4.5.2'
@@ -32,7 +32,8 @@ subprojects {
     sourceSets.main.resources.srcDirs += "src/main/kotlin"
 
     ext {
-        kotlinVersion = '1.1.51'
+        kotlinVersion = '1.2.0'
+        kotlinCoroutinesVersion = '0.19.3'
         wicketVersion = '8.0.0-M7'
         wicketStuffVersion = wicketVersion
         wicketBootstrapVersion = '2.0.0-M6'
@@ -41,6 +42,12 @@ subprojects {
         wicketWebjarsVersion = '2.0.3'
         bintrayUser = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
         bintrayKey = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    }
+
+    kotlin {
+        experimental {
+            coroutines 'enable'
+        }
     }
 
     compileKotlin {
@@ -58,6 +65,7 @@ subprojects {
         compileOnly("org.apache.wicket:wicket-core:$wicketVersion")
         compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
         compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+        compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     }
 
     jar {

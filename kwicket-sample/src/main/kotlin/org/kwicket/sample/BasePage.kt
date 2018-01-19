@@ -31,6 +31,7 @@ abstract class BasePage(pageParameters: PageParameters? = null) : WebPage(pagePa
     private val feedback: Component
 
     init {
+        initModel()
         q(HtmlTag("html"))
         q(Label("title", ResourceModel("page.title")))
         q(MobileViewportMetaTag("viewport"))

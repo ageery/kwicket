@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 
+// FIXME: change the icon to an IModel...
 open class KBootstrapAjaxButton(id: String,
                                 model: IModel<String>? = null,
                                 val onSubmit: (AjaxRequestTarget, KBootstrapAjaxButton) -> Unit,
