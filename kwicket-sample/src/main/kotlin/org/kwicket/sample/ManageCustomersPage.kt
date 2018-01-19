@@ -16,7 +16,7 @@ import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.button.KBo
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.KBootstrapForm
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelModal
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
-import org.kwicket.behavior.AsyncLoadModelBehavior
+import org.kwicket.behavior.AsyncModelLoadBehavior
 import org.kwicket.component.q
 import org.kwicket.component.refresh
 import org.kwicket.model.AsyncModel
@@ -50,10 +50,10 @@ class ManageCustomersPage : BasePage() {
     init {
 
         q(KLabel(id = "t1",
-                behaviors = listOf(AsyncLoadModelBehavior()),
+                behaviors = listOf(AsyncModelLoadBehavior()),
                 model = AsyncModel { println("start - ${LocalDateTime.now()} - t1"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t1"); "t1" }))
         q(KLabel(id = "t2",
-                behaviors = listOf(AsyncLoadModelBehavior()),
+                behaviors = listOf(AsyncModelLoadBehavior()),
                 model = AsyncModel { println("start - ${LocalDateTime.now()} - t2"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t2"); "t2" }))
 
         val searchModel: IModel<String?> = null.model()
@@ -104,12 +104,10 @@ class ManageCustomersPage : BasePage() {
         q(KBootstrapAjaxButton(id = "searchButton",
                 icon = GlyphIconType.search,
                 model = "Search".model(),
-                behaviors = listOf(AsyncLoadModelBehavior()),
                 onSubmit = { _, _ -> table.refresh() }))
         q(KBootstrapAjaxButton(id = "addButton",
                 icon = GlyphIconType.plus,
                 model = "Add".model(),
-                behaviors = listOf(AsyncLoadModelBehavior()),
                 onSubmit = { target, _ ->
                     modal.show(target = target,
                             panel = { EditCustomerPanel(it, EditCustomer().model()) })

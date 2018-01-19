@@ -27,7 +27,7 @@ fun <C: Component> C.onConfig(handler: (C) -> Unit): C {
     return this
 }
 
-open class AsyncLoadModelBehavior : Behavior() {
+open class AsyncModelLoadBehavior : Behavior() {
 
     override fun onConfigure(component: Component) {
         super.onConfigure(component)
