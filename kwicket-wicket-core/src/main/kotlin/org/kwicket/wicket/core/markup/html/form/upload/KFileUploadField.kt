@@ -14,7 +14,7 @@ open class KFileUploadField(id: String,
                             label: IModel<String>? = null,
                             visible: Boolean? = null,
                             enabled: Boolean? = null,
-                            vararg behaviors: Behavior)
+                            behaviors: List<Behavior>? = null)
     : FileUploadField(id, model) {
 
     init {
@@ -24,7 +24,7 @@ open class KFileUploadField(id: String,
                 outputMarkupId = outputMarkupId,
                 visible = visible,
                 enabled = enabled,
-                behaviors = *behaviors)
+                behaviors = behaviors)
     }
 
 }

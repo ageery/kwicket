@@ -85,7 +85,7 @@ Null parameters do not affect the component. The following are named parameters 
     * enabled: Boolean? = null
     * renderBodyOnly: Boolean? = null
     * escapeModelStrings: Boolean? = null
-    * vararg behaviors: Behavior
+    * behaviors: List<Behavior>? = null
 
 For example: 
 ```kotlin

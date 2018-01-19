@@ -28,7 +28,7 @@ open class KPanel(id: String,
                   enabled: Boolean? = null,
                   renderBodyOnly: Boolean? = null,
                   escapeModelStrings: Boolean? = null,
-                  vararg behaviors: Behavior)
+                  behaviors: List<Behavior>? = null)
     : Panel(id, model) {
 
     init {
@@ -38,7 +38,7 @@ open class KPanel(id: String,
                 enabled = enabled,
                 escapeModelStrings = escapeModelStrings,
                 renderBodyOnly = renderBodyOnly,
-                behaviors = *behaviors)
+                behaviors = behaviors)
     }
 
 }

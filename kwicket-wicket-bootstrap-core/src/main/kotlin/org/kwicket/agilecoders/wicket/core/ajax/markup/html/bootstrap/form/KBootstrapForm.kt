@@ -11,13 +11,13 @@ open class KBootstrapForm<T>(id: String,
                         type: FormType? = null,
                         outputMarkupId: Boolean? = null,
                         outputMarkupPlaceholderTag: Boolean? = null,
-                        vararg behaviors: Behavior)
+                        behaviors: List<Behavior>? = null)
     : BootstrapForm<T>(id, model) {
 
     init {
         init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                behaviors = *behaviors)
+                behaviors = behaviors)
         type?.let { type(it) }
     }
 

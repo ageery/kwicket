@@ -82,16 +82,14 @@ fun <C : Component> C.init(outputMarkupId: Boolean? = null,
                            enabled: Boolean? = null,
                            escapeModelStrings: Boolean? = null,
                            renderBodyOnly: Boolean? = null,
-                           vararg behaviors: Behavior): C {
+                           behaviors: List<Behavior>? = null): C {
     renderBodyOnly?.let { this.renderBodyOnly = it }
     outputMarkupId?.let { this.outputMarkupId = it }
     outputMarkupPlaceholderTag?.let { this.outputMarkupPlaceholderTag = it }
     visible?.let { this.isVisible = it }
     enabled?.let { this.isEnabled = it }
     escapeModelStrings?.let { this.escapeModelStrings = it }
-    if (behaviors.isNotEmpty()) {
-        add(*behaviors)
-    }
+    behaviors?.let { if (it.isNotEmpty()) add(*it.toTypedArray()) }
     return this
 }
 
@@ -125,14 +123,14 @@ fun <C : FormComponent<*>> C.init(required: Boolean? = null,
                                   enabled: Boolean? = null,
                                   escapeModelStrings: Boolean? = null,
                                   renderBodyOnly: Boolean? = null,
-                                  vararg behaviors: Behavior): C {
+                                  behaviors: List<Behavior>? = null): C {
     (this as Component).init(outputMarkupId = outputMarkupId,
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
             visible = visible,
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
             renderBodyOnly = renderBodyOnly,
-            behaviors = *behaviors)
+            behaviors = behaviors)
     required?.let { this.isRequired = it }
     label?.let { this.label = it }
     return this
