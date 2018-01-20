@@ -85,7 +85,7 @@ Null parameters do not affect the component. The following are named parameters 
     * enabled: Boolean? = null
     * renderBodyOnly: Boolean? = null
     * escapeModelStrings: Boolean? = null
-    * behaviors: List<Behavior>? = null
+    * vararg behaviors: Behavior
 
 For example: 
 ```kotlin
@@ -256,3 +256,10 @@ Building
 To build the project, from the root of the project type `gradlew clean build`.
 
 To run the sample project, from the root of the project type `gradlew bootRun`.
+
+What's New
+----------
+
+* 0.2
+    - `AsyncModel`
+    - webjars support
