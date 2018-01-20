@@ -9,11 +9,11 @@ import org.kwicket.component.init
 class KFilterToolbar<T, S, C>(table: DataTable<T, S>,
                               form: FilterForm<C>,
                               visible: Boolean? = null,
-                              behaviors: List<Behavior>? = null)
+                              vararg behaviors: Behavior)
     : FilterToolbar(table, form) {
 
     init {
-        init(behaviors = behaviors,
+        init(behaviors = *behaviors,
                 visible = visible)
     }
 

@@ -18,7 +18,7 @@ open class ButtonPanel(id: String,
                        enabled: Boolean? = null,
                        renderBodyOnly: Boolean? = null,
                        escapeModelStrings: Boolean? = null,
-                       behaviors: List<Behavior>? = null)
+                       vararg behaviors: Behavior)
     : KPanel(id = id) {
 
     init {
@@ -28,7 +28,7 @@ open class ButtonPanel(id: String,
                 enabled = enabled,
                 escapeModelStrings = escapeModelStrings,
                 renderBodyOnly = renderBodyOnly,
-                behaviors = behaviors)
+                behaviors = *behaviors)
         q(KListView(id = "buttons", model = buttons("button", form).listModel(),
                 populate = { item -> item.q(item.model.value) }))
     }

@@ -20,7 +20,7 @@ open class KAjaxButton(id: String,
                        defaultFormProcessing: Boolean? = null,
                        outputMarkupId: Boolean? = null,
                        outputMarkupPlaceholderTag: Boolean? = null,
-                       behaviors: List<Behavior>? = null)
+                       vararg behaviors: Behavior)
     : AjaxButton(id, model, form) {
 
     companion object {
@@ -31,7 +31,7 @@ open class KAjaxButton(id: String,
         defaultFormProcessing?.let { this.defaultFormProcessing = it }
         init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                behaviors = behaviors)
+                behaviors = *behaviors)
     }
 
     override fun onSubmit(target: AjaxRequestTarget) {

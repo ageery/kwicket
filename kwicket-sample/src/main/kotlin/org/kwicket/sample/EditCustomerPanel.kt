@@ -36,7 +36,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                             label = "First Name".model(),
                             required = true,
                             model = model + EditCustomer::firstName,
-                            behaviors = listOf(InputBehavior(), maximumLength(maxFirstNameLength)))
+                            behaviors = *arrayOf(InputBehavior(), maximumLength(maxFirstNameLength)))
                 }))
         q(InputFormGroup(id = "lastName",
                 field = {
@@ -44,7 +44,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                             label = "Last Name".model(),
                             required = true,
                             model = model + EditCustomer::lastName,
-                            behaviors = listOf(InputBehavior(), maximumLength(maxLastNameLength)))
+                            behaviors = *arrayOf(InputBehavior(), maximumLength(maxLastNameLength)))
                 }))
         q(InputFormGroup(id = "age",
                 field = {
@@ -52,7 +52,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                             label = "Age".model(),
                             type = Int::class.javaObjectType,
                             model = model + EditCustomer::age,
-                            behaviors = listOf(InputBehavior()))
+                            behaviors = *arrayOf(InputBehavior()))
                 }))
         q(InputFormGroup(id = "city",
                 field = {
@@ -60,7 +60,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                             label = "City".model(),
                             required = true,
                             model = model + EditCustomer::city,
-                            behaviors = listOf(InputBehavior(), maximumLength(maxCityLength)))
+                            behaviors = *arrayOf(InputBehavior(), maximumLength(maxCityLength)))
                 }))
         q(SelectFormGroup(id = "country",
                 field = {

@@ -31,7 +31,7 @@ open class KListView<T, C : List<T>>(id: String,
                                      enabled: Boolean? = null,
                                      renderBodyOnly: Boolean? = null,
                                      escapeModelStrings: Boolean? = null,
-                                     behaviors: List<Behavior>? = null)
+                                     vararg behaviors: Behavior)
     : ListView<T>(id, model) {
 
     init {
@@ -41,7 +41,7 @@ open class KListView<T, C : List<T>>(id: String,
                 enabled = enabled,
                 escapeModelStrings = escapeModelStrings,
                 renderBodyOnly = renderBodyOnly,
-                behaviors = behaviors)
+                behaviors = *behaviors)
         reuseItems?.let { this.reuseItems = it }
     }
 

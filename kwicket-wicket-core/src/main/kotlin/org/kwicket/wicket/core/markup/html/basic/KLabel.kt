@@ -16,7 +16,7 @@ open class KLabel(id: String,
                   enabled: Boolean? = null,
                   escapeModelStrings: Boolean? = null,
                   renderBodyOnly: Boolean? = null,
-                  behaviors: List<Behavior>? = null)
+                  vararg behaviors: Behavior)
     : Label(id, model) {
 
     init {
@@ -26,7 +26,7 @@ open class KLabel(id: String,
                 enabled = enabled,
                 escapeModelStrings = escapeModelStrings,
                 renderBodyOnly = renderBodyOnly,
-                behaviors = behaviors)
+                behaviors = *behaviors)
     }
 
 }

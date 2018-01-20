@@ -97,10 +97,10 @@ class ManageCustomersPage : BasePage() {
                         },
                         modeler = { it.model() }),
                 rowsPerPage = 10,
-                behaviors = listOf(KTableBehavior(hover = true, bordered = true, condensed = true, striped = true))))
+                behaviors = *arrayOf(KTableBehavior(hover = true, bordered = true, condensed = true, striped = true))))
         q(KTextField(id = "search",
                 model = searchModel,
-                behaviors = listOf(InputBehavior())))
+                behaviors = *arrayOf(InputBehavior())))
         q(KBootstrapAjaxButton(id = "searchButton",
                 icon = GlyphIconType.search,
                 model = "Search".model(),

@@ -14,13 +14,13 @@ open class KTextArea<T>(id: String,
                      outputMarkupId: Boolean? = null,
                      outputMarkupPlaceholderTag: Boolean? = null,
                      label: IModel<String>? = null,
-                     behaviors: List<Behavior>? = null
+                     vararg behaviors: Behavior
 ) : TextArea<T>(id, model) {
 
     init {
         init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 outputMarkupId = outputMarkupId,
-                behaviors = behaviors,
+                behaviors = *behaviors,
                 required = required,
                 label = label)
     }

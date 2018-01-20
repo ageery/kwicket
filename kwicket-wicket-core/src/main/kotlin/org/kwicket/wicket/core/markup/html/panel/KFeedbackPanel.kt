@@ -29,7 +29,7 @@ open class KFeedbackPanel(id: String,
                           enabled: Boolean? = null,
                           renderBodyOnly: Boolean? = null,
                           escapeModelStrings: Boolean? = null,
-                          behaviors: List<Behavior>? = null)
+                          vararg behaviors: Behavior)
     : FeedbackPanel(id, filter) {
 
     init {
@@ -39,7 +39,7 @@ open class KFeedbackPanel(id: String,
                 enabled = enabled,
                 escapeModelStrings = escapeModelStrings,
                 renderBodyOnly = renderBodyOnly,
-                behaviors = behaviors)
+                behaviors = *behaviors)
     }
 
 }

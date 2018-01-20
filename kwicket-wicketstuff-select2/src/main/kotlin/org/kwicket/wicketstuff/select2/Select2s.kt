@@ -20,7 +20,7 @@ fun AbstractSelect2Choice<*, *>.init(width: String? = null,
                                      enabled: Boolean? = null,
                                      escapeModelStrings: Boolean? = null,
                                      renderBodyOnly: Boolean? = null,
-                                     behaviors: List<Behavior>? = null) {
+                                     vararg behaviors: Behavior) {
     (this as FormComponent<*>).init(
             required = required,
             label = label,
@@ -30,7 +30,7 @@ fun AbstractSelect2Choice<*, *>.init(width: String? = null,
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
             renderBodyOnly = renderBodyOnly,
-            behaviors = behaviors
+            behaviors = *behaviors
     )
     width?.let { settings.width = it }
     placeholder?.let { settings.placeholder = it }

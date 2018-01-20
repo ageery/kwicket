@@ -13,13 +13,13 @@ open class KCheckbox(id: String,
                 outputMarkupPlaceholderTag: Boolean? = null,
                 outputMarkupId: Boolean? = null,
                 label: IModel<String>? = null,
-                behaviors: List<Behavior>? = null)
+                vararg behaviors: Behavior)
     : CheckBox(id, model) {
 
     init {
         init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
                 outputMarkupId = outputMarkupId,
-                behaviors = behaviors,
+                behaviors = *behaviors,
                 label = label)
     }
 }

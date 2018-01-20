@@ -15,13 +15,13 @@ class KAjaxFallbackDefaultDataTable<T, S>(id: String,
                                           outputMarkupPlaceholderTag: Boolean? = null,
                                           topToolbars: ((KAjaxFallbackDefaultDataTable<T, S>) -> List<AbstractToolbar>)? = null,
                                           bottomToolbars: ((KAjaxFallbackDefaultDataTable<T, S>) -> List<AbstractToolbar>)? = null,
-                                          behaviors: List<Behavior>? = null)
+                                          vararg behaviors: Behavior)
     : AjaxFallbackDefaultDataTable<T, S>(id, columns, dataProvider, rowsPerPage) {
 
     init {
         init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                behaviors = behaviors)
+                behaviors = *behaviors)
         topToolbars?.let { it.invoke(this).forEach { toolbar -> addTopToolbar(toolbar) } }
         bottomToolbars?.let { it.invoke(this).forEach { toolbar -> addBottomToolbar(toolbar) } }
     }

@@ -17,7 +17,7 @@ class LinkPanel<T>(id: String,
                    enabled: Boolean? = null,
                    renderBodyOnly: Boolean? = null,
                    escapeModelStrings: Boolean? = null,
-                   behaviors: List<Behavior>? = null)
+                   vararg behaviors: Behavior)
     : KPanel(id = id, model = model) {
 
     init {
@@ -27,7 +27,7 @@ class LinkPanel<T>(id: String,
                 enabled = enabled,
                 escapeModelStrings = escapeModelStrings,
                 renderBodyOnly = renderBodyOnly,
-                behaviors = behaviors)
+                behaviors = *behaviors)
         add(KListView(id = "links",
                 model = links.invoke("link", model).listModel(),
                 populate = { item -> item.add(item.model.value) }))

@@ -16,7 +16,7 @@ class KNotificationPanel(id: String,
                          visible: Boolean? = null,
                          enabled: Boolean? = null,
                          escapeModelStrings: Boolean? = null,
-                         behaviors: List<Behavior>? = null)
+                         vararg behaviors: Behavior)
     : NotificationPanel(id, fence, filter) {
 
     init {
@@ -25,7 +25,7 @@ class KNotificationPanel(id: String,
                 visible = visible,
                 enabled = enabled,
                 escapeModelStrings = escapeModelStrings,
-                behaviors = behaviors)
+                behaviors = *behaviors)
         hideAfter?.let { this.hideAfter(it) }
     }
 

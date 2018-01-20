@@ -6,18 +6,21 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 
-open class KBootstrapForm<T>(id: String,
-                        model: IModel<T>? = null,
-                        type: FormType? = null,
-                        outputMarkupId: Boolean? = null,
-                        outputMarkupPlaceholderTag: Boolean? = null,
-                        behaviors: List<Behavior>? = null)
-    : BootstrapForm<T>(id, model) {
+open class KBootstrapForm<T>(
+    id: String,
+    model: IModel<T>? = null,
+    type: FormType? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    vararg behaviors: Behavior
+) : BootstrapForm<T>(id, model) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                behaviors = behaviors)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            behaviors = *behaviors
+        )
         type?.let { type(it) }
     }
 

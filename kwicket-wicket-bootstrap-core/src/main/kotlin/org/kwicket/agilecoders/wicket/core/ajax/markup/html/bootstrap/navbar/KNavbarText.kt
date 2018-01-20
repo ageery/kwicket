@@ -11,13 +11,13 @@ open class KNavbarText(id: String = Navbar.componentId(),
                        position: Navbar.ComponentPosition? = null,
                        outputMarkupId: Boolean? = null,
                        outputMarkupPlaceholderTag: Boolean? = null,
-                       behaviors: List<Behavior>? = null)
+                       vararg behaviors: Behavior)
     : NavbarText(id, model) {
 
     init {
         init(outputMarkupId = outputMarkupId,
                 outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                behaviors = behaviors)
+                behaviors = *behaviors)
         position?.let { this.position(it) }
     }
 
