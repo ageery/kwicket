@@ -9,18 +9,31 @@ import org.apache.wicket.model.LoadableDetachableModel
 import kotlin.coroutines.experimental.CoroutineContext
 
 interface IAsyncModel<T> : IModel<T> {
-    fun loadAsync(context: CoroutineContext = DefaultDispatcher): Deferred<T>
+    fun loadAsync()
 }
 
-class AsyncModel<T>(private val block: suspend () -> T,
-                    private val context: (() -> CoroutineContext)? = null) : LoadableDetachableModel<T>(), IAsyncModel<T> {
+class AsyncModel<T>(
+    private val block: suspend () -> T,
+    private val context: (() -> CoroutineContext) = { DefaultDispatcher }
+) : LoadableDetachableModel<T>(), IAsyncModel<T> {
 
     @Transient
-    private var deferred: Deferred<T>? = null
+    private var _deferred: Deferred<T>? = null
 
-    override fun load(): T = runBlocking { loadAsync().await() }
+    private val deferred: Deferred<T>
+        get() {
+            initDeferred()
+            return _deferred!!
+        }
 
-    override fun loadAsync(context: CoroutineContext): Deferred<T> = deferred?.let { it }
-                ?: async(this.context?.let { it() } ?: context) { block() }.let { deferred = it; it }
+    private fun initDeferred() {
+        _deferred.let {
+            if (it == null) _deferred = async(context()) { block() }
+        }
+    }
+
+    override fun load(): T = runBlocking { deferred.await() }
+
+    override fun loadAsync() = initDeferred()
 
 }

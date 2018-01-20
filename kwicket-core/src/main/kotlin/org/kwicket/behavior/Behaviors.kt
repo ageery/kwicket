@@ -1,10 +1,8 @@
 package org.kwicket.behavior
 
-import kotlinx.coroutines.experimental.DefaultDispatcher
 import org.apache.wicket.Component
 import org.apache.wicket.behavior.Behavior
 import org.kwicket.model.IAsyncModel
-import kotlin.coroutines.experimental.CoroutineContext
 
 open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
@@ -29,19 +27,19 @@ fun <C: Component> C.onConfig(handler: (C) -> Unit): C {
     return this
 }
 
-fun Component.asyncLoad(context: CoroutineContext = DefaultDispatcher) {
+fun Component.asyncLoad() {
     defaultModel.let { model ->
         if (model is IAsyncModel<*>) {
-            model.loadAsync(context = context)
+            model.loadAsync()
         }
     }
 }
 
-class AsyncModelLoadBehavior(val contexts: (Component) -> CoroutineContext = { DefaultDispatcher }) : Behavior() {
+class AsyncModelLoadBehavior() : Behavior() {
 
     override fun onConfigure(component: Component) {
         super.onConfigure(component)
-        component.asyncLoad(context = contexts(component))
+        component.asyncLoad()
     }
 
 }
