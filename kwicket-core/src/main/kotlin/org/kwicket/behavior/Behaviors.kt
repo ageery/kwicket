@@ -2,7 +2,7 @@ package org.kwicket.behavior
 
 import org.apache.wicket.Component
 import org.apache.wicket.behavior.Behavior
-import org.kwicket.model.IAsyncModel
+import org.kwicket.model.AsyncModel
 
 open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
@@ -29,7 +29,7 @@ fun <C : Component> C.onConfig(handler: (C) -> Unit): C {
 
 fun Component.asyncLoad() {
     defaultModel.let { model ->
-        if (model is IAsyncModel<*>) {
+        if (model is AsyncModel<*>) {
             model.loadAsync()
         }
     }

@@ -62,7 +62,7 @@ class SampleWebApplication(configurationType: RuntimeConfigurationType) :
         enableMountAnnotations(scanPackages = listOf("org.kwicket.sample"))
         enableBootstrap(themeProvider = SingleThemeProvider(BootstrapTheme()))
         enableSpringIoC()
-        componentOnConfigureListeners.add(AsyncModelLoaderOnConfigureListener())
+        //componentOnConfigureListeners.add(AsyncModelLoaderOnConfigureListener())
     }
 
 }

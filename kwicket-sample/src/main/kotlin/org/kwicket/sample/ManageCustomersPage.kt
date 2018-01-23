@@ -9,32 +9,26 @@ import org.apache.wicket.event.Broadcast
 import org.apache.wicket.event.IEvent
 import org.apache.wicket.model.IModel
 import org.apache.wicket.spring.injection.annot.SpringBean
-import org.apache.wicket.util.convert.IConverter
-import org.apache.wicket.util.convert.converter.BigDecimalConverter
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.KBootstrapAjaxLink
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.button.KBootstrapAjaxButton
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.KBootstrapForm
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelModal
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
+import org.kwicket.behavior.AsyncModelLoadBehavior
 import org.kwicket.component.q
 import org.kwicket.component.refresh
-import org.kwicket.model.AsyncModel
+import org.kwicket.model.AsyncLoadableDetachableModel
 import org.kwicket.model.ldm
 import org.kwicket.model.model
 import org.kwicket.model.value
 import org.kwicket.wicket.core.markup.html.basic.KLabel
 import org.kwicket.wicket.core.markup.html.form.KTextField
-import org.kwicket.wicket.core.util.convert.converter.KConverter
 import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.KAjaxFallbackDefaultDataTable
 import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.KLambdaColumn
 import org.kwicket.wicket.extensions.markup.html.repeater.data.table.LinkColumn
 import org.kwicket.wicket.extensions.markup.html.repeater.util.KSortableDataProvider
 import org.wicketstuff.annotation.mount.MountPath
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 @MountPath("/")
@@ -49,36 +43,36 @@ class ManageCustomersPage : BasePage() {
     init {
 
         q(
-            KLabel(id = "t1",
-                //behaviors = listOf(AsyncModelLoadBehavior()),
-                model = AsyncModel(block = {
-                    println("start - ${LocalDateTime.now()} - t1"); delay(
-                    time = 3,
-                    unit = TimeUnit.SECONDS
-                ); println("finished - ${LocalDateTime.now()} - t1"); "t1"
-                })
+            KLabel(
+                id = "t1",
+                model = AsyncLoadableDetachableModel(block = {
+                    delay(time = 3, unit = TimeUnit.SECONDS)
+                    LocalDateTime.now()
+                }),
+                behaviors = *arrayOf(AsyncModelLoadBehavior())
             )
         )
         q(
-            KLabel(id = "t2",
-                //behaviors = listOf(AsyncModelLoadBehavior()),
-                model = AsyncModel(block = {
-                    println("start - ${LocalDateTime.now()} - t2"); delay(
-                    time = 3,
-                    unit = TimeUnit.SECONDS
-                ); println("finished - ${LocalDateTime.now()} - t2"); "t2"
+            KLabel(
+                id = "t2",
+                model = AsyncLoadableDetachableModel(block = {
+                    delay(time = 3, unit = TimeUnit.SECONDS)
+                    LocalDateTime.now()
+                }),
+                behaviors = *arrayOf(AsyncModelLoadBehavior())
+            )
+        )
+        q(
+            KLabel(
+                id = "t3",
+                model = AsyncLoadableDetachableModel(block = {
+                    delay(time = 3, unit = TimeUnit.SECONDS)
+                    LocalDateTime.now()
                 })
             )
         )
 
         val searchModel: IModel<String?> = null.model()
-        val x = object : BigDecimalConverter() {
-            override fun getNumberFormat(locale: Locale?): NumberFormat = DecimalFormat.getCurrencyInstance()
-        }
-        q(object : KLabel(id = "dob", model = LocalDate.now().model()) {
-            override fun <C : Any?> getConverter(type: Class<C>?): IConverter<C> =
-                KConverter(toString = { v, locale -> "andrew" })
-        })
         val form = q(
             KBootstrapForm(
                 id = "form",
