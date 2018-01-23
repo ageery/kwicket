@@ -33,7 +33,7 @@ open class PanelModal(id: String) : Modal<Any>(id) {
         (footer.get("buttons") as ListView<*>).model.value.clear()
         val modalInfo = info ?: if (newContent is HasModalInfo) newContent.modalInfo else null
         modalInfo?.let {
-            with (it) {
+            with(it) {
                 title?.let { if (escapeHeaderString != null) header(it, escapeHeaderString) else header(it) }
                 size?.let { size(it) }
                 footerButtons?.let { it.invoke(Modal.BUTTON_MARKUP_ID).forEach { addButton(it) } }

@@ -39,13 +39,16 @@ class PropChain<T>(init: PropChainBuilder.() -> KProperty1<*, T>) : Serializable
 
         @Suppress("UNCHECKED_CAST")
         setter = if (lastProp !is KMutableProperty1) null else
-            SetterInfo(name = lastProp.setter.javaMethod!!.name,
-                    type = lastProp.setter.parameters[1].type.jvmErasure.java as Class<out T>)
+            SetterInfo(
+                name = lastProp.setter.javaMethod!!.name,
+                type = lastProp.setter.parameters[1].type.jvmErasure.java as Class<out T>
+            )
     }
 
     @Suppress("UNCHECKED_CAST")
     private fun computeValue(obj: Any?, getters: List<String>): T = getters.fold(obj, { value, getterName ->
-        value?.let { it::class.java.getMethod(getterName).invoke(value) } }) as T
+        value?.let { it::class.java.getMethod(getterName).invoke(value) }
+    }) as T
 
     fun getValue(obj: Any?): T = computeValue(obj, getters)
 

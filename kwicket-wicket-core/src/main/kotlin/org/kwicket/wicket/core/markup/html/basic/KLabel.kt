@@ -8,25 +8,28 @@ import org.kwicket.component.init
 /**
  * [Label] with named and default constructor arguments.
  */
-open class KLabel(id: String,
-                  model: IModel<*>? = null,
-                  outputMarkupId: Boolean? = null,
-                  outputMarkupPlaceholderTag: Boolean? = null,
-                  visible: Boolean? = null,
-                  enabled: Boolean? = null,
-                  escapeModelStrings: Boolean? = null,
-                  renderBodyOnly: Boolean? = null,
-                  vararg behaviors: Behavior)
-    : Label(id, model) {
+open class KLabel(
+    id: String,
+    model: IModel<*>? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    vararg behaviors: Behavior
+) : Label(id, model) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                visible = visible,
-                enabled = enabled,
-                escapeModelStrings = escapeModelStrings,
-                renderBodyOnly = renderBodyOnly,
-                behaviors = *behaviors)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            visible = visible,
+            enabled = enabled,
+            escapeModelStrings = escapeModelStrings,
+            renderBodyOnly = renderBodyOnly,
+            behaviors = *behaviors
+        )
     }
 
 }

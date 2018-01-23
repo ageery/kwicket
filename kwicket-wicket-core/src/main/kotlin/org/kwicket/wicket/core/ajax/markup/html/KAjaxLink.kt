@@ -7,15 +7,19 @@ import org.kwicket.AjaxClickHandler
 import org.kwicket.component.init
 import org.kwicket.model.value
 
-class KAjaxLink<T>(id: String,
-                   model: IModel<T>? = null,
-                   private val onClick: AjaxClickHandler<T>,
-                   outputMarkupId: Boolean? = null,
-                   outputMarkupPlaceholderTag: Boolean? = null) : AjaxLink<T>(id, model) {
+class KAjaxLink<T>(
+    id: String,
+    model: IModel<T>? = null,
+    private val onClick: AjaxClickHandler<T>,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null
+) : AjaxLink<T>(id, model) {
 
     init {
-        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                outputMarkupId = outputMarkupId)
+        init(
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            outputMarkupId = outputMarkupId
+        )
     }
 
     override fun onClick(target: AjaxRequestTarget) {

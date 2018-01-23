@@ -8,11 +8,12 @@ import org.kwicket.AjaxHandler
 /**
  * [AjaxFormComponentUpdatingBehavior] with named and default constructor arguments.
  */
-open class KAjaxFormComponentUpdatingBehavior(event: String,
-                                              private val onUpdate: AjaxHandler? = null,
-                                              private val onError: AjaxHandler? = null,
-                                              private val updateAjaxAttributes: ((AjaxRequestAttributes) -> Unit)? = null)
-    : AjaxFormComponentUpdatingBehavior(event) {
+open class KAjaxFormComponentUpdatingBehavior(
+    event: String,
+    private val onUpdate: AjaxHandler? = null,
+    private val onError: AjaxHandler? = null,
+    private val updateAjaxAttributes: ((AjaxRequestAttributes) -> Unit)? = null
+) : AjaxFormComponentUpdatingBehavior(event) {
 
     override fun onUpdate(target: AjaxRequestTarget) {
         onUpdate?.let { it(target) }

@@ -19,25 +19,28 @@ import org.kwicket.component.init
  *      tag the [Component] is attached to will also be rendered
  * @param behaviors [List] of [Behavior]s to add to the [Component]
  */
-open class KWebMarkupContainer(id: String,
-                               model: IModel<*>? = null,
-                               outputMarkupId: Boolean? = null,
-                               outputMarkupPlaceholderTag: Boolean? = null,
-                               visible: Boolean? = null,
-                               enabled: Boolean? = null,
-                               renderBodyOnly: Boolean? = null,
-                               escapeModelStrings: Boolean? = null,
-                               vararg behaviors: Behavior)
-    : WebMarkupContainer(id, model) {
+open class KWebMarkupContainer(
+    id: String,
+    model: IModel<*>? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    vararg behaviors: Behavior
+) : WebMarkupContainer(id, model) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                renderBodyOnly = renderBodyOnly,
-                escapeModelStrings = escapeModelStrings,
-                visible = visible,
-                enabled = enabled,
-                behaviors = *behaviors)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            renderBodyOnly = renderBodyOnly,
+            escapeModelStrings = escapeModelStrings,
+            visible = visible,
+            enabled = enabled,
+            behaviors = *behaviors
+        )
     }
 
 }

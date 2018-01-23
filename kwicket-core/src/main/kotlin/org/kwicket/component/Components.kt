@@ -7,7 +7,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
-import org.apache.wicket.util.convert.IConverter
 
 /**
  * Returns a non-null [AjaxRequestTarget].
@@ -23,8 +22,8 @@ import org.apache.wicket.util.convert.IConverter
  * @param target perhaps null [AjaxRequestTarget]
  */
 fun Component.target(target: AjaxRequestTarget?): AjaxRequestTarget =
-        target ?: requestCycle.find(AjaxRequestTarget::class.java)
-                .orElseThrow { WicketRuntimeException("No AjaxRequestTarget found") }
+    target ?: requestCycle.find(AjaxRequestTarget::class.java)
+        .orElseThrow { WicketRuntimeException("No AjaxRequestTarget found") }
 
 /**
  * Queues the [component] in the receiver and returns the [component], allowing a [Component] to be queued into a
@@ -76,13 +75,15 @@ fun <C : Component> C.refresh(target: AjaxRequestTarget? = null) = target(target
  * @receiver the [Component] to initialize
  * @return the initialized [Component]
  */
-fun <C : Component> C.init(outputMarkupId: Boolean? = null,
-                           outputMarkupPlaceholderTag: Boolean? = null,
-                           visible: Boolean? = null,
-                           enabled: Boolean? = null,
-                           escapeModelStrings: Boolean? = null,
-                           renderBodyOnly: Boolean? = null,
-                           vararg behaviors: Behavior): C {
+fun <C : Component> C.init(
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    vararg behaviors: Behavior
+): C {
     renderBodyOnly?.let { this.renderBodyOnly = it }
     outputMarkupId?.let { this.outputMarkupId = it }
     outputMarkupPlaceholderTag?.let { this.outputMarkupPlaceholderTag = it }
@@ -117,22 +118,26 @@ fun <C : Component> C.init(outputMarkupId: Boolean? = null,
  * @receiver the [FormComponent] to initialize
  * @return the initialized [FormComponent]
  */
-fun <C : FormComponent<*>> C.init(required: Boolean? = null,
-                                  label: IModel<String>? = null,
-                                  outputMarkupId: Boolean? = null,
-                                  outputMarkupPlaceholderTag: Boolean? = null,
-                                  visible: Boolean? = null,
-                                  enabled: Boolean? = null,
-                                  escapeModelStrings: Boolean? = null,
-                                  renderBodyOnly: Boolean? = null,
-                                  vararg behaviors: Behavior): C {
-    (this as Component).init(outputMarkupId = outputMarkupId,
-            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-            visible = visible,
-            enabled = enabled,
-            escapeModelStrings = escapeModelStrings,
-            renderBodyOnly = renderBodyOnly,
-            behaviors = *behaviors)
+fun <C : FormComponent<*>> C.init(
+    required: Boolean? = null,
+    label: IModel<String>? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    vararg behaviors: Behavior
+): C {
+    (this as Component).init(
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        escapeModelStrings = escapeModelStrings,
+        renderBodyOnly = renderBodyOnly,
+        behaviors = *behaviors
+    )
     required?.let { this.isRequired = it }
     label?.let { this.label = it }
     return this

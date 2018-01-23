@@ -10,28 +10,32 @@ import org.kwicket.component.init
 /**
  * [Link] with named and default constructor arguments.
  */
-open class KLink<T>(id: String,
-                    model: IModel<T>? = null,
-                    private val onClick: NonAjaxHandler? = null,
-                    outputMarkupId: Boolean? = null,
-                    outputMarkupPlaceholderTag: Boolean? = null,
-                    visible: Boolean? = null,
-                    enabled: Boolean? = null,
-                    renderBodyOnly: Boolean? = null,
-                    escapeModelStrings: Boolean? = null,
-                    vararg behaviors: Behavior)
-    : Link<T>(id, model) {
+open class KLink<T>(
+    id: String,
+    model: IModel<T>? = null,
+    private val onClick: NonAjaxHandler? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    vararg behaviors: Behavior
+) : Link<T>(id, model) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                visible = visible,
-                enabled = enabled,
-                escapeModelStrings = escapeModelStrings,
-                renderBodyOnly = renderBodyOnly,
-                behaviors = *behaviors)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            visible = visible,
+            enabled = enabled,
+            escapeModelStrings = escapeModelStrings,
+            renderBodyOnly = renderBodyOnly,
+            behaviors = *behaviors
+        )
     }
 
-    override fun onClick() = onClick?.invoke() ?: throw WicketRuntimeException("No onClick handler defined for ${javaClass.name} with id=$id")
+    override fun onClick() = onClick?.invoke()
+            ?: throw WicketRuntimeException("No onClick handler defined for ${javaClass.name} with id=$id")
 
 }

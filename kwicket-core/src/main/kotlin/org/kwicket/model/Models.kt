@@ -54,9 +54,9 @@ var <T> IModel<T>.value: T
  * @return [IModel] where the value comes from applying the [lambda] to the @receiver [IModel] value/object
  */
 infix operator fun <M, T> IModel<M>.plus(lambda: (M) -> T): IModel<T> =
-        object : LoadableDetachableModel<T>() {
-            override fun load(): T = lambda(this@plus.value)
-        }
+    object : LoadableDetachableModel<T>() {
+        override fun load(): T = lambda(this@plus.value)
+    }
 
 /**
  * Creates a readable/writable [IModel] where the value is obtained from applying the [PropModel] to the @receiver [IModel].
@@ -84,4 +84,4 @@ infix operator fun <M, T> IModel<M>.plus(prop: KProperty1<M, T>): IModel<T> = Pr
  * @return [IModel<String>] where the value comes from a property file with the given resource key
  */
 fun String.resModel(defaultValue: IModel<String>? = null): IModel<String> =
-        ResourceModel(this, defaultValue)
+    ResourceModel(this, defaultValue)

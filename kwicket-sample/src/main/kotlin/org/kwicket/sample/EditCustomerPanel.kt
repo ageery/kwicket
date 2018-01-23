@@ -30,69 +30,97 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
 
     init {
         form = q(KBootstrapForm(id = "form", model = model))
-        q(InputFormGroup(id = "firstName",
+        q(
+            InputFormGroup(id = "firstName",
                 field = {
-                    KTextField(id = it,
-                            label = "First Name".model(),
-                            required = true,
-                            model = model + EditCustomer::firstName,
-                            behaviors = *arrayOf(InputBehavior(), maximumLength(maxFirstNameLength)))
-                }))
-        q(InputFormGroup(id = "lastName",
+                    KTextField(
+                        id = it,
+                        label = "First Name".model(),
+                        required = true,
+                        model = model + EditCustomer::firstName,
+                        behaviors = *arrayOf(InputBehavior(), maximumLength(maxFirstNameLength))
+                    )
+                })
+        )
+        q(
+            InputFormGroup(id = "lastName",
                 field = {
-                    KTextField(id = it,
-                            label = "Last Name".model(),
-                            required = true,
-                            model = model + EditCustomer::lastName,
-                            behaviors = *arrayOf(InputBehavior(), maximumLength(maxLastNameLength)))
-                }))
-        q(InputFormGroup(id = "age",
+                    KTextField(
+                        id = it,
+                        label = "Last Name".model(),
+                        required = true,
+                        model = model + EditCustomer::lastName,
+                        behaviors = *arrayOf(InputBehavior(), maximumLength(maxLastNameLength))
+                    )
+                })
+        )
+        q(
+            InputFormGroup(id = "age",
                 field = {
-                    KTextField(id = it,
-                            label = "Age".model(),
-                            type = Int::class.javaObjectType,
-                            model = model + EditCustomer::age,
-                            behaviors = *arrayOf(InputBehavior()))
-                }))
-        q(InputFormGroup(id = "city",
+                    KTextField(
+                        id = it,
+                        label = "Age".model(),
+                        type = Int::class.javaObjectType,
+                        model = model + EditCustomer::age,
+                        behaviors = *arrayOf(InputBehavior())
+                    )
+                })
+        )
+        q(
+            InputFormGroup(id = "city",
                 field = {
-                    KTextField(id = it,
-                            label = "City".model(),
-                            required = true,
-                            model = model + EditCustomer::city,
-                            behaviors = *arrayOf(InputBehavior(), maximumLength(maxCityLength)))
-                }))
-        q(SelectFormGroup(id = "country",
+                    KTextField(
+                        id = it,
+                        label = "City".model(),
+                        required = true,
+                        model = model + EditCustomer::city,
+                        behaviors = *arrayOf(InputBehavior(), maximumLength(maxCityLength))
+                    )
+                })
+        )
+        q(
+            SelectFormGroup(id = "country",
                 field = {
-                    KSelect2Choice(id = it,
-                            label = "Country".model(),
-                            required = true,
-                            width = "100%",
-                            closeOnSelect = true,
-                            model = model + EditCustomer::country,
-                            choiceProvider = SimpleChoiceProvider(toIdValue = Country::name,
-                                    toDisplayValue = Country::displayName,
-                                    allChoices = { Country.values().asSequence() },
-                                    idToValue = Country::valueOf,
-                                    itemsPerPage = 10)
+                    KSelect2Choice(
+                        id = it,
+                        label = "Country".model(),
+                        required = true,
+                        width = "100%",
+                        closeOnSelect = true,
+                        model = model + EditCustomer::country,
+                        choiceProvider = SimpleChoiceProvider(
+                            toIdValue = Country::name,
+                            toDisplayValue = Country::displayName,
+                            allChoices = { Country.values().asSequence() },
+                            idToValue = Country::valueOf,
+                            itemsPerPage = 10
+                        )
                     )
 
-                }))
+                })
+        )
     }
 
     override val modalInfo = ModalInfo(title = { "${if (model.value.id == null) "Add" else "Edit"} Customer" }.ldm(),
-            footerButtons = {
-                listOf(
-                        KBootstrapAjaxButton(id = it,
-                                model = "Save".model(),
-                                form = form,
-                                onSubmit = { target, button -> send(button, Broadcast.BUBBLE, SaveEvent(target = target, content = model.value)) },
-                                onError = { target, _ -> target.add(this) }),
-                        KBootstrapAjaxButton(id = it,
-                                model = "Cancel".model(),
-                                defaultFormProcessing = false,
-                                form = form,
-                                onSubmit = { target, button -> send(button, Broadcast.BUBBLE, CancelEvent(target)) }))
-            })
+        footerButtons = {
+            listOf(
+                KBootstrapAjaxButton(id = it,
+                    model = "Save".model(),
+                    form = form,
+                    onSubmit = { target, button ->
+                        send(
+                            button,
+                            Broadcast.BUBBLE,
+                            SaveEvent(target = target, content = model.value)
+                        )
+                    },
+                    onError = { target, _ -> target.add(this) }),
+                KBootstrapAjaxButton(id = it,
+                    model = "Cancel".model(),
+                    defaultFormProcessing = false,
+                    form = form,
+                    onSubmit = { target, button -> send(button, Broadcast.BUBBLE, CancelEvent(target)) })
+            )
+        })
 
 }

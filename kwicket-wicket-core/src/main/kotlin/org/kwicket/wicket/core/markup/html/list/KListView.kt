@@ -21,27 +21,30 @@ import org.kwicket.component.init
  * @param escapeModelStrings optional flag indicating whether the [Component]'s model String values will be escaped
  * @param behaviors [List] of [Behavior]s to add to the [Component]
  */
-open class KListView<T, C : List<T>>(id: String,
-                                     model: IModel<C>? = null,
-                                     val populate: (ListItem<T>) -> Unit,
-                                     reuseItems: Boolean? = null,
-                                     outputMarkupId: Boolean? = null,
-                                     outputMarkupPlaceholderTag: Boolean? = null,
-                                     visible: Boolean? = null,
-                                     enabled: Boolean? = null,
-                                     renderBodyOnly: Boolean? = null,
-                                     escapeModelStrings: Boolean? = null,
-                                     vararg behaviors: Behavior)
-    : ListView<T>(id, model) {
+open class KListView<T, C : List<T>>(
+    id: String,
+    model: IModel<C>? = null,
+    val populate: (ListItem<T>) -> Unit,
+    reuseItems: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    vararg behaviors: Behavior
+) : ListView<T>(id, model) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                visible = visible,
-                enabled = enabled,
-                escapeModelStrings = escapeModelStrings,
-                renderBodyOnly = renderBodyOnly,
-                behaviors = *behaviors)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            visible = visible,
+            enabled = enabled,
+            escapeModelStrings = escapeModelStrings,
+            renderBodyOnly = renderBodyOnly,
+            behaviors = *behaviors
+        )
         reuseItems?.let { this.reuseItems = it }
     }
 

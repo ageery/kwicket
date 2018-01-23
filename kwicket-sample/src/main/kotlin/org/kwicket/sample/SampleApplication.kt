@@ -1,6 +1,5 @@
 package org.kwicket.sample
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.INotificationMessage
 import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapTheme
 import de.agilecoders.wicket.core.settings.SingleThemeProvider
 import org.apache.wicket.Component
@@ -32,17 +31,29 @@ class SampleApplication {
     private lateinit var wicketConfig: RuntimeConfigurationType
 
     @Bean
-    fun getWicketFilter(): Filter = KWicketFilter(webApp = SampleWebApplication(configurationType = wicketConfig), filterPath = "/")
+    fun getWicketFilter(): Filter =
+        KWicketFilter(webApp = SampleWebApplication(configurationType = wicketConfig), filterPath = "/")
 
     @Bean
     fun getCustomers(): MutableList<Customer> = mutableListOf(
-            Customer(id = UUID.randomUUID(), firstName = "Alice", lastName = "Anderson", address = Address(city = "Ann Arbor", country = Country.US)),
-            Customer(id = UUID.randomUUID(), firstName = "Bob", lastName = "Bo", address = Address(city = "Beijing", country = Country.China))
+        Customer(
+            id = UUID.randomUUID(),
+            firstName = "Alice",
+            lastName = "Anderson",
+            address = Address(city = "Ann Arbor", country = Country.US)
+        ),
+        Customer(
+            id = UUID.randomUUID(),
+            firstName = "Bob",
+            lastName = "Bo",
+            address = Address(city = "Beijing", country = Country.China)
+        )
     )
 
 }
 
-class SampleWebApplication(configurationType: RuntimeConfigurationType) : KWebApplication(configurationType = configurationType) {
+class SampleWebApplication(configurationType: RuntimeConfigurationType) :
+    KWebApplication(configurationType = configurationType) {
 
     override fun getHomePage() = ManageCustomersPage::class.java
 
@@ -64,18 +75,24 @@ private val notificationDuration: Duration = Duration.seconds(4)
 
 fun Component.success(msg: IModel<String>, target: AjaxRequestTarget? = null, vararg refresh: Component) {
     this.feedback(feedback = {
-        success(KNotificationMessage(
+        success(
+            KNotificationMessage(
                 message = msg,
                 header = "Success!".model(),
-                hideAfter = notificationDuration))
+                hideAfter = notificationDuration
+            )
+        )
     }, target = target, refresh = *refresh)
 }
 
 fun Component.info(msg: IModel<String>, target: AjaxRequestTarget? = null, vararg refresh: Component) {
     this.feedback(feedback = {
-        info(KNotificationMessage(
+        info(
+            KNotificationMessage(
                 message = msg,
-                hideAfter = notificationDuration))
+                hideAfter = notificationDuration
+            )
+        )
     }, target = target, refresh = *refresh)
 }
 

@@ -5,11 +5,13 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownBut
 import org.apache.wicket.markup.html.link.AbstractLink
 import org.apache.wicket.model.IModel
 
-open class KNavbarDropDownButton(model: IModel<String>,
-                                 icon: IModel<IconType>? = null,
-                                 private val submenus: (String) -> List<AbstractLink>)
-    : NavbarDropDownButton(model, icon) {
+open class KNavbarDropDownButton(
+    model: IModel<String>,
+    icon: IModel<IconType>? = null,
+    private val submenus: (String) -> List<AbstractLink>
+) : NavbarDropDownButton(model, icon) {
 
-    override fun newSubMenuButtons(buttonMarkupId: String): MutableList<AbstractLink> = submenus.invoke(buttonMarkupId).toMutableList()
+    override fun newSubMenuButtons(buttonMarkupId: String): MutableList<AbstractLink> =
+        submenus.invoke(buttonMarkupId).toMutableList()
 
 }

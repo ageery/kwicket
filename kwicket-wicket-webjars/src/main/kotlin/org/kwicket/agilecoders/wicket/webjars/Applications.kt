@@ -8,15 +8,17 @@ import org.apache.wicket.protocol.http.WebApplication
 import org.apache.wicket.util.time.Duration
 import java.util.regex.Pattern
 
-fun <A : WebApplication> A.enableWebjars(resourceStreamProvider: ResourceStreamProvider? = null,
-                                         assetPathCollectors: Array<AssetPathCollector>? = null,
-                                         webjarsPackage: String? = null,
-                                         webjarsPath: String? = null,
-                                         resourcePattern: Pattern? = null,
-                                         recentVersionPlaceHolder: String? = null,
-                                         readFromCacheTimeout: Duration? = null,
-                                         useCdnResources: Boolean? = null,
-                                         cdnUrl: String? = null): A {
+fun <A : WebApplication> A.enableWebjars(
+    resourceStreamProvider: ResourceStreamProvider? = null,
+    assetPathCollectors: Array<AssetPathCollector>? = null,
+    webjarsPackage: String? = null,
+    webjarsPath: String? = null,
+    resourcePattern: Pattern? = null,
+    recentVersionPlaceHolder: String? = null,
+    readFromCacheTimeout: Duration? = null,
+    useCdnResources: Boolean? = null,
+    cdnUrl: String? = null
+): A {
     val settings = WebjarsSettings()
 
     resourceStreamProvider?.let { settings.resourceStreamProvider(it) }

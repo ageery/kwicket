@@ -8,12 +8,13 @@ import org.kwicket.component.init
 /**
  * [Form] with named and default constructor arguments.
  */
-open class KForm<T>(id: String,
-               model: IModel<T>? = null,
-               outputMarkupPlaceholderTag: Boolean? = null,
-               outputMarkupId: Boolean? = null,
-               vararg validators: IFormValidator)
-    : Form<T>(id, model) {
+open class KForm<T>(
+    id: String,
+    model: IModel<T>? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    vararg validators: IFormValidator
+) : Form<T>(id, model) {
 
     init {
         init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag, outputMarkupId = outputMarkupId)

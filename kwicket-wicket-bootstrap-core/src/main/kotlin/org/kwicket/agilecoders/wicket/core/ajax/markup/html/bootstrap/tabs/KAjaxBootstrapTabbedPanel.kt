@@ -4,7 +4,8 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.tabs.AjaxBootstrapTabbed
 import org.apache.wicket.extensions.markup.html.tabs.ITab
 import org.apache.wicket.model.IModel
 
-open class KAjaxBootstrapTabbedPanel<T: ITab>(id: String,
-                                              tabs: List<T>,
-                                              model: IModel<Int>? = null)
-    : AjaxBootstrapTabbedPanel<T>(id, tabs, model)
+open class KAjaxBootstrapTabbedPanel<T : ITab>(
+    id: String,
+    tabs: List<T>,
+    model: IModel<Int>? = null
+) : AjaxBootstrapTabbedPanel<T>(id, tabs, model)

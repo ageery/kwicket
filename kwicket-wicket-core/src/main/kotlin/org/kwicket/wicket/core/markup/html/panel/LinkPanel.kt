@@ -8,29 +8,34 @@ import org.kwicket.model.listModel
 import org.kwicket.model.value
 import org.kwicket.wicket.core.markup.html.list.KListView
 
-class LinkPanel<T>(id: String,
-                   model: IModel<T>,
-                   links: (String, IModel<T>) -> List<AbstractLink>,
-                   outputMarkupId: Boolean? = null,
-                   outputMarkupPlaceholderTag: Boolean? = null,
-                   visible: Boolean? = null,
-                   enabled: Boolean? = null,
-                   renderBodyOnly: Boolean? = null,
-                   escapeModelStrings: Boolean? = null,
-                   vararg behaviors: Behavior)
-    : KPanel(id = id, model = model) {
+class LinkPanel<T>(
+    id: String,
+    model: IModel<T>,
+    links: (String, IModel<T>) -> List<AbstractLink>,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    vararg behaviors: Behavior
+) : KPanel(id = id, model = model) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                visible = visible,
-                enabled = enabled,
-                escapeModelStrings = escapeModelStrings,
-                renderBodyOnly = renderBodyOnly,
-                behaviors = *behaviors)
-        add(KListView(id = "links",
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            visible = visible,
+            enabled = enabled,
+            escapeModelStrings = escapeModelStrings,
+            renderBodyOnly = renderBodyOnly,
+            behaviors = *behaviors
+        )
+        add(
+            KListView(id = "links",
                 model = links.invoke("link", model).listModel(),
-                populate = { item -> item.add(item.model.value) }))
+                populate = { item -> item.add(item.model.value) })
+        )
     }
 
 }

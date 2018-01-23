@@ -8,26 +8,29 @@ import org.kwicket.component.init
 /**
  * [TextField] with named and default constructor arguments.
  */
-open class KTextField<T>(id: String,
-                         model: IModel<T?>? = null,
-                         type: Class<T>? = null,
-                         required: Boolean? = null,
-                         outputMarkupId: Boolean? = null,
-                         outputMarkupPlaceholderTag: Boolean? = null,
-                         label: IModel<String>? = null,
-                         visible: Boolean? = null,
-                         enabled: Boolean? = null,
-                         vararg behaviors: Behavior)
-    : TextField<T>(id, model, type) {
+open class KTextField<T>(
+    id: String,
+    model: IModel<T?>? = null,
+    type: Class<T>? = null,
+    required: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    label: IModel<String>? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    vararg behaviors: Behavior
+) : TextField<T>(id, model, type) {
 
     init {
-        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                outputMarkupId = outputMarkupId,
-                visible = visible,
-                enabled = enabled,
-                behaviors = *behaviors,
-                required = required,
-                label = label)
+        init(
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            outputMarkupId = outputMarkupId,
+            visible = visible,
+            enabled = enabled,
+            behaviors = *behaviors,
+            required = required,
+            label = label
+        )
     }
 
 }

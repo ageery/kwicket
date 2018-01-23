@@ -9,22 +9,25 @@ import org.kwicket.component.init
 /**
  * [BookmarkablePageLink] with named and default constructor arguments.
  */
-open class KBookmarkablePageLink<C: Page>(id: String,
-                                          page: Class<C>,
-                                          params: PageParameters? = null,
-                                          outputMarkupId: Boolean? = null,
-                                          outputMarkupPlaceholderTag: Boolean? = null,
-                                          visible: Boolean? = null,
-                                          enabled: Boolean? = null,
-                                          vararg behaviors: Behavior)
-    : BookmarkablePageLink<C>(id, page, params) {
+open class KBookmarkablePageLink<C : Page>(
+    id: String,
+    page: Class<C>,
+    params: PageParameters? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    vararg behaviors: Behavior
+) : BookmarkablePageLink<C>(id, page, params) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                visible = visible,
-                enabled = enabled,
-                behaviors = *behaviors)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            visible = visible,
+            enabled = enabled,
+            behaviors = *behaviors
+        )
     }
 
 }

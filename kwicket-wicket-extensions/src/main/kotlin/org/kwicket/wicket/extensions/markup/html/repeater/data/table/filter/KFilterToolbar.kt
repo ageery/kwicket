@@ -6,15 +6,18 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.Filte
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterToolbar
 import org.kwicket.component.init
 
-class KFilterToolbar<T, S, C>(table: DataTable<T, S>,
-                              form: FilterForm<C>,
-                              visible: Boolean? = null,
-                              vararg behaviors: Behavior)
-    : FilterToolbar(table, form) {
+class KFilterToolbar<T, S, C>(
+    table: DataTable<T, S>,
+    form: FilterForm<C>,
+    visible: Boolean? = null,
+    vararg behaviors: Behavior
+) : FilterToolbar(table, form) {
 
     init {
-        init(behaviors = *behaviors,
-                visible = visible)
+        init(
+            behaviors = *behaviors,
+            visible = visible
+        )
     }
 
 }

@@ -8,21 +8,24 @@ import org.kwicket.component.init
 /**
  * [TextArea] with named and default constructor arguments.
  */
-open class KTextArea<T>(id: String,
-                     model: IModel<T>,
-                     required: Boolean? = null,
-                     outputMarkupId: Boolean? = null,
-                     outputMarkupPlaceholderTag: Boolean? = null,
-                     label: IModel<String>? = null,
-                     vararg behaviors: Behavior
+open class KTextArea<T>(
+    id: String,
+    model: IModel<T>,
+    required: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    label: IModel<String>? = null,
+    vararg behaviors: Behavior
 ) : TextArea<T>(id, model) {
 
     init {
-        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                outputMarkupId = outputMarkupId,
-                behaviors = *behaviors,
-                required = required,
-                label = label)
+        init(
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            outputMarkupId = outputMarkupId,
+            behaviors = *behaviors,
+            required = required,
+            label = label
+        )
     }
 
 }

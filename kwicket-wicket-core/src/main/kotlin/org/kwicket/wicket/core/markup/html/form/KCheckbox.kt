@@ -8,18 +8,21 @@ import org.kwicket.component.init
 /**
  * [Checkbox] with named and default constructor arguments.
  */
-open class KCheckbox(id: String,
-                model: IModel<Boolean>,
-                outputMarkupPlaceholderTag: Boolean? = null,
-                outputMarkupId: Boolean? = null,
-                label: IModel<String>? = null,
-                vararg behaviors: Behavior)
-    : CheckBox(id, model) {
+open class KCheckbox(
+    id: String,
+    model: IModel<Boolean>,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    label: IModel<String>? = null,
+    vararg behaviors: Behavior
+) : CheckBox(id, model) {
 
     init {
-        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                outputMarkupId = outputMarkupId,
-                behaviors = *behaviors,
-                label = label)
+        init(
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            outputMarkupId = outputMarkupId,
+            behaviors = *behaviors,
+            label = label
+        )
     }
 }

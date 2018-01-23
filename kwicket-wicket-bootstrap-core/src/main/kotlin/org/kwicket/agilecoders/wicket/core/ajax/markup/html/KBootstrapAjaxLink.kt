@@ -9,23 +9,25 @@ import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 
 // FIXME: change the icon to a model...
-open class KBootstrapAjaxLink<T>(id: String,
-                            model: IModel<T>? = null,
-                            type: Buttons.Type = Buttons.Type.Default,
-                            size: Buttons.Size? = null,
-                            label: IModel<String>? = null,
-                            val onClick: (AjaxRequestTarget, KBootstrapAjaxLink<T>) -> Unit, // FIXME: reverse the two params
-                            icon: IconType? = null,
-                            outputMarkupId: Boolean? = null,
-                            outputMarkupPlaceholderTag: Boolean? = null,
-                            vararg behaviors: Behavior)
-    : BootstrapAjaxLink<T>(id, model, type, label) {
+open class KBootstrapAjaxLink<T>(
+    id: String,
+    model: IModel<T>? = null,
+    type: Buttons.Type = Buttons.Type.Default,
+    size: Buttons.Size? = null,
+    label: IModel<String>? = null,
+    val onClick: (AjaxRequestTarget, KBootstrapAjaxLink<T>) -> Unit, // FIXME: reverse the two params
+    icon: IconType? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    vararg behaviors: Behavior
+) : BootstrapAjaxLink<T>(id, model, type, label) {
 
     init {
         init(
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                outputMarkupId = outputMarkupId,
-                behaviors = *behaviors)
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            outputMarkupId = outputMarkupId,
+            behaviors = *behaviors
+        )
         setIconType(icon)
         size?.let { setSize(it) }
     }

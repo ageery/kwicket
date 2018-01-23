@@ -5,6 +5,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents
 import org.apache.wicket.Component
 
 fun positionLeft(vararg components: Component) =
-        NavbarComponents.transform(Navbar.ComponentPosition.LEFT, *components)
+    NavbarComponents.transform(Navbar.ComponentPosition.LEFT, *components)
+
 fun positionRight(vararg components: Component) =
-        NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, *components)
+    NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, *components)

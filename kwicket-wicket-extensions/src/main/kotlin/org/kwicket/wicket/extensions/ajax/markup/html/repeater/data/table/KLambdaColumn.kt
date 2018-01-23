@@ -9,7 +9,8 @@ private class KSerializableFunction<T, R>(val function: (T) -> R) : Serializable
 }
 
 
-class KLambdaColumn<T, S>(displayModel: IModel<String>,
-                          sort: S?,
-                          function: (T) -> Any?)
-    : LambdaColumn<T, S>(displayModel, sort, KSerializableFunction(function = function))
+class KLambdaColumn<T, S>(
+    displayModel: IModel<String>,
+    sort: S?,
+    function: (T) -> Any?
+) : LambdaColumn<T, S>(displayModel, sort, KSerializableFunction(function = function))

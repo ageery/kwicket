@@ -11,24 +11,27 @@ import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 
 // FIXME: change the icon to an IModel...
-open class KBootstrapAjaxButton(id: String,
-                                model: IModel<String>? = null,
-                                val onSubmit: (AjaxRequestTarget, KBootstrapAjaxButton) -> Unit,
-                                defaultFormProcessing: Boolean? = null,
-                                form: Form<*>? = null,
-                                val onError: ((AjaxRequestTarget, KBootstrapAjaxButton) -> Unit)? = null,
-                                outputMarkupId: Boolean? = null,
-                                outputMarkupPlaceholderTag: Boolean? = null,
-                                type: Buttons.Type = Buttons.Type.Default,
-                                icon: IconType? = null,
-                                size: Buttons.Size? = null,
-                                vararg behaviors: Behavior)
-    : BootstrapAjaxButton(id, model, form, type) {
+open class KBootstrapAjaxButton(
+    id: String,
+    model: IModel<String>? = null,
+    val onSubmit: (AjaxRequestTarget, KBootstrapAjaxButton) -> Unit,
+    defaultFormProcessing: Boolean? = null,
+    form: Form<*>? = null,
+    val onError: ((AjaxRequestTarget, KBootstrapAjaxButton) -> Unit)? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    type: Buttons.Type = Buttons.Type.Default,
+    icon: IconType? = null,
+    size: Buttons.Size? = null,
+    vararg behaviors: Behavior
+) : BootstrapAjaxButton(id, model, form, type) {
 
     init {
-        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                outputMarkupId = outputMarkupId,
-                behaviors = *behaviors)
+        init(
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            outputMarkupId = outputMarkupId,
+            behaviors = *behaviors
+        )
         defaultFormProcessing?.let { this.defaultFormProcessing = it }
         icon?.let { setIconType(it) }
         size?.let { setSize(it) }
@@ -39,7 +42,8 @@ open class KBootstrapAjaxButton(id: String,
     }
 
     override fun onError(target: AjaxRequestTarget) {
-        onError?.invoke(target, this) ?: throw WicketRuntimeException("No onError handler defined for ${javaClass.name} with id=$id")
+        onError?.invoke(target, this)
+                ?: throw WicketRuntimeException("No onError handler defined for ${javaClass.name} with id=$id")
     }
 
 }

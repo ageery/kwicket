@@ -7,11 +7,12 @@ import org.apache.wicket.model.IModel
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.kwicket.model.model
 
-open class KNavbarButton<T: Page>(pageClass: Class<T>,
-                                  label: IModel<String>? = "".model(),
-                                  params: PageParameters? = null,
-                                  icon: IconType? = null)
-    : NavbarButton<T>(pageClass, params, label) {
+open class KNavbarButton<T : Page>(
+    pageClass: Class<T>,
+    label: IModel<String>? = "".model(),
+    params: PageParameters? = null,
+    icon: IconType? = null
+) : NavbarButton<T>(pageClass, params, label) {
 
     init {
         icon?.let { setIconType(icon) }

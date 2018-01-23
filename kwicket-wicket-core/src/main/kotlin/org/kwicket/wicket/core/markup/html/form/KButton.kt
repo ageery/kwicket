@@ -9,18 +9,21 @@ import org.kwicket.component.init
 /**
  * [Button] with named and default constructor arguments.
  */
-open class KButton(id: String,
-                   model: IModel<String>? = null,
-                   defaultFormProcessing: Boolean? = null,
-                   private val onSubmit: NonAjaxHandler,
-                   private val onError: NonAjaxHandler? = null,
-                   outputMarkupId: Boolean? = null,
-                   outputMarkupPlaceholderTag: Boolean? = null)
-    : Button(id, model) {
+open class KButton(
+    id: String,
+    model: IModel<String>? = null,
+    defaultFormProcessing: Boolean? = null,
+    private val onSubmit: NonAjaxHandler,
+    private val onError: NonAjaxHandler? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null
+) : Button(id, model) {
 
     init {
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag
+        )
         this.defaultFormProcessing = defaultFormProcessing ?: this.defaultFormProcessing
     }
 
@@ -29,7 +32,8 @@ open class KButton(id: String,
     }
 
     override fun onError() {
-        onError?.invoke() ?: throw WicketRuntimeException("No onError handler defined for ${javaClass.name} with id=$id")
+        onError?.invoke()
+                ?: throw WicketRuntimeException("No onError handler defined for ${javaClass.name} with id=$id")
     }
 
 }

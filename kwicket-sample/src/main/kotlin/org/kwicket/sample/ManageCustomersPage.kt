@@ -16,7 +16,6 @@ import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.button.KBo
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.KBootstrapForm
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelModal
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
-import org.kwicket.behavior.AsyncModelLoadBehavior
 import org.kwicket.component.q
 import org.kwicket.component.refresh
 import org.kwicket.model.AsyncModel
@@ -49,70 +48,113 @@ class ManageCustomersPage : BasePage() {
 
     init {
 
-        q(KLabel(id = "t1",
+        q(
+            KLabel(id = "t1",
                 //behaviors = listOf(AsyncModelLoadBehavior()),
-                model = AsyncModel(block = { println("start - ${LocalDateTime.now()} - t1"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t1"); "t1" })))
-        q(KLabel(id = "t2",
+                model = AsyncModel(block = {
+                    println("start - ${LocalDateTime.now()} - t1"); delay(
+                    time = 3,
+                    unit = TimeUnit.SECONDS
+                ); println("finished - ${LocalDateTime.now()} - t1"); "t1"
+                })
+            )
+        )
+        q(
+            KLabel(id = "t2",
                 //behaviors = listOf(AsyncModelLoadBehavior()),
-                model = AsyncModel(block = { println("start - ${LocalDateTime.now()} - t2"); delay(time = 3, unit = TimeUnit.SECONDS); println("finished - ${LocalDateTime.now()} - t2"); "t2" })))
+                model = AsyncModel(block = {
+                    println("start - ${LocalDateTime.now()} - t2"); delay(
+                    time = 3,
+                    unit = TimeUnit.SECONDS
+                ); println("finished - ${LocalDateTime.now()} - t2"); "t2"
+                })
+            )
+        )
 
         val searchModel: IModel<String?> = null.model()
         val x = object : BigDecimalConverter() {
             override fun getNumberFormat(locale: Locale?): NumberFormat = DecimalFormat.getCurrencyInstance()
         }
         q(object : KLabel(id = "dob", model = LocalDate.now().model()) {
-            override fun <C : Any?> getConverter(type: Class<C>?): IConverter<C> = KConverter(toString = { v, locale -> "andrew" })
+            override fun <C : Any?> getConverter(type: Class<C>?): IConverter<C> =
+                KConverter(toString = { v, locale -> "andrew" })
         })
-        val form = q(KBootstrapForm(id = "form",
+        val form = q(
+            KBootstrapForm(
+                id = "form",
                 model = searchModel,
                 type = FormType.Inline,
-                outputMarkupId = true))
-        table = q(KAjaxFallbackDefaultDataTable<Customer, CustomerSort>(id = "table",
+                outputMarkupId = true
+            )
+        )
+        table = q(
+            KAjaxFallbackDefaultDataTable<Customer, CustomerSort>(
+                id = "table",
                 outputMarkupId = true,
                 columns = listOf(
-                        KLambdaColumn(displayModel = "First Name".model(),
-                                sort = CustomerSort.FirstName,
-                                function = { it.firstName }),
-                        KLambdaColumn(displayModel = "Last Name".model(),
-                                sort = CustomerSort.LastName,
-                                function = { it.lastName }),
-                        LinkColumn(displayModel = "Action".model(),
-                                links = { id, model ->
-                                    listOf(
-                                            KBootstrapAjaxLink(id = id, model = model,
-                                                    icon = GlyphIconType.remove, onClick = { target, link ->
-                                                link.send(link, Broadcast.BUBBLE, DeleteEvent(target = target, content = model.value))
-                                            }),
-                                            KBootstrapAjaxLink(id = id, model = model,
-                                                    icon = GlyphIconType.edit, onClick = { target, _ ->
-                                                modal.show(target = target,
-                                                        panel = { EditCustomerPanel(it, model.value.toEdit.model()) })
-                                            }))
-                                })
+                    KLambdaColumn(displayModel = "First Name".model(),
+                        sort = CustomerSort.FirstName,
+                        function = { it.firstName }),
+                    KLambdaColumn(displayModel = "Last Name".model(),
+                        sort = CustomerSort.LastName,
+                        function = { it.lastName }),
+                    LinkColumn(displayModel = "Action".model(),
+                        links = { id, model ->
+                            listOf(
+                                KBootstrapAjaxLink(id = id, model = model,
+                                    icon = GlyphIconType.remove, onClick = { target, link ->
+                                        link.send(
+                                            link,
+                                            Broadcast.BUBBLE,
+                                            DeleteEvent(target = target, content = model.value)
+                                        )
+                                    }),
+                                KBootstrapAjaxLink(id = id, model = model,
+                                    icon = GlyphIconType.edit, onClick = { target, _ ->
+                                        modal.show(target = target,
+                                            panel = { EditCustomerPanel(it, model.value.toEdit.model()) })
+                                    })
+                            )
+                        })
                 ),
-                dataProvider = KSortableDataProvider(count = { customerService.count(term = searchModel.value).toLong() },
-                        items = { first, count, sort, asc ->
-                            customerService.find(term = searchModel.value, sort = sort, asc = asc,
-                                    first = first.toInt(), count = count.toInt())
-                        },
-                        modeler = { it.model() }),
+                dataProvider = KSortableDataProvider(count = {
+                    customerService.count(term = searchModel.value).toLong()
+                },
+                    items = { first, count, sort, asc ->
+                        customerService.find(
+                            term = searchModel.value, sort = sort, asc = asc,
+                            first = first.toInt(), count = count.toInt()
+                        )
+                    },
+                    modeler = { it.model() }),
                 rowsPerPage = 10,
-                behaviors = *arrayOf(KTableBehavior(hover = true, bordered = true, condensed = true, striped = true))))
-        q(KTextField(id = "search",
+                behaviors = *arrayOf(KTableBehavior(hover = true, bordered = true, condensed = true, striped = true))
+            )
+        )
+        q(
+            KTextField(
+                id = "search",
                 model = searchModel,
-                behaviors = *arrayOf(InputBehavior())))
-        q(KBootstrapAjaxButton(id = "searchButton",
+                behaviors = *arrayOf(InputBehavior())
+            )
+        )
+        q(
+            KBootstrapAjaxButton(id = "searchButton",
                 icon = GlyphIconType.search,
                 model = "Search".model(),
-                onSubmit = { _, _ -> table.refresh() }))
-        q(KBootstrapAjaxButton(id = "addButton",
+                onSubmit = { _, _ -> table.refresh() })
+        )
+        q(
+            KBootstrapAjaxButton(id = "addButton",
                 icon = GlyphIconType.plus,
                 model = "Add".model(),
                 onSubmit = { target, _ ->
                     modal.show(target = target,
-                            panel = { EditCustomerPanel(it, EditCustomer().model()) })
-                }))
-        q(KBootstrapAjaxButton(id = "resetButton",
+                        panel = { EditCustomerPanel(it, EditCustomer().model()) })
+                })
+        )
+        q(
+            KBootstrapAjaxButton(id = "resetButton",
                 defaultFormProcessing = false,
                 icon = GlyphIconType.refresh,
                 model = "Reset".model(),
@@ -121,7 +163,8 @@ class ManageCustomersPage : BasePage() {
                     form.clearInput()
                     form.refresh()
                     table.refresh()
-                }))
+                })
+        )
     }
 
     override fun onEvent(event: IEvent<*>) {
@@ -139,9 +182,13 @@ class ManageCustomersPage : BasePage() {
                         val customer = payload.content.fromEdit
                         val fullname = customer.fullName
                         val action = if (payload.content.id == null) "added" else "updated"
-                        if (payload.content.id == null) customerService.insert(customer) else customerService.update(customer)
-                        success(msg = { "Customer '${fullname}' successfully ${action}" }.ldm(),
-                                refresh = table)
+                        if (payload.content.id == null) customerService.insert(customer) else customerService.update(
+                            customer
+                        )
+                        success(
+                            msg = { "Customer '${fullname}' successfully ${action}" }.ldm(),
+                            refresh = table
+                        )
                     }
                 }
             is DeleteEvent<*> ->
@@ -149,8 +196,10 @@ class ManageCustomersPage : BasePage() {
                     is Customer -> {
                         val fullname = payload.content.fullName
                         customerService.delete(payload.content)
-                        success(msg = { "Customer '${fullname}' successfully deleted" }.ldm(),
-                                refresh = table)
+                        success(
+                            msg = { "Customer '${fullname}' successfully deleted" }.ldm(),
+                            refresh = table
+                        )
                     }
                 }
         }

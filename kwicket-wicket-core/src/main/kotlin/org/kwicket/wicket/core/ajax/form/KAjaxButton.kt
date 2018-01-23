@@ -12,16 +12,17 @@ import org.slf4j.LoggerFactory
 /**
  * [AjaxButton] with named and default constructor arguments.
  */
-open class KAjaxButton(id: String,
-                       model: IModel<String>? = null,
-                       form: Form<*>? = null,
-                       private val onSubmit: AjaxHandler,
-                       private val onError: AjaxHandler? = null,
-                       defaultFormProcessing: Boolean? = null,
-                       outputMarkupId: Boolean? = null,
-                       outputMarkupPlaceholderTag: Boolean? = null,
-                       vararg behaviors: Behavior)
-    : AjaxButton(id, model, form) {
+open class KAjaxButton(
+    id: String,
+    model: IModel<String>? = null,
+    form: Form<*>? = null,
+    private val onSubmit: AjaxHandler,
+    private val onError: AjaxHandler? = null,
+    defaultFormProcessing: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    vararg behaviors: Behavior
+) : AjaxButton(id, model, form) {
 
     companion object {
         private val logger = LoggerFactory.getLogger(KAjaxButton::class.java)
@@ -29,9 +30,11 @@ open class KAjaxButton(id: String,
 
     init {
         defaultFormProcessing?.let { this.defaultFormProcessing = it }
-        init(outputMarkupId = outputMarkupId,
-                outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-                behaviors = *behaviors)
+        init(
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            behaviors = *behaviors
+        )
     }
 
     override fun onSubmit(target: AjaxRequestTarget) {
@@ -39,8 +42,10 @@ open class KAjaxButton(id: String,
     }
 
     override fun onError(target: AjaxRequestTarget) {
-        onError?.invoke(target) ?: logger.warn("The onError() method was invoked on component " +
-                "${javaClass.name} with id='$id' but no onError handler was defined.")
+        onError?.invoke(target) ?: logger.warn(
+            "The onError() method was invoked on component " +
+                    "${javaClass.name} with id='$id' but no onError handler was defined."
+        )
     }
 
 }

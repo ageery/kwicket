@@ -36,11 +36,15 @@ abstract class BasePage(pageParameters: PageParameters? = null) : WebPage(pagePa
         q(Label("title", ResourceModel("page.title")))
         q(MobileViewportMetaTag("viewport"))
         q(IeEdgeMetaTag("ie-edge"))
-        q(KNavbar(id = "navbar",
+        q(
+            KNavbar(
+                id = "navbar",
                 renderBodyOnly = false,
                 brandName = ResourceModel("app.name"),
                 inverted = true,
-                position = Navbar.Position.TOP))
+                position = Navbar.Position.TOP
+            )
+        )
         q(Icon("ajax-indicator", FontAwesomeIconType.spinner).setMarkupId(ajaxIndicatorId))
         feedback = q(KNotificationPanel(id = "feedback", outputMarkupPlaceholderTag = true))
     }

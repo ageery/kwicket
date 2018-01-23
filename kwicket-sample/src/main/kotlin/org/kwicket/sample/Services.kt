@@ -14,29 +14,35 @@ interface CustomerService {
 @Service
 class CustomerServiceImpl(@Autowired val customers: MutableList<Customer>) : CustomerService {
 
-    val sortLambda = { sort: CustomerSort, customer: Customer -> if (sort == CustomerSort.FirstName) customer.firstName else customer.lastName }
+    val sortLambda =
+        { sort: CustomerSort, customer: Customer -> if (sort == CustomerSort.FirstName) customer.firstName else customer.lastName }
 
     private val nameFilter: (String?, Customer) -> Boolean = { term, customer ->
         term
-                ?.toLowerCase()
-                ?.let { t ->
-                    listOf(customer.lastName, customer.firstName)
-                            .map { it.toLowerCase() }
-                            .any { it.contains(other = t) }
-                } != false
+            ?.toLowerCase()
+            ?.let { t ->
+                listOf(customer.lastName, customer.firstName)
+                    .map { it.toLowerCase() }
+                    .any { it.contains(other = t) }
+            } != false
     }
 
     private fun filter(term: String?) = customers
-            .asSequence()
-            .filter { customer -> nameFilter(term, customer) }
+        .asSequence()
+        .filter { customer -> nameFilter(term, customer) }
 
     override fun find(term: String?, sort: CustomerSort?, first: Int, count: Int, asc: Boolean): Sequence<Customer> {
         var filtered = filter(term = term)
         sort?.let {
-            filtered = if (asc) filtered.sortedBy { sortLambda(sort, it) } else filtered.sortedByDescending { sortLambda(sort, it) }
+            filtered = if (asc) filtered.sortedBy { sortLambda(sort, it) } else filtered.sortedByDescending {
+                sortLambda(
+                    sort,
+                    it
+                )
+            }
         }
         return filtered.drop(first)
-                .take(count)
+            .take(count)
     }
 
     override fun count(term: String?) = filter(term = term).count()

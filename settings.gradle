@@ -1,10 +1,10 @@
 rootProject.name = 'org.kwicket'
-include 'kwicket-core', \
-        'kwicket-wicket-core', \
-        'kwicket-wicket-extensions',\
-        'kwicket-wicket-spring',\
-        'kwicket-wicketstuff-select2',\
-        'kwicket-wicketstuff-annotation',\
-        'kwicket-wicket-bootstrap-core', \
-        'kwicket-wicket-webjars',\
-        'kwicket-sample'
+include 'kwicket-core',  \
+         'kwicket-wicket-core',  \
+         'kwicket-wicket-extensions', \
+         'kwicket-wicket-spring', \
+         'kwicket-wicketstuff-select2', \
+         'kwicket-wicketstuff-annotation', \
+         'kwicket-wicket-bootstrap-core',  \
+         'kwicket-wicket-webjars', \
+         'kwicket-sample'

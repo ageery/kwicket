@@ -1,7 +1,6 @@
 package org.kwicket.sample
 
 import java.io.Serializable
-import java.time.LocalDate
 import java.util.*
 
 enum class CustomerSort {
@@ -20,11 +19,13 @@ data class Address(var city: String, var country: Country) : Serializable {
     }
 }
 
-data class Customer(val id: UUID,
-                    var firstName: String,
-                    var age: Int? = null,
-                    var lastName: String,
-                    val address: Address) : Serializable {
+data class Customer(
+    val id: UUID,
+    var firstName: String,
+    var age: Int? = null,
+    var lastName: String,
+    val address: Address
+) : Serializable {
 
     companion object {
         val maxFirstNameLength: Int = 15
@@ -36,25 +37,33 @@ data class Customer(val id: UUID,
 
 }
 
-data class EditCustomer(val id: UUID? = null,
-                        var firstName: String? = null,
-                        var lastName: String? = null,
-                        var age: Int? = null,
-                        var city: String? = null,
-                        var country: Country? = null) : Serializable
+data class EditCustomer(
+    val id: UUID? = null,
+    var firstName: String? = null,
+    var lastName: String? = null,
+    var age: Int? = null,
+    var city: String? = null,
+    var country: Country? = null
+) : Serializable
 
 val Customer.toEdit: EditCustomer
-    get() = EditCustomer(id = this.id,
-            firstName = this.firstName,
-            lastName = this.lastName,
-            age = this.age,
-            city = this.address.city,
-            country = this.address.country)
+    get() = EditCustomer(
+        id = this.id,
+        firstName = this.firstName,
+        lastName = this.lastName,
+        age = this.age,
+        city = this.address.city,
+        country = this.address.country
+    )
 
 val EditCustomer.fromEdit: Customer
-    get() = Customer(id = this.id ?: UUID.randomUUID(),
-            firstName = this.firstName ?: throw RuntimeException("First name is required"),
-            lastName = this.lastName ?: throw RuntimeException("Last name is required"),
-            age = this.age,
-            address = Address(city = this.city ?: throw RuntimeException("Address city is required"),
-                    country = this.country ?: throw RuntimeException("Address country is required")))
+    get() = Customer(
+        id = this.id ?: UUID.randomUUID(),
+        firstName = this.firstName ?: throw RuntimeException("First name is required"),
+        lastName = this.lastName ?: throw RuntimeException("Last name is required"),
+        age = this.age,
+        address = Address(
+            city = this.city ?: throw RuntimeException("Address city is required"),
+            country = this.country ?: throw RuntimeException("Address country is required")
+        )
+    )
