@@ -29,6 +29,9 @@ property from the value of the model (e.g., `val ageModel: IModel<Int> = personM
 * `IModel<*> + PropChain<M>` -  Creates an `IModel<M>` where the value is provided by applying the chain of properties
 to the value of the model (e.g., `val motherName = childModel + PropChain { Person::mother + Person::name }`).
 
+* `AsyncModel` - uses Kotlin [coroutines](https://kotlinlang.org/docs/reference/coroutines.html) to asynchronously 
+load model values (use with either `AsyncModelLoadBehavior` or `AsyncModelLoaderOnConfigureListener`)
+
 Components
 ----------
 
@@ -226,8 +229,8 @@ declare your dependencies on the appropriate Wicket libraries _and_ also add the
     </repositories>
     ...
     <properties>
-        <wicketVersion>8.0.0-M7</wicketVersion>
-        <kwicketVersion>0.0.1</kwicketVersion>
+        <wicketVersion>8.0.0-M8</wicketVersion>
+        <kwicketVersion>0.0.2</kwicketVersion>
     </properties>
     ...
     <dependencies>
@@ -261,5 +264,8 @@ What's New
 ----------
 
 * 0.2
-    - `AsyncModel`
-    - webjars support
+    - Asynchronous model support (`AsyncModel` plus `AsyncModelLoadBehavior` or `AsyncModelLoaderOnConfigureListener`) 
+    uses Kotlin [coroutines](https://kotlinlang.org/docs/reference/coroutines.html) to asynchronously load model
+    values
+    
+    - [wicket-webjars](https://github.com/l0rdn1kk0n/wicket-webjars) support
