@@ -1,4 +1,3 @@
 dependencies {
-    compile project(':kwicket-core')
     compileOnly("de.agilecoders.wicket.webjars:wicket-webjars:$wicketWebjarsVersion")
 }
