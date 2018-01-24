@@ -2,7 +2,6 @@ package org.kwicket.builder
 
 import kotlinx.html.A
 import kotlinx.html.BUTTON
-import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.DIV
 import kotlinx.html.FORM
 import kotlinx.html.FlowContent
@@ -93,13 +92,18 @@ open class CHILD(consumer: TagConsumer<*>) : HTMLTag(
 ),
     HtmlBlockInlineTag
 
-class PANEL(consumer: TagConsumer<*>) : HTMLTag(
-    tagName = "$ns:panel",
+abstract class PanelTag(tagName: String, consumer: TagConsumer<*>) : HTMLTag(
+    tagName = tagName,
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = false,
     emptyTag = false
-), HtmlBlockTag, CommonAttributeGroupFacade
+), HtmlBlockTag
+
+class PANEL(consumer: TagConsumer<*>) : PanelTag(
+    tagName = "$ns:panel",
+    consumer = consumer
+), HtmlBlockTag
 
 class BORDER(consumer: TagConsumer<*>) : HTMLTag(
     tagName = "$ns:border",
@@ -109,12 +113,9 @@ class BORDER(consumer: TagConsumer<*>) : HTMLTag(
     emptyTag = false
 ), HtmlBlockTag
 
-class EXTEND(consumer: TagConsumer<*>) : HTMLTag(
+class EXTEND(consumer: TagConsumer<*>) : PanelTag(
     tagName = "$ns:extend",
-    consumer = consumer,
-    initialAttributes = emptyMap(),
-    inlineTag = false,
-    emptyTag = false
+    consumer = consumer
 ), HtmlBlockTag
 
 fun FlowContent.form(id: String? = null, classes: String? = null, block: FORM.() -> Unit = {}): Unit =

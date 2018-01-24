@@ -181,7 +181,7 @@ class ManageCustomersPage : BasePage() {
                         )
                         success(
                             msg = { "Customer '${fullname}' successfully ${action}" }.ldm(),
-                            refresh = table
+                            refresh = *arrayOf(table)
                         )
                     }
                 }
@@ -192,7 +192,7 @@ class ManageCustomersPage : BasePage() {
                         customerService.delete(payload.content)
                         success(
                             msg = { "Customer '${fullname}' successfully deleted" }.ldm(),
-                            refresh = table
+                            refresh = *arrayOf(table)
                         )
                     }
                 }
