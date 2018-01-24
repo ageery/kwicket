@@ -2,6 +2,7 @@ package org.kwicket.builder
 
 import kotlinx.html.A
 import kotlinx.html.BUTTON
+import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.DIV
 import kotlinx.html.FORM
 import kotlinx.html.FlowContent
@@ -39,8 +40,11 @@ import kotlinx.html.ThScope
 import kotlinx.html.UL
 import kotlinx.html.attributes.enumEncode
 import kotlinx.html.attributesMapOf
+import kotlinx.html.stream.appendHTML
 import kotlinx.html.visit
 import kotlinx.html.visitAndFinalize
+import org.apache.wicket.util.resource.IResourceStream
+import org.kwicket.toResourceStream
 
 /*
  * TODO: other Wicket attributes and tags: https://cwiki.apache.org/confluence/display/WICKET/Wicket%27s+XHTML+tags
@@ -48,6 +52,10 @@ import kotlinx.html.visitAndFinalize
 
 private const val ns = "wicket"
 private const val idAttr = "$ns:id"
+
+fun <T, C : TagConsumer<T>> C.panel(block: PANEL.() -> Unit = {}): T = PANEL(this).visitAndFinalize(this, block)
+fun <T, C : TagConsumer<T>> C.border(block: BORDER.() -> Unit = {}): T = BORDER(this).visitAndFinalize(this, block)
+fun <T, C : TagConsumer<T>> C.extend(block: EXTEND.() -> Unit = {}): T = EXTEND(this).visitAndFinalize(this, block)
 
 fun HTML.panel(block: PANEL.() -> Unit = {}): Unit = PANEL(consumer).visit(block)
 fun HTML.border(block: BORDER.() -> Unit = {}): Unit = BORDER(consumer).visit(block)
@@ -67,20 +75,22 @@ val Tag.body: Unit
         consumer.onTagEnd(tag)
     }
 
-open class BODY(consumer : TagConsumer<*>) : HTMLTag(
+open class BODY(consumer: TagConsumer<*>) : HTMLTag(
     tagName = "$ns:body",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = true,
-    emptyTag = true),
+    emptyTag = true
+),
     HtmlBlockInlineTag
 
-open class CHILD(consumer : TagConsumer<*>) : HTMLTag(
+open class CHILD(consumer: TagConsumer<*>) : HTMLTag(
     tagName = "$ns:child",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = true,
-    emptyTag = true),
+    emptyTag = true
+),
     HtmlBlockInlineTag
 
 class PANEL(consumer: TagConsumer<*>) : HTMLTag(
@@ -89,7 +99,7 @@ class PANEL(consumer: TagConsumer<*>) : HTMLTag(
     initialAttributes = emptyMap(),
     inlineTag = false,
     emptyTag = false
-), HtmlBlockTag
+), HtmlBlockTag, CommonAttributeGroupFacade
 
 class BORDER(consumer: TagConsumer<*>) : HTMLTag(
     tagName = "$ns:border",
@@ -106,8 +116,6 @@ class EXTEND(consumer: TagConsumer<*>) : HTMLTag(
     inlineTag = false,
     emptyTag = false
 ), HtmlBlockTag
-
-fun <T, C : TagConsumer<T>> C.panel(block: PANEL.() -> Unit = {}): T = PANEL(this).visitAndFinalize(this, block)
 
 fun FlowContent.form(id: String? = null, classes: String? = null, block: FORM.() -> Unit = {}): Unit =
     FORM(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
@@ -214,3 +222,18 @@ fun TR.td(id: String? = null, classes: String? = null, block: TD.() -> Unit = {}
 
 fun TR.th(id: String? = null, scope: ThScope? = null, classes: String? = null, block: TH.() -> Unit = {}): Unit =
     TH(attributesMapOf("scope", scope?.enumEncode(), "class", classes, idAttr, id), consumer).visit(block)
+
+fun panel(block: PANEL.() -> Unit = {}): IResourceStream =
+    buildString {
+        appendHTML().panel(block = block)
+    }.toResourceStream()
+
+fun border(block: BORDER.() -> Unit = {}): IResourceStream =
+    buildString {
+        appendHTML().border(block = block)
+    }.toResourceStream()
+
+fun extend(block: EXTEND.() -> Unit = {}): IResourceStream =
+    buildString {
+        appendHTML().extend(block = block)
+    }.toResourceStream()
