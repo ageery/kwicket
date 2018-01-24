@@ -46,4 +46,9 @@ class AsyncLoadableDetachableModel<T>(
 
     override fun loadAsync() = initDeferred()
 
+    override fun onDetach() {
+        super.onDetach()
+        _deferred = null
+    }
+
 }
