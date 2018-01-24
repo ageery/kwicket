@@ -4,6 +4,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormType
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.GlyphIconType
 import kotlinx.coroutines.experimental.delay
+import kotlinx.html.span
 import org.apache.wicket.Component
 import org.apache.wicket.event.Broadcast
 import org.apache.wicket.event.IEvent
@@ -15,12 +16,18 @@ import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.KBoot
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelModal
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
 import org.kwicket.behavior.AsyncModelLoadBehavior
+import org.kwicket.builder.RegionInfoPanel
+import org.kwicket.builder.div
+import org.kwicket.builder.panel
+import org.kwicket.builder.region
+import org.kwicket.builder.span
 import org.kwicket.component.q
 import org.kwicket.component.refresh
 import org.kwicket.model.AsyncLoadableDetachableModel
 import org.kwicket.model.ldm
 import org.kwicket.model.model
 import org.kwicket.model.value
+import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
 import org.kwicket.wicket.core.markup.html.form.KTextField
 import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.KAjaxFallbackDefaultDataTable
@@ -40,8 +47,18 @@ class ManageCustomersPage : BasePage() {
     private val table: Component
     private val modal: PanelModal = q(PanelModal(id = "modal"))
 
+    private fun weather(model: IModel<String>) = region().panel {
+        div(id = "container", builder = { KWebMarkupContainer(id = it) }) {
+            span { +"The weather today at " }
+            span(id = "time", builder = { KLabel(id = it, model = { LocalDateTime.now().toLocalTime() }.ldm()) })
+            span { +" is " }
+            span(id = "weather", builder = { KLabel(id = it, model = model) })
+        }
+    }
+
     init {
         q(NamePanel(id = "name", model = "Lu Xun".model()))
+        q(RegionInfoPanel(id = "weather", model = "Sunny".model(), region = { weather(it) }))
         q(
             KLabel(
                 id = "t1",

@@ -42,6 +42,7 @@ import kotlinx.html.attributesMapOf
 import kotlinx.html.stream.appendHTML
 import kotlinx.html.visit
 import kotlinx.html.visitAndFinalize
+import org.apache.wicket.Component
 import org.apache.wicket.util.resource.IResourceStream
 import org.kwicket.toResourceStream
 
@@ -121,11 +122,14 @@ class EXTEND(consumer: TagConsumer<*>) : PanelTag(
 fun FlowContent.form(id: String? = null, classes: String? = null, block: FORM.() -> Unit = {}): Unit =
     FORM(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
 
-fun FlowOrPhrasingContent.span(id: String? = null, classes: String? = null, block: SPAN.() -> Unit = {}): Unit =
-    SPAN(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+fun FlowOrPhrasingContent.span(id: String, builder: ((String) -> Component)? = null, classes: String? = null, block: WICKET_SPAN.() -> Unit = {}): Unit =
+    WICKET_SPAN(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
 
-fun FlowContent.div(id: String? = null, classes: String? = null, block: DIV.() -> Unit = {}): Unit =
-    DIV(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+//fun FlowOrPhrasingContent.wspan(id: String, builder: (String) -> Component, classes: String? = null, block: WSpan.() -> Unit = {}): Unit =
+//    WSpan(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+
+fun FlowContent.div(id: String, builder: ((String) -> Component)? = null, classes: String? = null, block: WICKET_DIV.() -> Unit = {}): Unit =
+    WICKET_DIV(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
 
 fun FlowContent.p(id: String? = null, classes: String? = null, block: P.() -> Unit = {}): Unit =
     P(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
@@ -238,3 +242,24 @@ fun extend(block: EXTEND.() -> Unit = {}): IResourceStream =
     buildString {
         appendHTML().extend(block = block)
     }.toResourceStream()
+
+interface WicketTag {
+    val id: String?
+    val builder: ((String) -> Component)?
+}
+
+class WICKET_SPAN(
+    override val id: String,
+    override val builder: ((String) -> Component)? = null,
+    initialAttributes: Map<String, String>,
+    consumer: TagConsumer<*>
+) : SPAN(initialAttributes = initialAttributes + ("wicket:id" to id), consumer = consumer),
+    WicketTag
+
+class WICKET_DIV(
+    override val id: String,
+    override val builder: ((String) -> Component)? = null,
+    initialAttributes: Map<String, String>,
+    consumer: TagConsumer<*>
+) : DIV(initialAttributes = initialAttributes + ("wicket:id" to id), consumer = consumer),
+    WicketTag
