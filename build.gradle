@@ -27,13 +27,14 @@ subprojects {
     apply plugin: 'org.jetbrains.dokka'
 
     group = 'org.kwicket'
-    version = '0.0.2'
+    version = '0.0.3-SNAPSHOT'
     sourceCompatibility = 1.8
     sourceSets.main.resources.srcDirs += "src/main/kotlin"
 
     ext {
         kotlinVersion = '1.2.20'
         kotlinCoroutinesVersion = '0.19.3'
+        kotlinxHtmlVersion = '0.6.8'
         wicketVersion = '8.0.0-M8'
         wicketStuffVersion = wicketVersion
         wicketBootstrapVersion = '2.0.0-M7'
@@ -59,6 +60,7 @@ subprojects {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {

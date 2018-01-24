@@ -41,7 +41,7 @@ class ManageCustomersPage : BasePage() {
     private val modal: PanelModal = q(PanelModal(id = "modal"))
 
     init {
-
+        q(NamePanel(id = "name", model = "Lu Xun".model()))
         q(
             KLabel(
                 id = "t1",

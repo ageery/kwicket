@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly("org.jetbrains.kotlinx:kotlinx-html-jvm:$kotlinxHtmlVersion")
+}

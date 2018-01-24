@@ -22,6 +22,9 @@ dependencies {
 
     compile project(':kwicket-core')
 
+    compile("org.jetbrains.kotlinx:kotlinx-html-jvm:$kotlinxHtmlVersion")
+    compile project(':kwicket-builder')
+
     compile("org.apache.wicket:wicket-core:$wicketVersion")
     compile project(':kwicket-wicket-core')
 

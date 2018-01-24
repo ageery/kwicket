@@ -2,6 +2,7 @@ package org.kwicket
 
 import com.github.openjson.JSONObject
 import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.util.resource.StringResourceStream
 
         /**
          * Type alias for an ajax handler: a lambda with a single parameter of type [AjaxRequestTarget] that returns nothing.
@@ -27,3 +28,11 @@ fun Any.toJson(indent: Int? = null): String {
     val json = if (this is Map<*, *>) JSONObject(this) else JSONObject(this)
     return indent?.let { json.toString(it) } ?: json.toString()
 }
+
+/**
+ * Converts a [String] to an [IResourceStream].
+ * @receiver [String] to convert to an [IResourceStream]
+ * @param contentType optional mime type of the resource, such as "image/jpeg" or "text/html"
+ * @return [IResourceStream] for the @receiver
+ */
+fun String.toResourceStream(contentType: String? = null) = StringResourceStream(this, contentType)
