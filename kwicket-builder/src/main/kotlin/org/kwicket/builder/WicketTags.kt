@@ -122,13 +122,33 @@ class EXTEND(consumer: TagConsumer<*>) : PanelTag(
 fun FlowContent.form(id: String? = null, classes: String? = null, block: FORM.() -> Unit = {}): Unit =
     FORM(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
 
-fun FlowOrPhrasingContent.span(id: String, builder: ((String) -> Component)? = null, classes: String? = null, block: WICKET_SPAN.() -> Unit = {}): Unit =
+/*
+ * For each tag, there are two special Wicket variations:
+ *  - Wicket id but no builder -- extends the regular <TAG> class
+ *  - Wicket builder with an optional Wicket id -- extends the WICKET_<TAG> class
+ */
+
+fun FlowOrPhrasingContent.span(
+    id: String,
+    classes: String? = null,
+    block: SPAN.() -> Unit = {}
+): Unit =
+    SPAN(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+
+fun FlowOrPhrasingContent.span(
+    id: String? = null,
+    builder: ((String) -> Component),
+    classes: String? = null,
+    block: WICKET_SPAN.() -> Unit = {}
+): Unit =
     WICKET_SPAN(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
 
-//fun FlowOrPhrasingContent.wspan(id: String, builder: (String) -> Component, classes: String? = null, block: WSpan.() -> Unit = {}): Unit =
-//    WSpan(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
-
-fun FlowContent.div(id: String, builder: ((String) -> Component)? = null, classes: String? = null, block: WICKET_DIV.() -> Unit = {}): Unit =
+fun FlowContent.div(
+    id: String? = null,
+    builder: ((String) -> Component),
+    classes: String? = null,
+    block: WICKET_DIV.() -> Unit = {}
+): Unit =
     WICKET_DIV(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
 
 fun FlowContent.p(id: String? = null, classes: String? = null, block: P.() -> Unit = {}): Unit =
@@ -243,23 +263,30 @@ fun extend(block: EXTEND.() -> Unit = {}): IResourceStream =
         appendHTML().extend(block = block)
     }.toResourceStream()
 
+/*
+ * A Wicket Tag is defined to be a builder with either an explicit or implicit id.
+ * That is the processor of a WicketTag may need to provide/generate an id for use with the builder.
+ */
 interface WicketTag {
     val id: String?
-    val builder: ((String) -> Component)?
+    val builder: ((String) -> Component)
 }
 
+fun attrs(initialAttributes: Map<String, String>, id: String?) =
+        if (id == null) initialAttributes else initialAttributes + ("wicket:id" to id)
+
 class WICKET_SPAN(
-    override val id: String,
-    override val builder: ((String) -> Component)? = null,
+    override val id: String? = null,
+    override val builder: (String) -> Component,
     initialAttributes: Map<String, String>,
     consumer: TagConsumer<*>
-) : SPAN(initialAttributes = initialAttributes + ("wicket:id" to id), consumer = consumer),
+) : SPAN(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
     WicketTag
 
 class WICKET_DIV(
-    override val id: String,
-    override val builder: ((String) -> Component)? = null,
+    override val id: String? = null,
+    override val builder: (String) -> Component,
     initialAttributes: Map<String, String>,
     consumer: TagConsumer<*>
-) : DIV(initialAttributes = initialAttributes + ("wicket:id" to id), consumer = consumer),
+) : DIV(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
     WicketTag

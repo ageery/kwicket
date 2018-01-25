@@ -48,17 +48,18 @@ class ManageCustomersPage : BasePage() {
     private val modal: PanelModal = q(PanelModal(id = "modal"))
 
     private fun weather(model: IModel<String>) = region().panel {
-        div(id = "container", builder = { KWebMarkupContainer(id = it) }) {
+        div(builder = { KWebMarkupContainer(id = it) }) {
             span { +"The weather today at " }
-            span(id = "time", builder = { KLabel(id = it, model = { LocalDateTime.now().toLocalTime() }.ldm()) })
+            span(builder = { KLabel(id = it, model = { LocalDateTime.now().toLocalTime() }.ldm()) })
             span { +" is " }
-            span(id = "weather", builder = { KLabel(id = it, model = model) })
+            span(builder = { KLabel(id = it, model = model) })
         }
     }
 
     init {
         q(NamePanel(id = "name", model = "Lu Xun".model()))
-        q(RegionInfoPanel(id = "weather", model = "Sunny".model(), region = { weather(it) }))
+        q(RegionInfoPanel(id = "weather", model = "Sunny".model(), region = ::weather))
+        q(TimePanel(id = "time", model = "my house".model()))
         q(
             KLabel(
                 id = "t1",
