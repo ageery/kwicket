@@ -79,9 +79,9 @@ infix operator fun <M, T> IModel<M>.plus(prop: KProperty1<M, T>): IModel<T> = Pr
 /**
  * Creates a [ResourceModel] using the resource key and the optional default value.
  *
- * @param defaultValue optional model of the default value for the model
+ * @param defaultValue String to use if no resource is found for the @receiver
  * @receiver resource key
- * @return [IModel<String>] where the value comes from a property file with the given resource key
+ * @return [IModel<String>] where the value comes from a property file with the given resource key or the String
+ * is the @receiver itself
  */
-fun String.resModel(defaultValue: IModel<String>? = null): IModel<String> =
-    ResourceModel(this, defaultValue)
+fun String.res(defaultValue: String = this): IModel<String> = ResourceModel(this, defaultValue)

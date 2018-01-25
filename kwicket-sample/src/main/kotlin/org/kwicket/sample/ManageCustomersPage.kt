@@ -26,6 +26,7 @@ import org.kwicket.component.refresh
 import org.kwicket.model.AsyncLoadableDetachableModel
 import org.kwicket.model.ldm
 import org.kwicket.model.model
+import org.kwicket.model.res
 import org.kwicket.model.value
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
@@ -59,7 +60,7 @@ class ManageCustomersPage : BasePage() {
     init {
         q(NamePanel(id = "name", model = "Lu Xun".model()))
         q(RegionInfoPanel(id = "weather", model = "Sunny".model(), region = ::weather))
-        q(TimePanel(id = "time", model = "my house".model()))
+        q(TimePanel(id = "time", model = "my house".res()))
         q(
             KLabel(
                 id = "t1",
