@@ -43,8 +43,10 @@ import kotlinx.html.stream.appendHTML
 import kotlinx.html.visit
 import kotlinx.html.visitAndFinalize
 import org.apache.wicket.Component
+import org.apache.wicket.model.IModel
 import org.apache.wicket.util.resource.IResourceStream
 import org.kwicket.toResourceStream
+import org.kwicket.wicket.core.markup.html.basic.KLabel
 
 /*
  * TODO: other Wicket attributes and tags: https://cwiki.apache.org/confluence/display/WICKET/Wicket%27s+XHTML+tags
@@ -134,6 +136,13 @@ fun FlowOrPhrasingContent.span(
     block: SPAN.() -> Unit = {}
 ): Unit =
     SPAN(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+
+fun FlowOrPhrasingContent.span(
+    model: IModel<*>,
+    classes: String? = null,
+    block: WICKET_SPAN.() -> Unit = {}
+): Unit =
+    WICKET_SPAN(id = null, builder = { KLabel(it, model) }, initialAttributes = attributesMapOf("class", classes), consumer = consumer).visit(block)
 
 fun FlowOrPhrasingContent.span(
     id: String? = null,

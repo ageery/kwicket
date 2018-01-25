@@ -1,13 +1,16 @@
 package org.kwicket.sample
 
 import kotlinx.html.span
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior
 import org.apache.wicket.model.IModel
+import org.apache.wicket.util.time.Duration
 import org.kwicket.builder.RegionInfoPanel
 import org.kwicket.builder.div
 import org.kwicket.builder.panel
 import org.kwicket.builder.region
 import org.kwicket.builder.span
 import org.kwicket.component.q
+import org.kwicket.component.refresh
 import org.kwicket.model.ldm
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
@@ -19,7 +22,7 @@ private val timeId = "time"
 private fun time(model: IModel<String>) = region().panel {
     div(builder = { KWebMarkupContainer(id = it) }) {
         span { +"The time in " }
-        span(builder = { KLabel(id = it, model = model) })
+        span(model = model)
         span { +" (" }
         span(builder = { KLabel(id = it, model = { TimeZone.getDefault().displayName }.ldm()) })
         span { +") is " }
@@ -27,11 +30,17 @@ private fun time(model: IModel<String>) = region().panel {
     }
 }
 
-// FIXME: add a behavior to update the time label periodically
 class TimePanel(id: String, model: IModel<String>) : RegionInfoPanel<String>(id = id, model = model, region = ::time) {
 
     init {
-        q(KLabel(id = timeId, model = { LocalDateTime.now().toLocalTime() }.ldm()))
+        val time = q(
+            KLabel(
+                id = timeId,
+                model = { LocalDateTime.now().toLocalTime() }.ldm(),
+                outputMarkupId = true
+            )
+        )
+        add(AjaxSelfUpdatingTimerBehavior.onSelfUpdate(Duration.seconds(10), { time.refresh() }))
     }
 
 }

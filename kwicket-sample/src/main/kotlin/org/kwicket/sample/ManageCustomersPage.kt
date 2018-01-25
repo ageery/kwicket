@@ -53,7 +53,7 @@ class ManageCustomersPage : BasePage() {
             span { +"The weather today at " }
             span(builder = { KLabel(id = it, model = { LocalDateTime.now().toLocalTime() }.ldm()) })
             span { +" is " }
-            span(builder = { KLabel(id = it, model = model) })
+            span(model = model)
         }
     }
 
