@@ -1,7 +1,11 @@
 package org.kwicket.behavior
 
 import org.apache.wicket.Component
+import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior
 import org.apache.wicket.behavior.Behavior
+import org.apache.wicket.util.time.Duration
+import org.kwicket.component.refresh
 import org.kwicket.model.AsyncModel
 
 open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
@@ -35,7 +39,7 @@ fun Component.asyncLoad() {
     }
 }
 
-class AsyncModelLoadBehavior() : Behavior() {
+class AsyncModelLoadBehavior : Behavior() {
 
     override fun onConfigure(component: Component) {
         super.onConfigure(component)
@@ -43,3 +47,8 @@ class AsyncModelLoadBehavior() : Behavior() {
     }
 
 }
+
+fun refreshEvery(dur: Duration): Behavior =
+    object : AjaxSelfUpdatingTimerBehavior(dur) {
+        override fun onPostProcessTarget(target: AjaxRequestTarget) = component.refresh()
+    }
