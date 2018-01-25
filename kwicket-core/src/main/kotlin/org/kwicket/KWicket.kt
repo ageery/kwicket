@@ -3,6 +3,7 @@ package org.kwicket
 import com.github.openjson.JSONObject
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.util.resource.StringResourceStream
+import org.apache.wicket.util.time.Duration
 
         /**
          * Type alias for an ajax handler: a lambda with a single parameter of type [AjaxRequestTarget] that returns nothing.
@@ -36,3 +37,13 @@ fun Any.toJson(indent: Int? = null): String {
  * @return [IResourceStream] for the @receiver
  */
 fun String.toResourceStream(contentType: String? = null) = StringResourceStream(this, contentType)
+
+// TODO: add extension methods for minutes, hours, days + years
+
+fun Int.secs() = Duration.seconds(this)
+fun Double.secs() = Duration.seconds(this)
+
+fun Int.millis() = Duration.milliseconds(this.toLong())
+
+operator fun Duration.plus(dur: Duration) = this.add(dur)
+operator fun Duration.minus(dur: Duration) = this.subtract(dur)

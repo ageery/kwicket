@@ -2,7 +2,6 @@ package org.kwicket.sample
 
 import kotlinx.html.span
 import org.apache.wicket.model.IModel
-import org.apache.wicket.util.time.Duration
 import org.kwicket.behavior.refreshEvery
 import org.kwicket.builder.RegionInfoPanel
 import org.kwicket.builder.div
@@ -11,6 +10,7 @@ import org.kwicket.builder.region
 import org.kwicket.builder.span
 import org.kwicket.component.q
 import org.kwicket.model.ldm
+import org.kwicket.secs
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
 import java.time.LocalDateTime
@@ -32,12 +32,12 @@ private fun time(model: IModel<String>) = region().panel {
 class TimePanel(id: String, model: IModel<String>) : RegionInfoPanel<String>(id = id, model = model, region = ::time) {
 
     init {
-        val time = q(
+        q(
             KLabel(
                 id = timeId,
                 model = { LocalDateTime.now().toLocalTime() }.ldm(),
                 outputMarkupId = true,
-                behaviors = *arrayOf(refreshEvery(Duration.seconds(5)))
+                behaviors = *arrayOf(refreshEvery(5.1.secs()))
             )
         )
     }

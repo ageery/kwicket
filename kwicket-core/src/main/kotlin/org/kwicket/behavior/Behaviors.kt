@@ -48,7 +48,11 @@ class AsyncModelLoadBehavior : Behavior() {
 
 }
 
+class ComponentAwareTimerBehavior(dur: Duration, val handler: (AjaxRequestTarget, Component) -> Unit) :
+    AjaxSelfUpdatingTimerBehavior(dur) {
+    override fun onPostProcessTarget(target: AjaxRequestTarget) = handler(target, component)
+}
+
 fun refreshEvery(dur: Duration): Behavior =
-    object : AjaxSelfUpdatingTimerBehavior(dur) {
-        override fun onPostProcessTarget(target: AjaxRequestTarget) = component.refresh()
-    }
+    ComponentAwareTimerBehavior(dur = dur, handler = { target, component -> component.refresh(target) })
+
