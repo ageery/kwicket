@@ -2,9 +2,9 @@ package org.kwicket.sample
 
 import kotlinx.html.div
 import org.apache.wicket.model.IModel
-import org.kwicket.builder.MarkupProviderPanel
-import org.kwicket.builder.PanelTag
-import org.kwicket.builder.span
+import org.kwicket.kotlinx.html.MarkupProviderPanel
+import org.kwicket.kotlinx.html.PanelTag
+import org.kwicket.kotlinx.html.span
 import org.kwicket.component.q
 import org.kwicket.model.model
 import org.kwicket.wicket.core.markup.html.basic.KLabel

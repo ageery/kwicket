@@ -1,4 +1,4 @@
-package org.kwicket.builder
+package org.kwicket.kotlinx.html
 
 import kotlinx.html.Entities
 import kotlinx.html.Tag
@@ -55,7 +55,8 @@ class WicketTagConsumer(
             val wicketId = tag.id
             val id = wicketId ?: idGenerator.next()
             val b = tag.builder
-            current = current?.let { it.add(id = id, builder = b) } ?: ComponentBuilder(id = id, builder = b)
+            current = current?.let { it.add(id = id, builder = b) } ?:
+                    ComponentBuilder(id = id, builder = b)
             current?.let { if (it.parent == null) roots.add(it) }
             if (!tag.attributes.containsKey("wicket:id")) tag.attributes["wicket:id"] = id
         }
@@ -81,7 +82,8 @@ class WicketTagConsumer(
         downstream.onTagContentEntity(entity)
     }
 
-    override fun finalize(): RegionInfo = RegionInfo(markup = downstream.finalize(), rootComponentBuilders = roots)
+    override fun finalize(): RegionInfo =
+        RegionInfo(markup = downstream.finalize(), rootComponentBuilders = roots)
 
     override fun onTagContentUnsafe(block: Unsafe.() -> Unit) {
         downstream.onTagContentUnsafe(block)

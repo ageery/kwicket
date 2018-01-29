@@ -1,4 +1,4 @@
-package org.kwicket.builder
+package org.kwicket.kotlinx.html
 
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider

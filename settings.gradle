@@ -2,7 +2,7 @@ rootProject.name = 'org.kwicket'
 include 'kwicket-core',  \
          'kwicket-wicket-core',  \
          'kwicket-wicket-extensions', \
-         'kwicket-builder', \
+         'kwicket-kotlinx-html', \
          'kwicket-wicket-spring', \
          'kwicket-wicketstuff-select2', \
          'kwicket-wicketstuff-annotation', \

@@ -1,4 +1,4 @@
-package org.kwicket.builder
+package org.kwicket.kotlinx.html
 
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
@@ -16,6 +16,8 @@ abstract class MarkupProviderPanel(id: String, model: IModel<*>, val type: Provi
     abstract val markup: PanelTag.() -> Unit
 
     override fun getMarkupResourceStream(container: MarkupContainer?, containerClass: Class<*>?): IResourceStream =
-        if (type == ProviderType.Panel) panel(block = markup) else extend(block = markup)
+        if (type == ProviderType.Panel) panel(block = markup) else extend(
+            block = markup
+        )
 
 }

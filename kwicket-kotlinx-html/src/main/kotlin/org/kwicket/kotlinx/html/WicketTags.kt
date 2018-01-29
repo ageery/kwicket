@@ -1,4 +1,4 @@
-package org.kwicket.builder
+package org.kwicket.kotlinx.html
 
 import kotlinx.html.A
 import kotlinx.html.BUTTON
@@ -53,11 +53,17 @@ import org.kwicket.wicket.core.markup.html.basic.KLabel
  */
 
 private const val ns = "wicket"
-private const val idAttr = "$ns:id"
+private const val idAttr = "${ns}:id"
 
-fun <T, C : TagConsumer<T>> C.panel(block: PANEL.() -> Unit = {}): T = PANEL(this).visitAndFinalize(this, block)
-fun <T, C : TagConsumer<T>> C.border(block: BORDER.() -> Unit = {}): T = BORDER(this).visitAndFinalize(this, block)
-fun <T, C : TagConsumer<T>> C.extend(block: EXTEND.() -> Unit = {}): T = EXTEND(this).visitAndFinalize(this, block)
+fun <T, C : TagConsumer<T>> C.panel(block: PANEL.() -> Unit = {}): T = PANEL(
+    this
+).visitAndFinalize(this, block)
+fun <T, C : TagConsumer<T>> C.border(block: BORDER.() -> Unit = {}): T = BORDER(
+    this
+).visitAndFinalize(this, block)
+fun <T, C : TagConsumer<T>> C.extend(block: EXTEND.() -> Unit = {}): T = EXTEND(
+    this
+).visitAndFinalize(this, block)
 
 fun HTML.panel(block: PANEL.() -> Unit = {}): Unit = PANEL(consumer).visit(block)
 fun HTML.border(block: BORDER.() -> Unit = {}): Unit = BORDER(consumer).visit(block)
@@ -78,7 +84,7 @@ val Tag.body: Unit
     }
 
 open class BODY(consumer: TagConsumer<*>) : HTMLTag(
-    tagName = "$ns:body",
+    tagName = "${ns}:body",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = true,
@@ -87,7 +93,7 @@ open class BODY(consumer: TagConsumer<*>) : HTMLTag(
     HtmlBlockInlineTag
 
 open class CHILD(consumer: TagConsumer<*>) : HTMLTag(
-    tagName = "$ns:child",
+    tagName = "${ns}:child",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = true,
@@ -104,12 +110,12 @@ abstract class PanelTag(tagName: String, consumer: TagConsumer<*>) : HTMLTag(
 ), HtmlBlockTag
 
 class PANEL(consumer: TagConsumer<*>) : PanelTag(
-    tagName = "$ns:panel",
+    tagName = "${ns}:panel",
     consumer = consumer
 ), HtmlBlockTag
 
 class BORDER(consumer: TagConsumer<*>) : HTMLTag(
-    tagName = "$ns:border",
+    tagName = "${ns}:border",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = false,
@@ -117,7 +123,7 @@ class BORDER(consumer: TagConsumer<*>) : HTMLTag(
 ), HtmlBlockTag
 
 class EXTEND(consumer: TagConsumer<*>) : PanelTag(
-    tagName = "$ns:extend",
+    tagName = "${ns}:extend",
     consumer = consumer
 ), HtmlBlockTag
 
@@ -142,7 +148,12 @@ fun FlowOrPhrasingContent.span(
     classes: String? = null,
     block: WICKET_SPAN.() -> Unit = {}
 ): Unit =
-    WICKET_SPAN(id = null, builder = { KLabel(it, model) }, initialAttributes = attributesMapOf("class", classes), consumer = consumer).visit(block)
+    WICKET_SPAN(
+        id = null,
+        builder = { KLabel(it, model) },
+        initialAttributes = attributesMapOf("class", classes),
+        consumer = consumer
+    ).visit(block)
 
 fun FlowOrPhrasingContent.span(
     id: String? = null,
@@ -150,7 +161,12 @@ fun FlowOrPhrasingContent.span(
     classes: String? = null,
     block: WICKET_SPAN.() -> Unit = {}
 ): Unit =
-    WICKET_SPAN(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    WICKET_SPAN(
+        id,
+        builder,
+        attributesMapOf("class", classes, idAttr, id),
+        consumer
+    ).visit(block)
 
 fun FlowContent.div(
     id: String? = null,
@@ -158,7 +174,12 @@ fun FlowContent.div(
     classes: String? = null,
     block: WICKET_DIV.() -> Unit = {}
 ): Unit =
-    WICKET_DIV(id, builder, attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    WICKET_DIV(
+        id,
+        builder,
+        attributesMapOf("class", classes, idAttr, id),
+        consumer
+    ).visit(block)
 
 fun FlowContent.p(id: String? = null, classes: String? = null, block: P.() -> Unit = {}): Unit =
     P(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
@@ -232,7 +253,8 @@ fun FlowOrInteractiveOrPhrasingContent.textArea(
     classes: String? = null,
     block: TEXTAREA.() -> Unit = {}
 ): Unit = TEXTAREA(
-    attributesMapOf("rows", rows, "cols", cols, "wrap", wrap?.enumEncode(), "class", classes, idAttr, id),
+    attributesMapOf("rows", rows, "cols", cols, "wrap", wrap?.enumEncode(), "class", classes,
+        idAttr, id),
     consumer
 ).visit(block)
 

@@ -2,15 +2,16 @@ package org.kwicket.sample
 
 import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapTheme
 import de.agilecoders.wicket.core.settings.SingleThemeProvider
+import org.apache.wicket.Application
 import org.apache.wicket.Component
 import org.apache.wicket.RuntimeConfigurationType
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.event.Broadcast
 import org.apache.wicket.model.IModel
+import org.apache.wicket.protocol.http.WebApplication
 import org.apache.wicket.util.time.Duration
 import org.kwicket.agilecoders.enableBootstrap
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.common.KNotificationMessage
-import org.kwicket.application.AsyncModelLoaderOnConfigureListener
 import org.kwicket.component.target
 import org.kwicket.model.model
 import org.kwicket.wicket.core.protocol.http.KWebApplication
@@ -22,7 +23,6 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import java.util.*
-import javax.servlet.Filter
 
 @SpringBootApplication
 class SampleApplication {
@@ -31,11 +31,13 @@ class SampleApplication {
     private lateinit var wicketConfig: RuntimeConfigurationType
 
     @Bean
-    fun getWicketFilter(): Filter =
-        KWicketFilter(webApp = SampleWebApplication(configurationType = wicketConfig), filterPath = "/")
+    fun getWicketApp() = SampleWebApplication(configurationType = wicketConfig)
 
     @Bean
-    fun getCustomers(): MutableList<Customer> = mutableListOf(
+    fun getWicketFilter(app: WebApplication) = KWicketFilter(webApp = app, filterPath = "/")
+
+    @Bean
+    fun getCustomers() = mutableListOf(
         Customer(
             id = UUID.randomUUID(),
             firstName = "Alice",

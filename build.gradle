@@ -30,11 +30,17 @@ subprojects {
     version = '0.0.3-SNAPSHOT'
     sourceCompatibility = 1.8
     sourceSets.main.resources.srcDirs += "src/main/kotlin"
+    //sourceSets.main.resources.srcDirs += "test/main/kotlin"
 
     ext {
         kotlinVersion = '1.2.20'
         kotlinCoroutinesVersion = '0.19.3'
         kotlinxHtmlVersion = '0.6.8'
+
+        junitPlatformLauncherVersion = '1.0.0'
+        junitVintageEngineVersion = '4.12.3'
+        kotlinTestVersion = '1.2.21'
+
         wicketVersion = '8.0.0-M8'
         wicketStuffVersion = wicketVersion
         wicketBootstrapVersion = '2.0.0-M7'

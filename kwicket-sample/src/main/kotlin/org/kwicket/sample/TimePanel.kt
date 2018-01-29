@@ -3,11 +3,11 @@ package org.kwicket.sample
 import kotlinx.html.span
 import org.apache.wicket.model.IModel
 import org.kwicket.behavior.refreshEvery
-import org.kwicket.builder.RegionInfoPanel
-import org.kwicket.builder.div
-import org.kwicket.builder.panel
-import org.kwicket.builder.region
-import org.kwicket.builder.span
+import org.kwicket.kotlinx.html.RegionInfoPanel
+import org.kwicket.kotlinx.html.div
+import org.kwicket.kotlinx.html.panel
+import org.kwicket.kotlinx.html.region
+import org.kwicket.kotlinx.html.span
 import org.kwicket.component.q
 import org.kwicket.model.ldm
 import org.kwicket.secs

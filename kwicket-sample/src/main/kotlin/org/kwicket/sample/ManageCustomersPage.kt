@@ -16,11 +16,11 @@ import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.KBoot
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelModal
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
 import org.kwicket.behavior.AsyncModelLoadBehavior
-import org.kwicket.builder.RegionInfoPanel
-import org.kwicket.builder.div
-import org.kwicket.builder.panel
-import org.kwicket.builder.region
-import org.kwicket.builder.span
+import org.kwicket.kotlinx.html.RegionInfoPanel
+import org.kwicket.kotlinx.html.div
+import org.kwicket.kotlinx.html.panel
+import org.kwicket.kotlinx.html.region
+import org.kwicket.kotlinx.html.span
 import org.kwicket.component.q
 import org.kwicket.component.refresh
 import org.kwicket.model.AsyncLoadableDetachableModel
