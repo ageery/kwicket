@@ -47,13 +47,12 @@ import org.apache.wicket.model.IModel
 import org.apache.wicket.util.resource.IResourceStream
 import org.kwicket.toResourceStream
 import org.kwicket.wicket.core.markup.html.basic.KLabel
+import org.kwicket.wicketIdAttr
+import org.kwicket.wicketNamespacePrefix
 
 /*
  * TODO: other Wicket attributes and tags: https://cwiki.apache.org/confluence/display/WICKET/Wicket%27s+XHTML+tags
  */
-
-private const val ns = "wicket"
-private const val idAttr = "${ns}:id"
 
 fun <T, C : TagConsumer<T>> C.panel(block: PANEL.() -> Unit = {}): T = PANEL(
     this
@@ -84,7 +83,7 @@ val Tag.body: Unit
     }
 
 open class BODY(consumer: TagConsumer<*>) : HTMLTag(
-    tagName = "${ns}:body",
+    tagName = "${wicketNamespacePrefix}:body",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = true,
@@ -93,7 +92,7 @@ open class BODY(consumer: TagConsumer<*>) : HTMLTag(
     HtmlBlockInlineTag
 
 open class CHILD(consumer: TagConsumer<*>) : HTMLTag(
-    tagName = "${ns}:child",
+    tagName = "${wicketNamespacePrefix}:child",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = true,
@@ -110,12 +109,12 @@ abstract class PanelTag(tagName: String, consumer: TagConsumer<*>) : HTMLTag(
 ), HtmlBlockTag
 
 class PANEL(consumer: TagConsumer<*>) : PanelTag(
-    tagName = "${ns}:panel",
+    tagName = "${wicketNamespacePrefix}:panel",
     consumer = consumer
 ), HtmlBlockTag
 
 class BORDER(consumer: TagConsumer<*>) : HTMLTag(
-    tagName = "${ns}:border",
+    tagName = "${wicketNamespacePrefix}:border",
     consumer = consumer,
     initialAttributes = emptyMap(),
     inlineTag = false,
@@ -123,12 +122,12 @@ class BORDER(consumer: TagConsumer<*>) : HTMLTag(
 ), HtmlBlockTag
 
 class EXTEND(consumer: TagConsumer<*>) : PanelTag(
-    tagName = "${ns}:extend",
+    tagName = "${wicketNamespacePrefix}:extend",
     consumer = consumer
 ), HtmlBlockTag
 
 fun FlowContent.form(id: String? = null, classes: String? = null, block: FORM.() -> Unit = {}): Unit =
-    FORM(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    FORM(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 /*
  * For each tag, there are two special Wicket variations:
@@ -141,7 +140,7 @@ fun FlowOrPhrasingContent.span(
     classes: String? = null,
     block: SPAN.() -> Unit = {}
 ): Unit =
-    SPAN(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    SPAN(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrPhrasingContent.span(
     model: IModel<*>,
@@ -164,7 +163,7 @@ fun FlowOrPhrasingContent.span(
     WICKET_SPAN(
         id,
         builder,
-        attributesMapOf("class", classes, idAttr, id),
+        attributesMapOf("class", classes, wicketIdAttr, id),
         consumer
     ).visit(block)
 
@@ -177,71 +176,71 @@ fun FlowContent.div(
     WICKET_DIV(
         id,
         builder,
-        attributesMapOf("class", classes, idAttr, id),
+        attributesMapOf("class", classes, wicketIdAttr, id),
         consumer
     ).visit(block)
 
 fun FlowContent.p(id: String? = null, classes: String? = null, block: P.() -> Unit = {}): Unit =
-    P(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    P(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrInteractiveOrPhrasingContent.a(
     id: String? = null,
     classes: String? = null,
     block: A.() -> Unit = {}
-): Unit = A(attributesMapOf(idAttr, id, "class", classes), consumer).visit(block)
+): Unit = A(attributesMapOf(wicketIdAttr, id, "class", classes), consumer).visit(block)
 
 fun FlowContent.ul(id: String? = null, classes: String? = null, block: UL.() -> Unit = {}): Unit =
-    UL(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    UL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowContent.ol(id: String? = null, classes: String? = null, block: OL.() -> Unit = {}): Unit =
-    OL(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    OL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun UL.li(id: String? = null, classes: String? = null, block: LI.() -> Unit = {}): Unit =
-    LI(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    LI(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowContent.table(id: String? = null, classes: String? = null, block: TABLE.() -> Unit = {}): Unit =
-    TABLE(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    TABLE(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrHeadingContent.h1(id: String? = null, classes: String? = null, block: H1.() -> Unit = {}): Unit =
-    H1(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    H1(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrHeadingContent.h2(id: String? = null, classes: String? = null, block: H2.() -> Unit = {}): Unit =
-    H2(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    H2(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrHeadingContent.h3(id: String? = null, classes: String? = null, block: H3.() -> Unit = {}): Unit =
-    H3(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    H3(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrHeadingContent.h4(id: String? = null, classes: String? = null, block: H4.() -> Unit = {}): Unit =
-    H4(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    H4(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrHeadingContent.h5(
     id: String? = null,
     classes: String? = null,
     block: H5.() -> Unit = {}
-): Unit = H5(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+): Unit = H5(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrHeadingContent.h6(id: String? = null, classes: String? = null, block: H6.() -> Unit = {}): Unit =
-    H6(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    H6(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrInteractiveOrPhrasingContent.button(
     id: String? = null,
     classes: String? = null,
     block: BUTTON.() -> Unit = {}
-): Unit = BUTTON(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+): Unit = BUTTON(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrInteractiveOrPhrasingContent.input(
     id: String? = null,
     type: InputType? = null,
     classes: String? = null,
     block: INPUT.() -> Unit = {}
-): Unit = INPUT(attributesMapOf("type", type?.enumEncode(), "class", classes, idAttr, id), consumer).visit(block)
+): Unit = INPUT(attributesMapOf("type", type?.enumEncode(), "class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrInteractiveOrPhrasingContent.img(
     id: String? = null,
     classes: String? = null,
     block: IMG.() -> Unit = {}
 ): Unit = IMG(
-    attributesMapOf("class", classes, idAttr, id),
+    attributesMapOf("class", classes, wicketIdAttr, id),
     consumer
 ).visit(block)
 
@@ -254,7 +253,7 @@ fun FlowOrInteractiveOrPhrasingContent.textArea(
     block: TEXTAREA.() -> Unit = {}
 ): Unit = TEXTAREA(
     attributesMapOf("rows", rows, "cols", cols, "wrap", wrap?.enumEncode(), "class", classes,
-        idAttr, id),
+        wicketIdAttr, id),
     consumer
 ).visit(block)
 
@@ -262,22 +261,22 @@ fun FlowOrInteractiveOrPhrasingContent.label(
     id: String? = null,
     classes: String? = null,
     block: LABEL.() -> Unit = {}
-): Unit = LABEL(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+): Unit = LABEL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrInteractiveOrPhrasingContent.select(
     id: String? = null,
     classes: String? = null,
     block: SELECT.() -> Unit = {}
-): Unit = SELECT(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+): Unit = SELECT(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun TABLE.tr(id: String? = null, classes: String? = null, block: TR.() -> Unit = {}): Unit =
-    TR(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    TR(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun TR.td(id: String? = null, classes: String? = null, block: TD.() -> Unit = {}): Unit =
-    TD(attributesMapOf("class", classes, idAttr, id), consumer).visit(block)
+    TD(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun TR.th(id: String? = null, scope: ThScope? = null, classes: String? = null, block: TH.() -> Unit = {}): Unit =
-    TH(attributesMapOf("scope", scope?.enumEncode(), "class", classes, idAttr, id), consumer).visit(block)
+    TH(attributesMapOf("scope", scope?.enumEncode(), "class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun panel(block: PANEL.() -> Unit = {}): IResourceStream =
     buildString {
@@ -296,7 +295,7 @@ fun extend(block: EXTEND.() -> Unit = {}): IResourceStream =
 
 /*
  * A Wicket Tag is defined to be a builder with either an explicit or implicit id.
- * That is the processor of a WicketTag may need to provide/generate an id for use with the builder.
+ * That is, the processor of a WicketTag may need to provide/generate an id for use with the builder.
  */
 interface WicketTag {
     val id: String?
@@ -304,7 +303,7 @@ interface WicketTag {
 }
 
 fun attrs(initialAttributes: Map<String, String>, id: String?) =
-        if (id == null) initialAttributes else initialAttributes + ("wicket:id" to id)
+        if (id == null) initialAttributes else initialAttributes + (wicketIdAttr to id)
 
 class WICKET_SPAN(
     override val id: String? = null,

@@ -7,6 +7,8 @@ import org.apache.wicket.util.resource.IResourceStream
 import org.kwicket.toResourceStream
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 
+data class RegionInfo(val markup: String, val rootComponentBuilders: List<ComponentBuilder>)
+
 open class RegionInfoPanel<T : Any>(id: String, model: IModel<T>, region: (IModel<T>) -> RegionInfo) :
     KPanel(id = id, model = model), IMarkupResourceStreamProvider {
 

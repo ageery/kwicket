@@ -5,6 +5,12 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.util.resource.StringResourceStream
 import org.apache.wicket.util.time.Duration
 
+/**
+ * Name of Wicket's id attribute.
+ */
+const val wicketNamespacePrefix = "wicket"
+const val wicketIdAttr = "${wicketNamespacePrefix}:id"
+
         /**
          * Type alias for an ajax handler: a lambda with a single parameter of type [AjaxRequestTarget] that returns nothing.
          */
@@ -39,6 +45,7 @@ fun Any.toJson(indent: Int? = null): String {
 fun String.toResourceStream(contentType: String? = null) = StringResourceStream(this, contentType)
 
 // TODO: add extension methods for minutes, hours, days + years
+// TODO: in addition, should we just make it transparent that we use the standard localdatetime stuff?
 
 fun Int.secs() = Duration.seconds(this)
 fun Double.secs() = Duration.seconds(this)
