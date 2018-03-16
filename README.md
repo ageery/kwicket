@@ -263,9 +263,12 @@ To run the sample project, from the root of the project type `gradlew bootRun`.
 What's New
 ----------
 
-* 0.2
+* 0.0.2
     - Asynchronous model support (`AsyncModel` plus `AsyncModelLoadBehavior` or `AsyncModelLoaderOnConfigureListener`) 
     uses Kotlin [coroutines](https://kotlinlang.org/docs/reference/coroutines.html) to asynchronously load model
     values
     
     - [wicket-webjars](https://github.com/l0rdn1kk0n/wicket-webjars) support
+    
+* 0.0.3
+    - Integration with kotlinx.html    
