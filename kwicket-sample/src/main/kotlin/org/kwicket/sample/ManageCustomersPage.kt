@@ -17,12 +17,12 @@ import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.dialog.PanelMod
 import org.kwicket.agilecoders.wicket.core.markup.html.bootstrap.table.KTableBehavior
 import org.kwicket.behavior.AsyncModelLoadBehavior
 import org.kwicket.kotlinx.html.RegionInfoPanel
-import org.kwicket.kotlinx.html.div
 import org.kwicket.kotlinx.html.panel
 import org.kwicket.kotlinx.html.region
-import org.kwicket.kotlinx.html.span
 import org.kwicket.component.q
 import org.kwicket.component.refresh
+import org.kwicket.kotlinx.html.div
+import org.kwicket.kotlinx.html.span
 import org.kwicket.model.AsyncLoadableDetachableModel
 import org.kwicket.model.ldm
 import org.kwicket.model.model
