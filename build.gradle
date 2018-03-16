@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.0'
-        dokkaVersion = '0.9.15'
+        kotlinVersion = '1.2.30'
+        dokkaVersion = '0.9.16'
         bintrayVersion = '1.7.3'
         artifactoryVersion = '4.5.2'
     }
@@ -33,20 +33,20 @@ subprojects {
     //sourceSets.main.resources.srcDirs += "test/main/kotlin"
 
     ext {
-        kotlinVersion = '1.2.20'
-        kotlinCoroutinesVersion = '0.19.3'
+        kotlinVersion = '1.2.30'
+        kotlinCoroutinesVersion = '0.22.5'
         kotlinxHtmlVersion = '0.6.8'
 
         junitPlatformLauncherVersion = '1.0.0'
         junitVintageEngineVersion = '4.12.3'
         kotlinTestVersion = '1.2.21'
 
-        wicketVersion = '8.0.0-M8'
+        wicketVersion = '8.0.0-M9'
         wicketStuffVersion = wicketVersion
         wicketBootstrapVersion = '2.0.0-M7'
         servletApiVersion = '3.1.0'
         springVersion = '4.3.13.RELEASE'
-        wicketWebjarsVersion = '2.0.4'
+        wicketWebjarsVersion = '2.0.6'
         bintrayUser = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
         bintrayKey = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
     }
