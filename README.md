@@ -151,6 +151,8 @@ Enhanced Component List
 * KTextArea
 * InputFormGroup
 * SelectFormGroup
+* DropDownChoice
+* BootstrapSelect
 
 ### Tables
 * KDataTable
@@ -271,4 +273,6 @@ What's New
     - [wicket-webjars](https://github.com/l0rdn1kk0n/wicket-webjars) support
     
 * 0.0.3
-    - Integration with kotlinx.html    
+    - Integration with kotlinx.html
+    
+    - Added kwicket-bootstrap-extensions module
