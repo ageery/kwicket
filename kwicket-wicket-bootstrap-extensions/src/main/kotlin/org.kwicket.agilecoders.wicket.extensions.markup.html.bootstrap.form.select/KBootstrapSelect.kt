@@ -1,20 +1,17 @@
-package org.kwicket.wicket.core.markup.html.form
+package org.kwicket.agilecoders.wicket.extensions.markup.html.bootstrap.form.select
 
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.select.BootstrapSelect
 import org.apache.wicket.behavior.Behavior
-import org.apache.wicket.markup.html.form.DropDownChoice
-import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.IChoiceRenderer
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 
-/**
- * [DropDownChoice] with named and default constructor arguments.
- */
-open class KDropDownChoice<T>(
+open class KBootstrapSelect<T>(
     id: String,
     choices: List<T>,
     renderer: IChoiceRenderer<T>,
     model: IModel<T>? = null,
+    config: KBootstrapSelectConfig? = null,
     required: Boolean? = null,
     nullValid: Boolean? = null,
     label: IModel<String>? = null,
@@ -25,7 +22,7 @@ open class KDropDownChoice<T>(
     escapeModelStrings: Boolean? = null,
     renderBodyOnly: Boolean? = null,
     vararg behaviors: Behavior
-) : DropDownChoice<T>(id, model, choices, renderer) {
+) : BootstrapSelect<T>(id, model, choices, renderer) {
 
     init {
         init(
@@ -39,6 +36,7 @@ open class KDropDownChoice<T>(
             required = required,
             label = label
         )
+        config?.let { with(it) }
         nullValid?.let { setNullValid(it) }
     }
 
