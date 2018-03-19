@@ -1,11 +1,14 @@
 package org.kwicket.model
 
+import kotlinx.coroutines.experimental.CoroutineScope
+import kotlinx.coroutines.experimental.async
 import org.apache.wicket.model.IModel
 import org.apache.wicket.model.LoadableDetachableModel
 import org.apache.wicket.model.Model
 import org.apache.wicket.model.ResourceModel
 import org.apache.wicket.model.util.ListModel
 import java.io.Serializable
+import kotlin.coroutines.experimental.createCoroutine
 import kotlin.reflect.KProperty1
 
 /**
@@ -32,9 +35,18 @@ fun <T, L : List<T>> L.listModel(): IModel<L> = ListModel(this) as IModel<L>
  *
  * @param T type returned by the producer
  * @receiver producer that returns objects of type [T]
- * @return [IModel] of type [() -> T?]
+ * @return [IModel] of type [T]
  */
 fun <T> (() -> T).ldm(): IModel<T> = LoadableDetachableModel.of(this)
+
+/**
+ * Creates an [IModel] that uses the @receiver suspendable lambda to produce its value.
+ *
+ * @param T type returned by the producer
+ * @receiver suspendable producer that returns objects of type [T]
+ * @return [IModel] of type [T]
+ */
+fun <T> (suspend () -> T).ldm(): IModel<T> = SuspendableLoadableDetachableModel(block = this@ldm)
 
 /**
  * Provides a readable/writable property with the name of "value" that returns the "object" of the [IModel],

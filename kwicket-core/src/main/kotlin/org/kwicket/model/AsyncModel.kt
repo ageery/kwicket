@@ -52,3 +52,34 @@ class AsyncLoadableDetachableModel<T>(
     }
 
 }
+
+class SuspendableLoadableDetachableModel<T>(
+    private val block: suspend () -> T,
+    private val context: (() -> CoroutineContext) = { DefaultDispatcher }
+): LoadableDetachableModel<T>(), AsyncModel<T> {
+
+    @Transient
+    private var _deferred: Deferred<T>? = null
+
+    private val deferred: Deferred<T>
+        get() {
+            initDeferred()
+            return _deferred!!
+        }
+
+    private fun initDeferred() {
+        _deferred.let {
+            if (it == null) _deferred = async(context()) { block() }
+        }
+    }
+
+    override fun load(): T = runBlocking { deferred.await() }
+
+    override fun loadAsync() = initDeferred()
+
+    override fun onDetach() {
+        super.onDetach()
+        _deferred = null
+    }
+
+}
