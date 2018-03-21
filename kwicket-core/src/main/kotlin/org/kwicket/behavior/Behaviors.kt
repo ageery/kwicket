@@ -4,6 +4,7 @@ import org.apache.wicket.Component
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior
 import org.apache.wicket.behavior.Behavior
+import org.apache.wicket.event.IEvent
 import org.apache.wicket.util.time.Duration
 import org.kwicket.component.refresh
 import org.kwicket.model.AsyncModel
@@ -11,11 +12,30 @@ import org.kwicket.model.AsyncModel
 open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
     override fun onConfigure(component: Component) {
-        super.onConfigure(component)
         handler(component)
     }
 
 }
+
+inline fun <reified T> onEvent(outputMarkupId: Boolean? = null, crossinline handler: (T, Component) -> Unit) =
+    object : Behavior() {
+
+        override fun bind(component: Component) {
+            outputMarkupId?.let {
+                if (component.outputMarkupId != it) {
+                    component.outputMarkupId = it
+                }
+            }
+        }
+
+        override fun onEvent(component: Component, event: IEvent<*>) {
+            val payload = event.payload
+            if (payload is T) {
+                handler(payload, component)
+            }
+        }
+
+    }
 
 class VisibleWhen(isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
 class EnabledWhen(isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
@@ -43,7 +63,9 @@ class AsyncModelLoadBehavior : Behavior() {
 
     override fun onConfigure(component: Component) {
         super.onConfigure(component)
-        component.asyncLoad()
+        if (component.isVisibleInHierarchy) {
+            component.asyncLoad()
+        }
     }
 
 }
