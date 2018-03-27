@@ -49,6 +49,16 @@ fun <T> (() -> T).ldm(): IModel<T> = LoadableDetachableModel.of(this)
 fun <T> (suspend () -> T).ldm(): IModel<T> = SuspendableLoadableDetachableModel(block = this@ldm)
 
 /**
+ * Creates an [IModel] that creates a `suspend` lambda from the @receiver and wraps it in a
+ * [SuspendableLoadableDetachableModel].
+ *
+ * @param T type returned by the producer
+ * @receiver producer that returns objects of type [T]
+ * @return [IModel] of type [T]
+ */
+fun <T> (() -> T).sldm(): IModel<T> = suspend { this() }.ldm()
+
+/**
  * Provides a readable/writable property with the name of "value" that returns the "object" of the [IModel],
  * without having to use the special Kotlin backtick syntax (since "object" is a reserved word in Kotlin).
  */

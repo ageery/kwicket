@@ -13,7 +13,8 @@ import kotlin.coroutines.experimental.CoroutineContext
  * An extension of [IModel] that adds a method to start the load of the model's value asynchronously.
  */
 interface AsyncModel<T> : IModel<T> {
-    fun loadAsync()
+    fun startAsyncLoad()
+    fun cancelAsyncLoad()
 }
 
 /**
@@ -44,7 +45,10 @@ class AsyncLoadableDetachableModel<T>(
 
     override fun load(): T = runBlocking { deferred.await() }
 
-    override fun loadAsync() = initDeferred()
+    override fun startAsyncLoad() = initDeferred()
+    override fun cancelAsyncLoad() {
+        _deferred?.let { if (it.isActive) it.cancel() }
+    }
 
     override fun onDetach() {
         super.onDetach()
@@ -75,11 +79,17 @@ class SuspendableLoadableDetachableModel<T>(
 
     override fun load(): T = runBlocking { deferred.await() }
 
-    override fun loadAsync() = initDeferred()
+    override fun startAsyncLoad() = initDeferred()
+    override fun cancelAsyncLoad() {
+        _deferred?.let { if (it.isActive) it.cancel() }
+    }
 
     override fun onDetach() {
         super.onDetach()
-        _deferred = null
+        _deferred?.let {
+            if (it.isActive) it.cancel()
+            _deferred = null
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 rootProject.name = 'org.kwicket'
 include 'kwicket-core',  \
+        'kwicket-generator', \
          'kwicket-wicket-core',  \
          'kwicket-wicket-extensions', \
          'kwicket-kotlinx-html', \
