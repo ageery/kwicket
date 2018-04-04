@@ -18,7 +18,7 @@ class LinkPanel<T>(
     enabled: Boolean? = null,
     renderBodyOnly: Boolean? = null,
     escapeModelStrings: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : KPanel(id = id, model = model) {
 
     init {
@@ -29,7 +29,7 @@ class LinkPanel<T>(
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
             renderBodyOnly = renderBodyOnly,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         add(
             KListView(id = "links",

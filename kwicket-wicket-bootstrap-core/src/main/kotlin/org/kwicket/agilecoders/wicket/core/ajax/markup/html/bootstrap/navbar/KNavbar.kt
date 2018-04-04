@@ -20,7 +20,7 @@ class KNavbar(
     renderBodyOnly: Boolean? = null,
     fluid: Boolean? = null,
     components: ((String) -> List<List<INavbarComponent>>)? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : Navbar(id, model) {
 
     init {
@@ -31,7 +31,7 @@ class KNavbar(
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
             renderBodyOnly = renderBodyOnly,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         position?.let { this.position = it }
         inverted?.let { this.setInverted(it) }

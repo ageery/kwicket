@@ -1,5 +1,0 @@
-dependencies {
-    compile project(':kwicket-core')
-    compile project(':kwicket-wicket-core')
-    compileOnly("org.apache.wicket:wicket-extensions:$wicketVersion")
-}

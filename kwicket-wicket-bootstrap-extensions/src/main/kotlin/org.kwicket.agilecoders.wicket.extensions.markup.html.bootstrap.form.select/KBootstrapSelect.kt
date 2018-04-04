@@ -21,7 +21,7 @@ open class KBootstrapSelect<T>(
     enabled: Boolean? = null,
     escapeModelStrings: Boolean? = null,
     renderBodyOnly: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : BootstrapSelect<T>(id, model, choices, renderer) {
 
     init {
@@ -32,7 +32,7 @@ open class KBootstrapSelect<T>(
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
             renderBodyOnly = renderBodyOnly,
-            behaviors = *behaviors,
+            behaviors = behaviors,
             required = required,
             label = label
         )

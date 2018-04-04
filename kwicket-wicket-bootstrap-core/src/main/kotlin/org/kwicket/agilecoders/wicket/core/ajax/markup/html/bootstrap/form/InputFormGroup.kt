@@ -14,14 +14,14 @@ class InputFormGroup(
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,
     enabled: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : KPanel(
     id = id,
     outputMarkupId = outputMarkupId,
     outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
     visible = visible,
     enabled = enabled,
-    behaviors = *behaviors
+    behaviors = behaviors
 ) {
 
     init {

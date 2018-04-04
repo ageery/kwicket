@@ -19,14 +19,14 @@ open class KBootstrapAjaxLink<T>(
     icon: IconType? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : BootstrapAjaxLink<T>(id, model, type, label) {
 
     init {
         init(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
             outputMarkupId = outputMarkupId,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         setIconType(icon)
         size?.let { setSize(it) }

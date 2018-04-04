@@ -10,12 +10,12 @@ class KFilterToolbar<T, S, C>(
     table: DataTable<T, S>,
     form: FilterForm<C>,
     visible: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : FilterToolbar(table, form) {
 
     init {
         init(
-            behaviors = *behaviors,
+            behaviors = behaviors,
             visible = visible
         )
     }

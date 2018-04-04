@@ -28,7 +28,7 @@ open class KWebMarkupContainer(
     enabled: Boolean? = null,
     renderBodyOnly: Boolean? = null,
     escapeModelStrings: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : WebMarkupContainer(id, model) {
 
     init {
@@ -39,7 +39,7 @@ open class KWebMarkupContainer(
             escapeModelStrings = escapeModelStrings,
             visible = visible,
             enabled = enabled,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
     }
 

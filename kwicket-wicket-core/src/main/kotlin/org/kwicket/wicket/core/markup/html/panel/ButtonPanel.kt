@@ -19,7 +19,7 @@ open class ButtonPanel(
     enabled: Boolean? = null,
     renderBodyOnly: Boolean? = null,
     escapeModelStrings: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : KPanel(id = id) {
 
     init {
@@ -30,7 +30,7 @@ open class ButtonPanel(
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
             renderBodyOnly = renderBodyOnly,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         q(
             KListView(id = "buttons", model = buttons("button", form).listModel(),

@@ -15,12 +15,12 @@ open class KNavbarButton<T : Page>(
     params: PageParameters? = null,
     icon: IconType? = null,
     outputMarkupId: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : NavbarButton<T>(pageClass, params, label) {
 
     init {
         init(outputMarkupId = outputMarkupId,
-            behaviors = *behaviors)
+            behaviors = behaviors)
         icon?.let { setIconType(icon) }
     }
 

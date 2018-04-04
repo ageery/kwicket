@@ -5,8 +5,10 @@ import org.apache.wicket.MarkupContainer
 import org.apache.wicket.WicketRuntimeException
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.behavior.Behavior
+import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
+import org.kwicket.model.model
 
 /**
  * Returns a non-null [AjaxRequestTarget].
@@ -82,7 +84,7 @@ fun <C : Component> C.init(
     enabled: Boolean? = null,
     escapeModelStrings: Boolean? = null,
     renderBodyOnly: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ): C {
     renderBodyOnly?.let { this.renderBodyOnly = it }
     outputMarkupId?.let { this.outputMarkupId = it }
@@ -90,9 +92,7 @@ fun <C : Component> C.init(
     visible?.let { this.isVisible = it }
     enabled?.let { this.isEnabled = it }
     escapeModelStrings?.let { this.escapeModelStrings = it }
-    if (behaviors.isNotEmpty()) {
-        add(*behaviors)
-    }
+    behaviors?.let { if (it.isNotEmpty()) add(*it.toTypedArray()) }
     return this
 }
 
@@ -127,7 +127,7 @@ fun <C : FormComponent<*>> C.init(
     enabled: Boolean? = null,
     escapeModelStrings: Boolean? = null,
     renderBodyOnly: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ): C {
     (this as Component).init(
         outputMarkupId = outputMarkupId,
@@ -136,7 +136,7 @@ fun <C : FormComponent<*>> C.init(
         enabled = enabled,
         escapeModelStrings = escapeModelStrings,
         renderBodyOnly = renderBodyOnly,
-        behaviors = *behaviors
+        behaviors = behaviors
     )
     required?.let { this.isRequired = it }
     label?.let { this.label = it }

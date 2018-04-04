@@ -18,7 +18,7 @@ open class KTextField<T>(
     label: IModel<String>? = null,
     visible: Boolean? = null,
     enabled: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : TextField<T>(id, model, type) {
 
     init {
@@ -27,7 +27,7 @@ open class KTextField<T>(
             outputMarkupId = outputMarkupId,
             visible = visible,
             enabled = enabled,
-            behaviors = *behaviors,
+            behaviors = behaviors,
             required = required,
             label = label
         )

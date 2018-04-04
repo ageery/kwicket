@@ -23,14 +23,14 @@ open class KBootstrapAjaxButton(
     type: Buttons.Type = Buttons.Type.Default,
     icon: IconType? = null,
     size: Buttons.Size? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : BootstrapAjaxButton(id, model, form, type) {
 
     init {
         init(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
             outputMarkupId = outputMarkupId,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         defaultFormProcessing?.let { this.defaultFormProcessing = it }
         icon?.let { setIconType(it) }

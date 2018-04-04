@@ -1,8 +1,0 @@
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile 'com.squareup:kotlinpoet:0.7.0'
-    compile("org.apache.wicket:wicket-core:8.0.0-M9")
-}

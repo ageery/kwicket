@@ -19,7 +19,7 @@ open class KSelect2Choice<T>(
     theme: ISelect2Theme? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderId: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : Select2Choice<T>(id, model, choiceProvider) {
 
     init {
@@ -31,7 +31,7 @@ open class KSelect2Choice<T>(
             theme = theme,
             outputMarkupId = outputMarkupId,
             outputMarkupPlaceholderTag = outputMarkupPlaceholderId,
-            behaviors = *behaviors,
+            behaviors = behaviors,
             label = label,
             required = required
         )

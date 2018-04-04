@@ -16,14 +16,14 @@ open class KBootstrapDefaultDataTable<T, S>(
     outputMarkupPlaceholderTag: Boolean? = null,
     topToolbars: ((BootstrapDefaultDataTable<T, S>) -> List<AbstractToolbar>)? = null,
     bottomToolbars: ((BootstrapDefaultDataTable<T, S>) -> List<AbstractToolbar>)? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : BootstrapDefaultDataTable<T, S>(id, columns, dataProvider, rowsPerPage.toLong()) {
 
     init {
         init(
             outputMarkupId = outputMarkupId,
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         topToolbars?.let { it.invoke(this).forEach { toolbar -> addTopToolbar(toolbar) } }
         bottomToolbars?.let { it.invoke(this).forEach { toolbar -> addBottomToolbar(toolbar) } }

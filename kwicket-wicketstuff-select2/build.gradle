@@ -1,4 +1,0 @@
-dependencies {
-    compile project(':kwicket-core')
-    compileOnly("org.wicketstuff:wicketstuff-select2:$wicketStuffVersion")
-}

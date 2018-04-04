@@ -21,6 +21,11 @@ interface AsyncDataProvider<T, S> : ISortableDataProvider<T, S> {
     fun cancelAsyncLoad()
 }
 
+inline fun <T, U, R> suspend2(noinline block: suspend (T, U ) -> R): suspend (t: T, u: U) -> R = block
+public inline fun <R> suspend1(noinline block: suspend () -> R): suspend () -> R = block
+
+val xyz = suspend2 { start: Long, size: Long -> start + size }
+
 open class KAsyncSortableDataProvider<T, S>(
     private val count: () -> Long,
     private val items: (Long, Long) -> Sequence<T>,

@@ -17,7 +17,7 @@ open class KBookmarkablePageLink<C : Page>(
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,
     enabled: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : BookmarkablePageLink<C>(id, page, params) {
 
     init {
@@ -26,7 +26,7 @@ open class KBookmarkablePageLink<C : Page>(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
             visible = visible,
             enabled = enabled,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
     }
 

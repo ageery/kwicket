@@ -68,7 +68,7 @@ class ManageCustomersPage : BasePage() {
                     delay(time = 3, unit = TimeUnit.SECONDS)
                     LocalDateTime.now()
                 }),
-                behaviors = *arrayOf(AsyncModelLoadBehavior())
+                behaviors = listOf(AsyncModelLoadBehavior())
             )
         )
         q(
@@ -78,7 +78,7 @@ class ManageCustomersPage : BasePage() {
                     delay(time = 3, unit = TimeUnit.SECONDS)
                     LocalDateTime.now()
                 }),
-                behaviors = *arrayOf(AsyncModelLoadBehavior())
+                behaviors = listOf(AsyncModelLoadBehavior())
             )
         )
         q(
@@ -141,14 +141,14 @@ class ManageCustomersPage : BasePage() {
                     },
                     modeler = { it.model() }),
                 rowsPerPage = 10,
-                behaviors = *arrayOf(KTableBehavior(hover = true, bordered = true, condensed = true, striped = true))
+                behaviors = listOf(KTableBehavior(hover = true, bordered = true, condensed = true, striped = true))
             )
         )
         q(
             KTextField(
                 id = "search",
                 model = searchModel,
-                behaviors = *arrayOf(InputBehavior())
+                behaviors = listOf(InputBehavior())
             )
         )
         q(

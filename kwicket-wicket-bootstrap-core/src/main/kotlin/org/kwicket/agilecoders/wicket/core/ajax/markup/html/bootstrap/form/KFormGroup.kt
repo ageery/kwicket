@@ -15,7 +15,7 @@ open class KFormGroup(
     visible: Boolean? = null,
     enabled: Boolean? = null,
     useFormComponentLabel: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : FormGroup(id, label, help) {
 
     init {
@@ -24,7 +24,7 @@ open class KFormGroup(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
             visible = visible,
             enabled = enabled,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         useFormComponentLabel?.let { this.useFormComponentLabel(it) }
     }

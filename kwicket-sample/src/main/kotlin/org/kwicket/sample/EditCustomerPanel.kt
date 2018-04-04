@@ -38,7 +38,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                         label = "First Name".model(),
                         required = true,
                         model = model + EditCustomer::firstName,
-                        behaviors = *arrayOf(InputBehavior(), maximumLength(maxFirstNameLength))
+                        behaviors = listOf(InputBehavior(), maximumLength(maxFirstNameLength))
                     )
                 })
         )
@@ -50,7 +50,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                         label = "Last Name".model(),
                         required = true,
                         model = model + EditCustomer::lastName,
-                        behaviors = *arrayOf(InputBehavior(), maximumLength(maxLastNameLength))
+                        behaviors = listOf(InputBehavior(), maximumLength(maxLastNameLength))
                     )
                 })
         )
@@ -62,7 +62,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                         label = "Age".model(),
                         type = Int::class.javaObjectType,
                         model = model + EditCustomer::age,
-                        behaviors = *arrayOf(InputBehavior())
+                        behaviors = listOf(InputBehavior())
                     )
                 })
         )
@@ -74,7 +74,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                         label = "City".model(),
                         required = true,
                         model = model + EditCustomer::city,
-                        behaviors = *arrayOf(InputBehavior(), maximumLength(maxCityLength))
+                        behaviors = listOf(InputBehavior(), maximumLength(maxCityLength))
                     )
                 })
         )

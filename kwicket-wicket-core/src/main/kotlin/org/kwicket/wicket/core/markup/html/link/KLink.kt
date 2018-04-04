@@ -20,7 +20,7 @@ open class KLink<T>(
     enabled: Boolean? = null,
     renderBodyOnly: Boolean? = null,
     escapeModelStrings: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : Link<T>(id, model) {
 
     init {
@@ -31,7 +31,7 @@ open class KLink<T>(
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
             renderBodyOnly = renderBodyOnly,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
     }
 

@@ -21,7 +21,7 @@ open class KAjaxButton(
     defaultFormProcessing: Boolean? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : AjaxButton(id, model, form) {
 
     companion object {
@@ -33,7 +33,7 @@ open class KAjaxButton(
         init(
             outputMarkupId = outputMarkupId,
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
     }
 

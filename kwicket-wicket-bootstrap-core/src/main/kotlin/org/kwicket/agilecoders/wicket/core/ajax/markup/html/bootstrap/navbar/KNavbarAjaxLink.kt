@@ -20,7 +20,7 @@ open class KNavbarAjaxLink<T>(
     visible: Boolean? = null,
     enabled: Boolean? = null,
     escapeModelStrings: Boolean? = null,
-    vararg behaviors: Behavior
+    behaviors: List<Behavior>? = null
 ) : NavbarAjaxLink<T>(id, label) {
 
     init {
@@ -30,7 +30,7 @@ open class KNavbarAjaxLink<T>(
             visible = visible,
             enabled = enabled,
             escapeModelStrings = escapeModelStrings,
-            behaviors = *behaviors
+            behaviors = behaviors
         )
         model?.let { this.model = it }
         icon?.let { setIconType(it) }

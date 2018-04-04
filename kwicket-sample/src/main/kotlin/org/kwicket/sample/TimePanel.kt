@@ -37,7 +37,7 @@ class TimePanel(id: String, model: IModel<String>) : RegionInfoPanel<String>(id 
                 id = timeId,
                 model = { LocalDateTime.now().toLocalTime() }.ldm(),
                 outputMarkupId = true,
-                behaviors = *arrayOf(refreshEvery(5.1.secs()))
+                behaviors = listOf(refreshEvery(5.1.secs()))
             )
         )
     }

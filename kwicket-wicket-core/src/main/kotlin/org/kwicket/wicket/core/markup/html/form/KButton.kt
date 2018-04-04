@@ -24,7 +24,8 @@ open class KButton(
             outputMarkupId = outputMarkupId,
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag
         )
-        this.defaultFormProcessing = defaultFormProcessing ?: this.defaultFormProcessing
+        defaultFormProcessing?.let { this.defaultFormProcessing = it }
+        //this.defaultFormProcessing = defaultFormProcessing ?: this.defaultFormProcessing
     }
 
     override fun onSubmit() {
