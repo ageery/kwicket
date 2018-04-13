@@ -4,14 +4,15 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
+import kotlin.reflect.KClass
 
 /**
  * [TextField] with named and default constructor arguments.
  */
-open class KTextField<T>(
+open class KTextField<T: Any>(
     id: String,
     model: IModel<T?>? = null,
-    type: Class<T>? = null,
+    type: KClass<T>? = null,
     required: Boolean? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
@@ -19,7 +20,7 @@ open class KTextField<T>(
     visible: Boolean? = null,
     enabled: Boolean? = null,
     behaviors: List<Behavior>? = null
-) : TextField<T>(id, model, type) {
+) : TextField<T>(id, model, type?.java) {
 
     init {
         init(

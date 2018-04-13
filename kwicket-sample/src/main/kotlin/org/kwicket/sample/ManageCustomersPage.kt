@@ -32,7 +32,7 @@ import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
 import org.kwicket.wicket.core.markup.html.form.KTextField
 import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.KAjaxFallbackDefaultDataTable
-import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.KLambdaColumn
+import org.kwicket.wicket.extensions.markup.html.repeater.data.table.KLambdaColumn
 import org.kwicket.wicket.extensions.markup.html.repeater.data.table.LinkColumn
 import org.kwicket.wicket.extensions.markup.html.repeater.util.KSortableDataProvider
 import org.wicketstuff.annotation.mount.MountPath

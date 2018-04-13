@@ -60,7 +60,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                     KTextField(
                         id = it,
                         label = "Age".model(),
-                        type = Int::class.javaObjectType,
+                        type = Int::class,
                         model = model + EditCustomer::age,
                         behaviors = listOf(InputBehavior())
                     )
