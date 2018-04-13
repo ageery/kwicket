@@ -3,23 +3,26 @@ package org.kwicket.wicket.core.markup.html.link
 import org.apache.wicket.Page
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.link.BookmarkablePageLink
+import org.apache.wicket.markup.html.link.ExternalLink
+import org.apache.wicket.model.IModel
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.kwicket.component.init
 import kotlin.reflect.KClass
 
 /**
- * [BookmarkablePageLink] with named and default constructor arguments.
+ * [ExternalLink] with named and default constructor arguments.
  */
-open class KBookmarkablePageLink<C : Page>(
+// TODO: add popup options
+open class KExternalLink(
     id: String,
-    page: KClass<C>,
-    params: PageParameters? = null,
+    model: IModel<String>,
+    label: IModel<*>? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,
     enabled: Boolean? = null,
     behaviors: List<Behavior>? = null
-) : BookmarkablePageLink<C>(id, page.java, params) {
+) : ExternalLink(id, model, label) {
 
     init {
         init(

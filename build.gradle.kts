@@ -33,9 +33,8 @@ buildscript {
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion")
         classpath("org.jfrog.buildinfo:build-info-extractor-gradle:$artifactoryVersion")
     }
+
 }
-
-
 
 plugins {
     val kotlinVersion = "1.2.31"
@@ -44,7 +43,7 @@ plugins {
 
 allprojects {
     group = "org.kwicket"
-    version = version
+    version = "0.0.3-SNAPSHOT"
 }
 
 subprojects {
@@ -58,8 +57,10 @@ subprojects {
 
     val bintrayUser = if (project.hasProperty("bintrayUser")) project.property("bintrayUser").toString()
     else System.getenv("BINTRAY_USER")
-    val bintrayKey = if (project.hasProperty("bintrayUser")) project.property("bintrayKey").toString()
-    else System.getenv("BINTRAY_KEY")
+    val bintrayKey = if (project.hasProperty("bintrayKey")) project.property("bintrayKey").toString()
+    else System.getenv("BINTRAY_API_KEY")
+
+    println("bintrayUser=$bintrayUser, bintrayKey=$bintrayKey")
 
     plugins.apply("org.jetbrains.kotlin.jvm")
     plugins.apply("com.jfrog.bintray")
@@ -160,21 +161,14 @@ subprojects {
                 setProperty("repoKey", "oss-snapshot-local")
                 setProperty("username", bintrayUser)
                 setProperty("password", bintrayKey)
+                setProperty("maven", true)
             })
             defaults(delegateClosureOf<GroovyObject> {
-                //setProperty("publications", mavenPubName)
+                invokeMethod("publications", mavenPubName)
                 setProperty("publishArtifacts", true)
                 setProperty("publishPom", true)
             })
         })
     }
 
-//    tasks {
-//        val createGenTask by creating {
-//            group = "documentation"
-//            description = "Generates Gradle Kotlin DSL API documentation."
-//            println("------------------------------------------> HERE")
-//            //dependsOn(dokka)
-//        }
-//    }
 }

@@ -142,3 +142,11 @@ fun <C : FormComponent<*>> C.init(
     label?.let { this.label = it }
     return this
 }
+
+/**
+ * Adds a [Behavior] to a [Component]
+ */
+operator fun <T: Component> T.plus(behavior: Behavior): T {
+    this.add(behavior)
+    return this
+}

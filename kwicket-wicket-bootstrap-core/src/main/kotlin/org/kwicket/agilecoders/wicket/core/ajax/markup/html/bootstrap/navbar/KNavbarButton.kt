@@ -8,15 +8,16 @@ import org.apache.wicket.model.IModel
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.kwicket.component.init
 import org.kwicket.model.model
+import kotlin.reflect.KClass
 
 open class KNavbarButton<T : Page>(
-    pageClass: Class<T>,
+    pageClass: KClass<T>,
     label: IModel<String>? = "".model(),
     params: PageParameters? = null,
     icon: IconType? = null,
     outputMarkupId: Boolean? = null,
     behaviors: List<Behavior>? = null
-) : NavbarButton<T>(pageClass, params, label) {
+) : NavbarButton<T>(pageClass.java, params, label) {
 
     init {
         init(outputMarkupId = outputMarkupId,

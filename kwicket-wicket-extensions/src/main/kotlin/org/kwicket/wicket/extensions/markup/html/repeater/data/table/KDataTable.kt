@@ -1,6 +1,7 @@
 package org.kwicket.wicket.extensions.markup.html.repeater.data.table
 
 import org.apache.wicket.behavior.Behavior
+import org.apache.wicket.extensions.markup.html.repeater.data.sort.ISortStateLocator
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractToolbar
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn
@@ -14,8 +15,8 @@ open class KDataTable<T, S>(
     rowsPerPage: Int,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
-    topToolbars: ((KDataTable<T, S>) -> List<AbstractToolbar>)? = null,
-    bottomToolbars: ((KDataTable<T, S>) -> List<AbstractToolbar>)? = null,
+    topToolbars: ((KDataTable<T, S>, ISortStateLocator<S>) -> List<AbstractToolbar>)? = null,
+    bottomToolbars: ((KDataTable<T, S>, ISortStateLocator<S>) -> List<AbstractToolbar>)? = null,
     behaviors: List<Behavior>? = null
 ) : DataTable<T, S>(id, columns, dataProvider, rowsPerPage.toLong()) {
 
@@ -25,8 +26,8 @@ open class KDataTable<T, S>(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
             behaviors = behaviors
         )
-        topToolbars?.let { it.invoke(this).forEach { toolbar -> addTopToolbar(toolbar) } }
-        bottomToolbars?.let { it.invoke(this).forEach { toolbar -> addBottomToolbar(toolbar) } }
+        topToolbars?.let { it.invoke(this, dataProvider).forEach { toolbar -> addTopToolbar(toolbar) } }
+        bottomToolbars?.let { it.invoke(this, dataProvider).forEach { toolbar -> addBottomToolbar(toolbar) } }
     }
 
 }

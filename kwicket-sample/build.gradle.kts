@@ -1,3 +1,8 @@
+import com.jfrog.bintray.gradle.BintrayExtension
+import com.jfrog.bintray.gradle.BintrayPlugin
+import org.gradle.jvm.tasks.Jar
+import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
+
 plugins {
     val kotlinVersion = "1.2.31"
     val bootVersion = "2.0.0.RELEASE"
@@ -72,6 +77,13 @@ dependencies {
 
 }
 
-//bintray {
-//    publications = []
-//}
+tasks {
+    // Disable publication on root project
+    "artifactoryPublish"(ArtifactoryTask::class) {
+        skip = true
+    }
+    "publishMavenPublicationToMavenRepository"(PublishToMavenLocal::class) {
+        enabled = false
+    }
+}
+

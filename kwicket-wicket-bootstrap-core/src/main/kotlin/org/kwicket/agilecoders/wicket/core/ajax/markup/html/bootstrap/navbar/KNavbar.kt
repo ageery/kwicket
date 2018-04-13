@@ -6,7 +6,7 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 
-class KNavbar(
+open class KNavbar(
     id: String,
     model: IModel<*>? = null,
     position: Navbar.Position? = null,
