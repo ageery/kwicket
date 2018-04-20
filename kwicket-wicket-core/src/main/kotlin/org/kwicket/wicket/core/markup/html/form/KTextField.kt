@@ -6,6 +6,15 @@ import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 import kotlin.reflect.KClass
 
+private fun <T: Any> f(k: KClass<T>?, required: Boolean): Class<T>? =
+        k?.let {
+            if (required) {
+                it.java
+            } else {
+                it.javaObjectType
+            }
+        }
+
 /**
  * [TextField] with named and default constructor arguments.
  */
@@ -20,7 +29,7 @@ open class KTextField<T: Any>(
     visible: Boolean? = null,
     enabled: Boolean? = null,
     behaviors: List<Behavior>? = null
-) : TextField<T>(id, model, type?.java) {
+) : TextField<T>(id, model, type?.let { if (required != null && required) it.java else it.javaObjectType }) {
 
     init {
         init(

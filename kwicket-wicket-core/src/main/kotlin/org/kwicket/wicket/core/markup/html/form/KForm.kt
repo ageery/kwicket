@@ -1,5 +1,6 @@
 package org.kwicket.wicket.core.markup.html.form
 
+import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.validation.IFormValidator
 import org.apache.wicket.model.IModel
@@ -13,11 +14,16 @@ open class KForm<T>(
     model: IModel<T>? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
     outputMarkupId: Boolean? = null,
-    vararg validators: IFormValidator
+    behaviors: List<Behavior>? = null,
+    validators: List<IFormValidator>? = null
 ) : Form<T>(id, model) {
 
     init {
-        init(outputMarkupPlaceholderTag = outputMarkupPlaceholderTag, outputMarkupId = outputMarkupId)
-        validators.forEach { add(it) }
+        init(
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            outputMarkupId = outputMarkupId,
+            behaviors = behaviors
+        )
+        validators?.forEach { add(it) }
     }
 }
