@@ -5,9 +5,10 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.Filte
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilteredColumn
 import org.apache.wicket.model.IModel
 
+// FIXME: is there a better name than "function" -- maybe display or displayFunction or label?
 open class FilteredLambdaColumn<T, S>(
     displayModel: IModel<String>,
-    sort: S?,
+    sort: S? = null,
     function: (T) -> Any?,
     val filter: (String, FilterForm<*>) -> Component
 ) : KLambdaColumn<T, S>(displayModel = displayModel, sort = sort, function = function), IFilteredColumn<T, S> {

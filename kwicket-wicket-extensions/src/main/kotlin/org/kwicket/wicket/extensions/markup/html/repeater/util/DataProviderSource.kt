@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class Sort<out T>(val field: T, val asc: Boolean = true)
 
-interface DataProviderSource<T, I: Serializable, in C, in S> {
+interface DataProviderSource<T, I: Serializable, in C, in S> : Serializable {
     fun toId(value: T): I
     fun fromId(id: I): T
     fun count(criteria: C? = null): Long

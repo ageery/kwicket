@@ -60,8 +60,6 @@ subprojects {
     val bintrayKey = if (project.hasProperty("bintrayKey")) project.property("bintrayKey").toString()
     else System.getenv("BINTRAY_API_KEY")
 
-    println("bintrayUser=$bintrayUser, bintrayKey=$bintrayKey")
-
     plugins.apply("org.jetbrains.kotlin.jvm")
     plugins.apply("com.jfrog.bintray")
     plugins.apply("org.jetbrains.dokka")

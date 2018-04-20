@@ -6,6 +6,7 @@ import org.wicketstuff.select2.ChoiceProvider
 import org.wicketstuff.select2.ISelect2Theme
 import org.wicketstuff.select2.Select2Choice
 
+// FIXME: expose the settings
 open class KSelect2Choice<T>(
     id: String,
     model: IModel<T?>,
