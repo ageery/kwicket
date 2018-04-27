@@ -14,22 +14,23 @@ open class IdentityDataProvider<T, I : Serializable, C, S, U>(
     private val criteria: IModel<C>,
     source: DataProviderSource<T, I, C, S>,
     sorter: (U) -> List<S>,
-    sort: U? = null
+    sort: U? = null,
+    asc: Boolean = true
 ) : IFilterStateLocator<C>, KSortableDataProvider<T, U>(
     count = { source.count(criteria.value) },
-    items = { offset, limit, sorts, asc ->
+    items = { offset, limit, sorts, sortAsc ->
         source.find(
             criteria = criteria.value,
             offset = offset,
             limit = limit,
-            sorts = sorts?.toSortInfo<S, U>(asc = asc, sorter = sorter) ?: emptyList()
+            sorts = sorts?.toSortInfo<S, U>(asc = sortAsc, sorter = sorter) ?: emptyList()
         )
     },
     modeler = { IdentityLoadableDetachableModel(value = it, fromId = source::fromId, toId = source::toId) }
 ) {
 
     init {
-        this.sort = sort?.let { SortParam(it, true) }
+        this.sort = sort?.let { SortParam(it, asc) }
     }
 
     override fun setFilterState(state: C) {
