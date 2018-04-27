@@ -1,7 +1,7 @@
 package org.kwicket.wicketstuff.select2
 
 // FIXME: should we call this LambdaChoiceProvider?
-class SimpleChoiceProvider<T>(
+open class SimpleChoiceProvider<T>(
     toDisplayValue: (T) -> String,
     toIdValue: (T) -> String,
     idToValue: (String) -> T,

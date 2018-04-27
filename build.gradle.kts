@@ -144,7 +144,7 @@ subprojects {
 
     dependencies {
         compileOnly("org.apache.wicket:wicket-core:$wicketVersion")
-        compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
+        compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
         compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
         compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     }
