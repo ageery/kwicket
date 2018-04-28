@@ -1,6 +1,7 @@
 package org.kwicket.kotlinx.html
 
 import org.apache.wicket.MarkupContainer
+import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.IMarkupCacheKeyProvider
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.model.IModel
@@ -10,8 +11,13 @@ import org.kwicket.wicket.core.markup.html.panel.KPanel
 
 data class RegionInfo(val markup: String, val rootComponentBuilders: List<ComponentBuilder>)
 
-open class RegionInfoPanel<T : Any>(id: String, model: IModel<T>, region: (IModel<T>) -> RegionInfo) :
-    KPanel(id = id, model = model), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
+open class RegionInfoPanel<T>(
+    id: String,
+    model: IModel<T>,
+    behaviors: List<Behavior>? = null,
+    region: (IModel<T>) -> RegionInfo
+) :
+    KPanel(id = id, model = model, behaviors = behaviors), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
     private val markup: String
 
