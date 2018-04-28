@@ -36,9 +36,12 @@ import kotlinx.html.attributesMapOf
 import kotlinx.html.stream.appendHTML
 import kotlinx.html.visit
 import org.apache.wicket.Component
+import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.model.IModel
 import org.apache.wicket.util.resource.IResourceStream
+import org.kwicket.behavior.VisibleWhen
 import org.kwicket.toResourceStream
+import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
 import org.kwicket.wicketIdAttr
 
@@ -74,16 +77,55 @@ fun FlowOrPhrasingContent.span(
         consumer
     ).visit(block)
 
+fun FlowOrPhrasingContent.span(
+    id: String? = null,
+    classes: List<String>? = null,
+    visible: (() -> Boolean)? = null,
+    model: IModel<*>,
+    block: WICKET_SPAN.() -> Unit = {}
+): Unit =
+    WICKET_SPAN(
+        id,
+        {
+            KLabel(id = it, model = model, behaviors = listOfNotNull(
+                visible?.let { VisibleWhen { visible() } },
+                classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+            ))
+        },
+        attributesMapOf(wicketIdAttr, id),
+        consumer
+    ).visit(block)
+
+// FIXME: add a function to generate a CSS class behavior -- "row".toCssClass() = Behavior; "row".css() = Behavior
+
 fun FlowContent.div(
     id: String? = null,
-    builder: ((String) -> Component),
     classes: String? = null,
+    builder: ((String) -> Component) = { KWebMarkupContainer(id = it) },
     block: WICKET_DIV.() -> Unit = {}
 ): Unit =
     WICKET_DIV(
         id,
         builder,
         attributesMapOf("class", classes, wicketIdAttr, id),
+        consumer
+    ).visit(block)
+
+fun FlowContent.div(
+    id: String? = null,
+    classes: List<String>? = null,
+    visible: (() -> Boolean)? = null,
+    block: WICKET_DIV.() -> Unit = {}
+): Unit =
+    WICKET_DIV(
+        id,
+        {
+            KWebMarkupContainer(id = it, behaviors = listOfNotNull(
+                visible?.let { VisibleWhen { visible() } },
+                classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+            ))
+        },
+        attributesMapOf(wicketIdAttr, id),
         consumer
     ).visit(block)
 
@@ -159,8 +201,10 @@ fun FlowOrInteractiveOrPhrasingContent.textArea(
     classes: String? = null,
     block: TEXTAREA.() -> Unit = {}
 ): Unit = TEXTAREA(
-    attributesMapOf("rows", rows, "cols", cols, "wrap", wrap?.enumEncode(), "class", classes,
-        wicketIdAttr, id),
+    attributesMapOf(
+        "rows", rows, "cols", cols, "wrap", wrap?.enumEncode(), "class", classes,
+        wicketIdAttr, id
+    ),
     consumer
 ).visit(block)
 
@@ -169,6 +213,38 @@ fun FlowOrInteractiveOrPhrasingContent.label(
     classes: String? = null,
     block: LABEL.() -> Unit = {}
 ): Unit = LABEL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
+
+fun FlowOrPhrasingContent.label(
+    id: String? = null,
+    builder: ((String) -> Component),
+    classes: String? = null,
+    block: WICKET_LABEL.() -> Unit = {}
+): Unit =
+    WICKET_LABEL(
+        id,
+        builder,
+        attributesMapOf("class", classes, wicketIdAttr, id),
+        consumer
+    ).visit(block)
+
+fun FlowOrPhrasingContent.label(
+    id: String? = null,
+    classes: List<String>? = null,
+    visible: (() -> Boolean)? = null,
+    model: IModel<*>,
+    block: WICKET_LABEL.() -> Unit = {}
+): Unit =
+    WICKET_LABEL(
+        id,
+        {
+            KLabel(id = it, model = model, behaviors = listOfNotNull(
+                visible?.let { VisibleWhen { visible() } },
+                classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+            ))
+        },
+        attributesMapOf(wicketIdAttr, id),
+        consumer
+    ).visit(block)
 
 fun FlowOrInteractiveOrPhrasingContent.select(
     id: String? = null,
@@ -209,6 +285,14 @@ class WICKET_SPAN(
     initialAttributes: Map<String, String>,
     consumer: TagConsumer<*>
 ) : SPAN(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_LABEL(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String>,
+    consumer: TagConsumer<*>
+) : LABEL(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
     WicketTag
 
 class WICKET_DIV(
