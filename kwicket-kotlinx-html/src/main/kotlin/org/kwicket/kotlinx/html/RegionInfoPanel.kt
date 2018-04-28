@@ -1,6 +1,7 @@
 package org.kwicket.kotlinx.html
 
 import org.apache.wicket.MarkupContainer
+import org.apache.wicket.markup.IMarkupCacheKeyProvider
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.model.IModel
 import org.apache.wicket.util.resource.IResourceStream
@@ -10,7 +11,7 @@ import org.kwicket.wicket.core.markup.html.panel.KPanel
 data class RegionInfo(val markup: String, val rootComponentBuilders: List<ComponentBuilder>)
 
 open class RegionInfoPanel<T : Any>(id: String, model: IModel<T>, region: (IModel<T>) -> RegionInfo) :
-    KPanel(id = id, model = model), IMarkupResourceStreamProvider {
+    KPanel(id = id, model = model), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
     private val markup: String
 
@@ -23,4 +24,6 @@ open class RegionInfoPanel<T : Any>(id: String, model: IModel<T>, region: (IMode
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>): IResourceStream =
         markup.toResourceStream()
 
+    // FIXME: you really want to cache this on a per instance vs per class basis
+    override fun getCacheKey(container: MarkupContainer, containerClass: Class<*>): String? = null
 }
