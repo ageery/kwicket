@@ -4,7 +4,7 @@ import org.gradle.jvm.tasks.Jar
 import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
 
 plugins {
-    val kotlinVersion = "1.2.31"
+    val kotlinVersion = "1.2.41"
     val bootVersion = "2.0.0.RELEASE"
     val dependencyManagementVersion = "1.0.4.RELEASE"
     id("org.jetbrains.kotlin.jvm") // version kotlinVersion

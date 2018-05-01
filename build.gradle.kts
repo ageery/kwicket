@@ -18,7 +18,7 @@ import java.net.URL
 
 buildscript {
 
-    val kotlinVersion = "1.2.31"
+    val kotlinVersion = "1.2.41"
     val dokkaVersion = "0.9.16"
     val bintrayVersion = "1.7.3"
     val artifactoryVersion = "4.5.2"
@@ -37,7 +37,7 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.2.31"
+    val kotlinVersion = "1.2.41"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
 }
 
