@@ -5,13 +5,14 @@ import java.io.Serializable
 
 class IdentityLoadableDetachableModel<T, I : Serializable>(
     private val fromId: (I) -> T,
-    toId: (T) -> I,
-    value: T
+    val id: I
 ) : LoadableDetachableModel<T>() {
 
-    private var id: I = toId(value)
-
-    init {
+    constructor(
+        fromId: (I) -> T,
+        toId: (T) -> I,
+        value: T
+    ) : this(fromId = fromId, id = toId(value)) {
         this.value = value
     }
 
