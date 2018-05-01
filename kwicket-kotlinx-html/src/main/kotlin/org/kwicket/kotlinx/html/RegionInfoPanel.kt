@@ -14,10 +14,14 @@ data class RegionInfo(val markup: String, val rootComponentBuilders: List<Compon
 open class RegionInfoPanel<T>(
     id: String,
     model: IModel<T>,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
     behaviors: List<Behavior>? = null,
     region: (IModel<T>) -> RegionInfo
 ) :
-    KPanel(id = id, model = model, behaviors = behaviors), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
+    KPanel(id = id, model = model, outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        behaviors = behaviors), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
     private val markup: String
 
