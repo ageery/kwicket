@@ -40,6 +40,7 @@ import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.model.IModel
 import org.apache.wicket.util.resource.IResourceStream
 import org.kwicket.behavior.VisibleWhen
+import org.kwicket.component.init
 import org.kwicket.toResourceStream
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
@@ -140,6 +141,54 @@ fun FlowOrInteractiveOrPhrasingContent.a(
 
 fun FlowContent.ul(id: String? = null, classes: String? = null, block: UL.() -> Unit = {}): Unit =
     UL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
+
+fun FlowOrPhrasingContent.a(
+    classes: List<String>? = null,
+    builder: (String) -> Component,
+    block: WICKET_A.() -> Unit = {}
+): Unit =
+    WICKET_A(
+        id = null,
+        builder = { builder(it).init(behaviors = listOfNotNull(
+            classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+        ))},
+        consumer = consumer
+    ).visit(block)
+
+fun FlowOrPhrasingContent.ul(
+    classes: List<String>? = null,
+    block: WICKET_UL.() -> Unit = {}
+): Unit =
+    WICKET_UL(
+        id = null,
+        builder = { KWebMarkupContainer(id = it, behaviors = listOfNotNull(
+            classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+        ))},
+        consumer = consumer
+    ).visit(block)
+
+fun FlowOrPhrasingContent.li(
+    builder: (String) -> Component,
+    block: WICKET_LI.() -> Unit = {}
+): Unit =
+    WICKET_LI(
+        id = null,
+        builder = builder,
+        consumer = consumer
+    ).visit(block)
+
+fun FlowOrPhrasingContent.li(
+    classes: List<String>? = null,
+    model: IModel<*>,
+    block: WICKET_LI.() -> Unit = {}
+): Unit =
+    WICKET_LI(
+        id = null,
+        builder = { KLabel(id = it, model = model, behaviors = listOfNotNull(
+            classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+        ))},
+        consumer = consumer
+    ).visit(block)
 
 fun FlowContent.ol(id: String? = null, classes: String? = null, block: OL.() -> Unit = {}): Unit =
     OL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
@@ -278,6 +327,30 @@ fun extend(block: EXTEND.() -> Unit = {}): IResourceStream =
 
 fun attrs(initialAttributes: Map<String, String>, id: String?) =
     if (id == null) initialAttributes else initialAttributes + (wicketIdAttr to id)
+
+class WICKET_UL(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : UL(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_LI(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : LI(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_A(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : A(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
 
 class WICKET_SPAN(
     override val id: String? = null,
