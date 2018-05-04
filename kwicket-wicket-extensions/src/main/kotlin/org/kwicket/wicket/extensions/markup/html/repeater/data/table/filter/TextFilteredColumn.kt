@@ -1,7 +1,9 @@
 package org.kwicket.wicket.extensions.markup.html.repeater.data.table.filter
 
 import org.apache.wicket.Component
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator
 import org.apache.wicket.markup.html.WebMarkupContainer
+import org.apache.wicket.markup.repeater.Item
 import org.apache.wicket.model.IModel
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.form.KTextField
@@ -19,8 +21,12 @@ open class TextFilteredColumn<T, S, F : Any>(
         { fieldId, fieldModel, fieldType ->
             KTextField(id = fieldId, model = fieldModel, type = fieldType)
         },
-    rhs: (String) -> Component
+    rhs: (String) -> Component,
+    header: ((String, IModel<String>) -> Component)? = null,
+    populateItem: ((Item<ICellPopulator<T>>, String, IModel<T>, IModel<*>) -> Unit)? = null,
+    cssClasses: List<String>? = null
 ) : FilteredLambdaColumn<T, S>(displayModel = displayModel, sort = sort, function = function,
+    header = header, populateItem = populateItem, cssClasses = cssClasses,
     filter = { id, _ ->
         TextFieldSearchPanel(
             id = id,
