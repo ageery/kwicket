@@ -3,6 +3,7 @@ package org.kwicket.kotlinx.html
 import kotlinx.html.A
 import kotlinx.html.BUTTON
 import kotlinx.html.DIV
+import kotlinx.html.FORM
 import kotlinx.html.FlowContent
 import kotlinx.html.FlowOrHeadingContent
 import kotlinx.html.FlowOrInteractiveOrPhrasingContent
@@ -44,6 +45,7 @@ import org.kwicket.component.init
 import org.kwicket.toResourceStream
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
+import org.kwicket.wicket.core.markup.html.form.KForm
 import org.kwicket.wicketIdAttr
 
 fun FlowOrPhrasingContent.span(
@@ -100,9 +102,9 @@ fun FlowOrPhrasingContent.span(
 // FIXME: add a function to generate a CSS class behavior -- "row".toCssClass() = Behavior; "row".css() = Behavior
 
 fun FlowContent.div(
+    builder: ((String) -> Component) = { KWebMarkupContainer(id = it) },
     id: String? = null,
     classes: String? = null,
-    builder: ((String) -> Component) = { KWebMarkupContainer(id = it) },
     block: WICKET_DIV.() -> Unit = {}
 ): Unit =
     WICKET_DIV(
@@ -190,6 +192,39 @@ fun FlowOrPhrasingContent.li(
         consumer = consumer
     ).visit(block)
 
+fun FlowOrPhrasingContent.form(
+    builder: (String) -> Component,
+    block: WICKET_FORM.() -> Unit = {}
+): Unit =
+    WICKET_FORM(
+        id = null,
+        builder = builder,
+        consumer = consumer
+    ).visit(block)
+
+fun FlowOrPhrasingContent.form(
+    classes: List<String>? = null,
+    model: IModel<*>,
+    block: WICKET_FORM.() -> Unit = {}
+): Unit =
+    WICKET_FORM(
+        id = null,
+        builder = { KForm(id = it, model = model, behaviors = listOfNotNull(
+            classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+        ))},
+        consumer = consumer
+    ).visit(block)
+
+fun FlowOrPhrasingContent.button(
+    builder: (String) -> Component,
+    block: WICKET_BUTTON.() -> Unit = {}
+): Unit =
+    WICKET_BUTTON(
+        id = null,
+        builder = builder,
+        consumer = consumer
+    ).visit(block)
+
 fun FlowContent.ol(id: String? = null, classes: String? = null, block: OL.() -> Unit = {}): Unit =
     OL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
@@ -210,6 +245,25 @@ fun FlowOrHeadingContent.h3(id: String? = null, classes: String? = null, block: 
 
 fun FlowOrHeadingContent.h4(id: String? = null, classes: String? = null, block: H4.() -> Unit = {}): Unit =
     H4(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
+
+fun FlowOrHeadingContent.h4(
+    id: String? = null,
+    classes: List<String>? = null,
+    visible: (() -> Boolean)? = null,
+    model: IModel<*>,
+    block: WICKET_H4.() -> Unit = {}
+): Unit =
+    WICKET_H4(
+        id,
+        {
+            KLabel(id = it, model = model, behaviors = listOfNotNull(
+                visible?.let { VisibleWhen { visible() } },
+                classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+            ))
+        },
+        attributesMapOf(wicketIdAttr, id),
+        consumer
+    ).visit(block)
 
 fun FlowOrHeadingContent.h5(
     id: String? = null,
@@ -301,6 +355,19 @@ fun FlowOrInteractiveOrPhrasingContent.select(
     block: SELECT.() -> Unit = {}
 ): Unit = SELECT(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
+fun FlowOrPhrasingContent.select(
+    id: String? = null,
+    builder: ((String) -> Component),
+    classes: String? = null,
+    block: WICKET_SELECT.() -> Unit = {}
+): Unit =
+    WICKET_SELECT(
+        id,
+        builder,
+        attributesMapOf("class", classes, wicketIdAttr, id),
+        consumer
+    ).visit(block)
+
 fun TABLE.tr(id: String? = null, classes: String? = null, block: TR.() -> Unit = {}): Unit =
     TR(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
@@ -374,4 +441,36 @@ class WICKET_DIV(
     initialAttributes: Map<String, String>,
     consumer: TagConsumer<*>
 ) : DIV(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_FORM(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : FORM(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_BUTTON(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : BUTTON(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_H4(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : H4(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_SELECT(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : SELECT(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
     WicketTag
