@@ -18,6 +18,7 @@ import kotlinx.html.IMG
 import kotlinx.html.INPUT
 import kotlinx.html.InputType
 import kotlinx.html.LABEL
+import kotlinx.html.LEGEND
 import kotlinx.html.LI
 import kotlinx.html.OL
 import kotlinx.html.P
@@ -349,6 +350,26 @@ fun FlowOrPhrasingContent.label(
         consumer
     ).visit(block)
 
+// FIXME: move the model to be the first arg
+fun FlowOrPhrasingContent.legend(
+    model: IModel<*>,
+    id: String? = null,
+    classes: List<String>? = null,
+    visible: (() -> Boolean)? = null,
+    block: WICKET_LEGEND.() -> Unit = {}
+): Unit =
+    WICKET_LEGEND(
+        id,
+        {
+            KLabel(id = it, model = model, behaviors = listOfNotNull(
+                visible?.let { VisibleWhen { visible() } },
+                classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+            ))
+        },
+        attributesMapOf(wicketIdAttr, id),
+        consumer
+    ).visit(block)
+
 fun FlowOrInteractiveOrPhrasingContent.select(
     id: String? = null,
     classes: String? = null,
@@ -473,4 +494,12 @@ class WICKET_SELECT(
     initialAttributes: Map<String, String> = emptyMap(),
     consumer: TagConsumer<*>
 ) : SELECT(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_LEGEND(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : LEGEND(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
     WicketTag
