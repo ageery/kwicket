@@ -1,15 +1,15 @@
 package org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup
+import org.apache.wicket.Component
 import org.apache.wicket.behavior.Behavior
-import org.apache.wicket.markup.html.form.FormComponent
 import org.kwicket.component.q
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 
 class InputFormGroup(
     id: String,
     group: (String) -> FormGroup = { KFormGroup(id = it) },
-    field: (String) -> FormComponent<*>,
+    field: (String) -> Component,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,

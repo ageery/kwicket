@@ -13,8 +13,8 @@ private class KSerializableFunction<T, R>(val function: (T) -> R) : Serializable
 
 open class KLambdaColumn<T, S>(
     displayModel: IModel<String>,
-    sort: S?,
-    function: (T) -> Any?,
+    sort: S? = null,
+    function: (T) -> Any? = {},
     private val header: ((String, IModel<String>) -> Component)? = null,
     private val populateItem: ((Item<ICellPopulator<T>>, String, IModel<T>, IModel<*>) -> Unit)? = null,
     private val cssClasses: List<String>? = null

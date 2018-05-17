@@ -17,12 +17,19 @@ open class RegionInfoPanel<T>(
     visible: Boolean? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
     behaviors: List<Behavior>? = null,
     region: (IModel<T>) -> RegionInfo
 ) :
-    KPanel(id = id, model = model, visible = visible, outputMarkupId = outputMarkupId,
+    KPanel(
+        id = id,
+        model = model,
+        visible = visible,
+        outputMarkupId = outputMarkupId,
         outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-        behaviors = behaviors), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
+        renderBodyOnly = renderBodyOnly,
+        behaviors = behaviors
+    ), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
     private val markup: String
 

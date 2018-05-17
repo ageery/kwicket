@@ -1,6 +1,7 @@
 package org.kwicket.agilecoders
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior
+import org.apache.wicket.Component
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
@@ -33,7 +34,7 @@ fun <T : Any> textField(
     )
 }
 
-fun inputFormGroup(field: (String) -> FormComponent<*>): (String) -> InputFormGroup =
+fun inputFormGroup(field: (String) -> Component): (String) -> InputFormGroup =
     { InputFormGroup(id = it, field = field) }
 
 fun <T : Any> textFieldFormGroup(
