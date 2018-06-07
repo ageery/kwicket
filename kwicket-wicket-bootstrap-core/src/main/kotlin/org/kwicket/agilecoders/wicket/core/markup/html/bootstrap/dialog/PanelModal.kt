@@ -36,7 +36,7 @@ open class PanelModal(id: String) : Modal<Any>(id) {
             with(it) {
                 title?.let { if (escapeHeaderString != null) header(it, escapeHeaderString) else header(it) }
                 size?.let { size(it) }
-                footerButtons?.let { it.invoke(Modal.BUTTON_MARKUP_ID).forEach { addButton(it) } }
+                footerButtons?.let { it.invoke(Modal.BUTTON_MARKUP_ID, form).forEach { addButton(it) } }
             }
         }
         val refreshTarget = target(target)

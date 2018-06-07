@@ -102,9 +102,9 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
     }
 
     override val modalInfo = ModalInfo(title = { "${if (model.value.id == null) "Add" else "Edit"} Customer" }.ldm(),
-        footerButtons = {
+        footerButtons = { bid, _ ->
             listOf(
-                KBootstrapAjaxButton(id = it,
+                KBootstrapAjaxButton(id = bid,
                     model = "Save".model(),
                     form = form,
                     onSubmit = { target, button ->
@@ -115,7 +115,7 @@ class EditCustomerPanel(id: String, model: IModel<EditCustomer>) : HasModalInfo,
                         )
                     },
                     onError = { target, _ -> target.add(this) }),
-                KBootstrapAjaxButton(id = it,
+                KBootstrapAjaxButton(id = bid,
                     model = "Cancel".model(),
                     defaultFormProcessing = false,
                     form = form,

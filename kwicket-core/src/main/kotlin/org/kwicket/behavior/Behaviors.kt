@@ -19,7 +19,13 @@ open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
 }
 
-inline fun <reified T> onEvent(outputMarkupId: Boolean? = null, crossinline handler: (T, Component) -> Unit) =
+inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
+                               crossinline handler: (T, Component) -> Unit) =
+    onEvent(outputMarkupId = outputMarkupId, handler = handler, guard = { true })
+
+inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
+                               crossinline handler: (T, Component) -> Unit,
+                               crossinline guard: (T) -> Boolean) =
     object : Behavior() {
 
         override fun bind(component: Component) {
@@ -33,7 +39,9 @@ inline fun <reified T> onEvent(outputMarkupId: Boolean? = null, crossinline hand
         override fun onEvent(component: Component, event: IEvent<*>) {
             val payload = event.payload
             if (payload is T) {
-                handler(payload, component)
+                if (guard(payload)) {
+                    handler(payload, component)
+                }
             }
         }
 
