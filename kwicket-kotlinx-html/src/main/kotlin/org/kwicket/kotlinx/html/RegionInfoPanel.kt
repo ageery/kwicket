@@ -31,7 +31,7 @@ open class RegionInfoPanel<T>(
         behaviors = behaviors
     ), IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
-    private val markup: String
+    /*private*/ val markup: String
 
     init {
         val regionInfo = region(model)

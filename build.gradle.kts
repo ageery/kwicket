@@ -14,14 +14,17 @@ import org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
 import org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention
 import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
+import org.kwicket.gradle.KwicketConfig.kotlinCoroutinesVersion
 import java.net.URL
+import org.kwicket.gradle.KwicketConfig.kotlinVersion
+import org.kwicket.gradle.KwicketConfig.wicketVersion
 
 buildscript {
 
-    val kotlinVersion = "1.2.41"
-    val dokkaVersion = "0.9.16"
-    val bintrayVersion = "1.7.3"
-    val artifactoryVersion = "4.5.2"
+    val kotlinVersion = org.kwicket.gradle.KwicketConfig.kotlinVersion
+    val dokkaVersion = org.kwicket.gradle.KwicketConfig.dokkaVersion
+    val bintrayVersion = org.kwicket.gradle.KwicketConfig.bintrayVersion
+    val artifactoryVersion = org.kwicket.gradle.KwicketConfig.artifactoryVersion
 
     repositories {
         mavenCentral()
@@ -37,8 +40,7 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.2.41"
-    id("org.jetbrains.kotlin.jvm") version kotlinVersion
+    id("org.jetbrains.kotlin.jvm") version org.kwicket.gradle.KwicketConfig.kotlinVersion
 }
 
 allprojects {
@@ -47,10 +49,6 @@ allprojects {
 }
 
 subprojects {
-
-    val kotlinVersion by project
-    val wicketVersion by project
-    val kotlinCoroutinesVersion by project
 
     val javadocLoc = "$buildDir/javadoc"
     val mavenPubName = "mavenJavaLibrary"
@@ -100,6 +98,7 @@ subprojects {
         externalDocumentationLink(delegateClosureOf<DokkaConfiguration.ExternalDocumentationLink.Builder> {
             url = URL("https://ci.apache.org/projects/wicket/apidocs/8.x/")
         })
+        cacheRoot = "default"
     }
 
     val javadocJar by tasks.creating(Jar::class) {
@@ -144,9 +143,9 @@ subprojects {
 
     dependencies {
         compileOnly("org.apache.wicket:wicket-core:$wicketVersion")
-        compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-        compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
-        compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
+        compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+        compileOnly("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+        compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     }
 
     fun Project.artifactory(configure: ArtifactoryPluginConvention.() -> Unit): Unit =

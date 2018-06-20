@@ -19,8 +19,8 @@ class KDatetimePickerWithIcon(
     enabled: Boolean? = null,
     escapeModelStrings: Boolean? = null,
     renderBodyOnly: Boolean? = null,
-    val label: IModel<String>? = null,
-    val required: Boolean? = null,
+    //val label: IModel<String>? = null,
+    //val required: Boolean? = null,
     behaviors: List<Behavior>? = null,
     format: String? = null,
     useCurrent: Boolean? = null,
@@ -35,7 +35,8 @@ class KDatetimePickerWithIcon(
     showClose: Boolean? = null,
     collapse: Boolean? = null,
     sideBySide: Boolean? = null,
-    useStrict: Boolean? = null
+    useStrict: Boolean? = null,
+    val newInput: ((DateTextField) -> DateTextField)? = null
 ) : DatetimePickerWithIcon(id, toDateModel(model), null) {
 
     init {
@@ -68,12 +69,21 @@ class KDatetimePickerWithIcon(
         )
     }
 
-    override fun newInput(wicketId: String?, dateFormat: String?): DateTextField {
-        val input = super.newInput(wicketId, dateFormat)
-        input.init(
-            label = label,
-            required = required
-        )
-        return input
-    }
+    var input: DateTextField? = null
+
+    override fun newInput(wicketId: String, dateFormat: String): DateTextField =
+        super.newInput(wicketId, dateFormat)
+            .let { newInput?.invoke(it) ?: it }
+            .also { input = it }
+
+//    override fun newInput(wicketId: String?, dateFormat: String?): DateTextField? {
+//        if (newInput == null) super.newInput(wicketId, dateFormat)
+//        else newInput(wicketId, dateFormat, super.newInput(wicketId, dateFormat))
+//        input = super.newInput(wicketId, dateFormat)
+//        input?.init(
+//            label = label,
+//            required = required
+//        )
+//        return input
+//    }
 }

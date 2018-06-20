@@ -3,6 +3,7 @@ package org.kwicket.agilecoders.wicket.extensions
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.datetime.DatetimePickerConfig
 import org.apache.wicket.Component
 import org.apache.wicket.behavior.Behavior
+import org.apache.wicket.extensions.markup.html.form.DateTextField
 import org.apache.wicket.model.IModel
 import org.kwicket.agilecoders.inputFormGroup
 import org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form.InputFormGroup
@@ -33,12 +34,14 @@ fun datetimePickerWithIcon(
     showClose: Boolean? = null,
     collapse: Boolean? = null,
     sideBySide: Boolean? = null,
-    useStrict: Boolean? = null
+    useStrict: Boolean? = null,
+    newInput: ((DateTextField) -> DateTextField)? = null
 ): (String) -> Component = {
     KDatetimePickerWithIcon(
         id = it,
-        label = label,
-        required = required,
+        newInput = newInput,
+//        label = label,
+//        required = required,
         model = model,
         outputMarkupId = outputMarkupId,
         outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,

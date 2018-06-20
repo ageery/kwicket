@@ -146,8 +146,8 @@ fun FlowContent.ul(id: String? = null, classes: String? = null, block: UL.() -> 
     UL(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
 fun FlowOrPhrasingContent.a(
-    classes: List<String>? = null,
     builder: (String) -> Component,
+    classes: List<String>? = null,
     block: WICKET_A.() -> Unit = {}
 ): Unit =
     WICKET_A(
@@ -167,6 +167,16 @@ fun FlowOrPhrasingContent.ul(
         builder = { KWebMarkupContainer(id = it, behaviors = listOfNotNull(
             classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
         ))},
+        consumer = consumer
+    ).visit(block)
+
+fun FlowOrPhrasingContent.ul(
+    builder: (String) -> Component,
+    block: WICKET_UL.() -> Unit = {}
+): Unit =
+    WICKET_UL(
+        id = null,
+        builder = builder,
         consumer = consumer
     ).visit(block)
 

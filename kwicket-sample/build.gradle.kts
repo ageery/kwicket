@@ -3,40 +3,20 @@ import com.jfrog.bintray.gradle.BintrayPlugin
 import org.gradle.jvm.tasks.Jar
 import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
 
+import org.kwicket.gradle.KwicketConfig.kotlinxHtmlVersion
+import org.kwicket.gradle.KwicketConfig.wicketBootstrapVersion
+import org.kwicket.gradle.KwicketConfig.wicketStuffVersion
+import org.kwicket.gradle.KwicketConfig.wicketVersion
+
 plugins {
-    val kotlinVersion = "1.2.41"
-    val bootVersion = "2.0.0.RELEASE"
-    val dependencyManagementVersion = "1.0.4.RELEASE"
-    id("org.jetbrains.kotlin.jvm") // version kotlinVersion
+    val dependencyManagementVersion = org.kwicket.gradle.KwicketConfig.dependencyManagementVersion
+    val kotlinVersion = org.kwicket.gradle.KwicketConfig.kotlinVersion
+    val bootVersion = org.kwicket.gradle.KwicketConfig.bootVersion
+    id("org.jetbrains.kotlin.jvm")
     id("io.spring.dependency-management") version dependencyManagementVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.springframework.boot") version bootVersion
 }
-
-//buildscript {
-//    ext {
-//        springBootVersion = "1.5.7.RELEASE"
-//        junitPlatformVersion = "1.0.0"
-//    }
-//    repositories {
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
-//        classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
-//        classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
-//    }
-//}
-
-//apply plugin: "org.springframework.boot"
-//apply plugin: "kotlin-spring"
-//apply plugin: "org.junit.platform.gradle.plugin"
-
-val wicketVersion by project
-val wicketStuffVersion by project
-val wicketBootstrapVersion by project
-val kWicketVersion by project
-val kotlinxHtmlVersion by project
 
 dependencies {
 

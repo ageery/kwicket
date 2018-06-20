@@ -1,14 +1,12 @@
 package org.kwicket.model
 
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.async
 import org.apache.wicket.model.IModel
 import org.apache.wicket.model.LoadableDetachableModel
 import org.apache.wicket.model.Model
 import org.apache.wicket.model.ResourceModel
+import org.apache.wicket.model.util.CollectionModel
 import org.apache.wicket.model.util.ListModel
 import java.io.Serializable
-import kotlin.coroutines.experimental.createCoroutine
 import kotlin.reflect.KProperty1
 
 /**
@@ -29,6 +27,8 @@ fun <T : Serializable?> T.model(): IModel<T> = Model.of(this)
  */
 @Suppress("UNCHECKED_CAST")
 fun <T, L : List<T>> L.listModel(): IModel<L> = ListModel(this) as IModel<L>
+
+fun <T, L: Collection<T>> L.collectionModel(): IModel<Collection<T>> = CollectionModel(this)
 
 /**
  * Creates an [IModel] that uses the @receiver lambda to produce its value.
