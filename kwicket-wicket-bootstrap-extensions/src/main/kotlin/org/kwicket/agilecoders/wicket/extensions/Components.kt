@@ -94,7 +94,7 @@ fun datetimePickerWithIconFormGroup(
     sideBySide: Boolean? = null,
     useStrict: Boolean? = null
 )
-        : (String) -> InputFormGroup = inputFormGroup(
+        : (String) -> InputFormGroup<*> = inputFormGroup(
     field = datetimePickerWithIcon(
         model = model,
         required = required,

@@ -10,6 +10,7 @@ import org.apache.wicket.model.IModel
 import org.apache.wicket.util.time.Duration
 import org.kwicket.component.refresh
 import org.kwicket.model.AsyncModel
+import org.kwicket.model.value
 
 open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
@@ -20,11 +21,13 @@ open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 }
 
 inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
+                               onlyWhenVisible: Boolean = true,
                                crossinline handler: (T, Component) -> Unit) =
-    onEvent(outputMarkupId = outputMarkupId, handler = handler, guard = { true })
+    onEvent(outputMarkupId = outputMarkupId, handler = handler, guard = { true }, onlyWhenVisible = onlyWhenVisible)
 
 inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
                                crossinline handler: (T, Component) -> Unit,
+                               onlyWhenVisible: Boolean = true,
                                crossinline guard: (T) -> Boolean) =
     object : Behavior() {
 
@@ -38,17 +41,27 @@ inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
 
         override fun onEvent(component: Component, event: IEvent<*>) {
             val payload = event.payload
-            if (payload is T) {
-                if (guard(payload)) {
-                    handler(payload, component)
+            if ((!onlyWhenVisible) || component.isVisible) {
+                if (payload is T) {
+                    if (guard(payload)) {
+                        handler(payload, component)
+                    }
                 }
             }
         }
 
     }
 
-class VisibleWhen(isVisible: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisible() })
-class EnabledWhen(isEnabled: () -> Boolean) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabled() })
+class VisibleWhen(val isVisibleModel: IModel<Boolean>) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisibleModel.value }) {
+
+    constructor(isVisible: () -> Boolean): this(IModel<Boolean> { isVisible() })
+
+}
+class EnabledWhen(isEnabledModel: IModel<Boolean>) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabledModel.value }) {
+
+    constructor(isEnabled: () -> Boolean): this(IModel<Boolean> { isEnabled() })
+
+}
 
 fun <C : Component> C.onConfig(handler: (C) -> Unit): C {
     add(object : Behavior() {

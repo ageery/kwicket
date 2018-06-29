@@ -8,7 +8,8 @@ import org.kwicket.wicket.core.markup.html.panel.KPanel
 
 class SelectFormGroup(
     id: String,
-    group: (String) -> FormGroup = { KFormGroup(id = it) },
+    useFormComponentLabel: Boolean? = null,
+    group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },
     field: (String) -> FormComponent<*>,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,

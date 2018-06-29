@@ -34,7 +34,7 @@ fun <T : Any> textField(
     )
 }
 
-fun inputFormGroup(field: (String) -> Component): (String) -> InputFormGroup =
+fun inputFormGroup(field: (String) -> Component): (String) -> InputFormGroup<*> =
     { InputFormGroup(id = it, field = field) }
 
 fun <T : Any> textFieldFormGroup(
@@ -48,7 +48,7 @@ fun <T : Any> textFieldFormGroup(
     enabled: Boolean? = null,
     behaviors: List<Behavior>? = null
 )
-        : (String) -> InputFormGroup = inputFormGroup(
+        : (String) -> InputFormGroup<*> = inputFormGroup(
     field = textField(
         model = model,
         type = type,

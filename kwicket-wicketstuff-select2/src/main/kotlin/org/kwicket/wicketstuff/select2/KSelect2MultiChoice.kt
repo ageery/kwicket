@@ -8,7 +8,7 @@ import org.wicketstuff.select2.Select2MultiChoice
 
 open class KSelect2MultiChoice<T>(
     id: String,
-    model: IModel<Collection<T>>,
+    model: IModel<MutableCollection<T>>,
     choiceProvider: ChoiceProvider<T>,
     label: IModel<String>? = null,
     required: Boolean? = null,

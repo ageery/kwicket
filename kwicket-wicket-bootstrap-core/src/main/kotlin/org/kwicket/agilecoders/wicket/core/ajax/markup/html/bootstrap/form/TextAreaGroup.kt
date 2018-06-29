@@ -3,15 +3,14 @@ package org.kwicket.agilecoders.wicket.core.ajax.markup.html.bootstrap.form
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup
 import org.apache.wicket.Component
 import org.apache.wicket.behavior.Behavior
-import org.apache.wicket.model.IModel
 import org.kwicket.component.q
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 
-class InputFormGroup<C: Component>(
+class TextAreaGroup(
     id: String,
     useFormComponentLabel: Boolean? = null,
     group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },
-    field: (String) -> C,
+    field: (String) -> Component,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,
@@ -26,7 +25,7 @@ class InputFormGroup<C: Component>(
     behaviors = behaviors
 ) {
 
-    val field: C
+    val field: Component
 
     init {
         q(group("group"))
