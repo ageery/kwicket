@@ -6,6 +6,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.event.IEvent
+import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
 import org.apache.wicket.util.time.Duration
 import org.kwicket.component.refresh
@@ -26,9 +27,9 @@ inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
     onEvent(outputMarkupId = outputMarkupId, handler = handler, guard = { true }, onlyWhenVisible = onlyWhenVisible)
 
 inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
-                               crossinline handler: (T, Component) -> Unit,
                                onlyWhenVisible: Boolean = true,
-                               crossinline guard: (T) -> Boolean) =
+                               crossinline guard: (T) -> Boolean,
+                               crossinline handler: (T, Component) -> Unit) =
     object : Behavior() {
 
         override fun bind(component: Component) {
@@ -57,9 +58,22 @@ class VisibleWhen(val isVisibleModel: IModel<Boolean>) : OnConfigureBehavior(han
     constructor(isVisible: () -> Boolean): this(IModel<Boolean> { isVisible() })
 
 }
+
 class EnabledWhen(isEnabledModel: IModel<Boolean>) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabledModel.value }) {
 
     constructor(isEnabled: () -> Boolean): this(IModel<Boolean> { isEnabled() })
+
+}
+
+class RequiredWhen(isRequiredModel: IModel<Boolean>) : OnConfigureBehavior(handler = { c ->
+
+    if (c is FormComponent<*>) {
+        c.isRequired = isRequiredModel.value
+    }
+
+}) {
+
+    constructor(isRequired: () -> Boolean): this(IModel<Boolean> { isRequired() })
 
 }
 

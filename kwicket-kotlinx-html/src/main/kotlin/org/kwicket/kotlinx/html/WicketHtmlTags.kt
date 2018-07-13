@@ -38,8 +38,10 @@ import kotlinx.html.attributesMapOf
 import kotlinx.html.stream.appendHTML
 import kotlinx.html.visit
 import org.apache.wicket.Component
+import org.apache.wicket.Page
 import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.model.IModel
+import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.apache.wicket.util.resource.IResourceStream
 import org.kwicket.behavior.VisibleWhen
 import org.kwicket.component.init
@@ -47,7 +49,9 @@ import org.kwicket.toResourceStream
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
 import org.kwicket.wicket.core.markup.html.form.KForm
+import org.kwicket.wicket.core.markup.html.link.KBookmarkablePageLink
 import org.kwicket.wicketIdAttr
+import kotlin.reflect.KClass
 
 fun FlowOrPhrasingContent.span(
     id: String,
@@ -63,7 +67,7 @@ fun FlowOrPhrasingContent.span(
 ): Unit =
     WICKET_SPAN(
         id = null,
-        builder = { KLabel(it, model) },
+        builder = { KLabel(id = it, model = model) },
         initialAttributes = attributesMapOf("class", classes),
         consumer = consumer
     ).visit(block)
@@ -155,6 +159,24 @@ fun FlowOrPhrasingContent.a(
         builder = { builder(it).init(behaviors = listOfNotNull(
             classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
         ))},
+        consumer = consumer
+    ).visit(block)
+
+fun <P: Page> FlowOrPhrasingContent.a(
+    page: KClass<P>,
+    params: PageParameters? = null,
+    classes: List<String>? = null,
+    visible: (() -> Boolean)? = null,
+    block: WICKET_A.() -> Unit = {}
+): Unit =
+    WICKET_A(
+        id = null,
+        builder = {
+            KBookmarkablePageLink(id = it, page = page, params = params, behaviors = listOfNotNull(
+                visible?.let { VisibleWhen { visible() } },
+                classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") }
+            ))
+        },
         consumer = consumer
     ).visit(block)
 

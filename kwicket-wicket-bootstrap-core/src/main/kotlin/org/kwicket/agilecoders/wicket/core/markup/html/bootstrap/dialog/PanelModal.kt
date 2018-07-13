@@ -27,7 +27,7 @@ open class PanelModal(id: String) : Modal<Any>(id) {
         return footer
     }
 
-    fun show(panel: (String) -> MarkupContainer, target: AjaxRequestTarget? = null, info: ModalInfo? = null) {
+    fun show(target: AjaxRequestTarget? = null, info: ModalInfo? = null, panel: (String) -> MarkupContainer) {
         val newContent = panel(contentId).setOutputMarkupId(true)
         content = content.replaceWith(newContent) as MarkupContainer
         (footer.get("buttons") as ListView<*>).model.value.clear()

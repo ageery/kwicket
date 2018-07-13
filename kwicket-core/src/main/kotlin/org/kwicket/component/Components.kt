@@ -5,10 +5,8 @@ import org.apache.wicket.MarkupContainer
 import org.apache.wicket.WicketRuntimeException
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.behavior.Behavior
-import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
-import org.kwicket.model.model
 
 /**
  * Returns a non-null [AjaxRequestTarget].

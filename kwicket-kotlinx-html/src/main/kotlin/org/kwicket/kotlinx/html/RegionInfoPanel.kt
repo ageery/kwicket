@@ -11,6 +11,26 @@ import org.kwicket.wicket.core.markup.html.panel.KPanel
 
 data class RegionInfo(val markup: String, val rootComponentBuilders: List<ComponentBuilder>)
 
+fun <T> inlinePanel(
+    id: String,
+    model: IModel<T>,
+    visible: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    behaviors: List<Behavior>? = null,
+    panel: PANEL.(IModel<T>) -> Unit
+) = RegionInfoPanel(
+    id = id,
+    model = model,
+    visible = visible,
+    outputMarkupId = outputMarkupId,
+    outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+    renderBodyOnly = renderBodyOnly,
+    behaviors = behaviors,
+    region = { region().panel { panel(model) } }
+)
+
 open class RegionInfoPanel<T>(
     id: String,
     model: IModel<T>,

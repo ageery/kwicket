@@ -6,11 +6,11 @@ import org.apache.wicket.behavior.Behavior
 import org.kwicket.component.q
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 
-class TextAreaGroup(
+class TextAreaGroup<C: Component>(
     id: String,
     useFormComponentLabel: Boolean? = null,
     group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },
-    field: (String) -> Component,
+    field: (String) -> C,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,
@@ -25,7 +25,7 @@ class TextAreaGroup(
     behaviors = behaviors
 ) {
 
-    val field: Component
+    val field: C
 
     init {
         q(group("group"))

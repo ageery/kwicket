@@ -20,7 +20,7 @@ import org.kwicket.component.init
  * @param escapeModelStrings optional flag indicating whether the [Component]'s model String values will be escaped
  * @param behaviors [List] of [Behavior]s to add to the [Component]
  */
-open class KPanel(
+abstract class KPanel(
     id: String,
     model: IModel<*>? = null,
     outputMarkupId: Boolean? = null,
