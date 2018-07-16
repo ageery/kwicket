@@ -17,6 +17,22 @@ open class KCheckbox(
     behaviors: List<Behavior>? = null
 ) : CheckBox(id, model) {
 
+    constructor(
+        id: String,
+        model: IModel<Boolean>,
+        outputMarkupPlaceholderTag: Boolean? = null,
+        outputMarkupId: Boolean? = null,
+        label: IModel<String>? = null,
+        behavior: Behavior
+    ) : this(
+        id = id,
+        model = model,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        outputMarkupId = outputMarkupId,
+        label = label,
+        behaviors = listOf(behavior)
+    )
+
     init {
         init(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,

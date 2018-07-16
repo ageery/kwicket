@@ -1,9 +1,59 @@
 package org.kwicket.wicket.core.markup.html
 
+import org.apache.wicket.MarkupContainer
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
+import org.kwicket.component.q
+
+fun MarkupContainer.webMarkupContainer(
+    id: String,
+    model: IModel<*>? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    behavior: Behavior
+) = q(
+    KWebMarkupContainer(
+        id = id,
+        model = model,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        renderBodyOnly = renderBodyOnly,
+        escapeModelStrings = escapeModelStrings,
+        visible = visible,
+        enabled = enabled,
+        behavior = behavior
+    )
+)
+
+fun MarkupContainer.webMarkupContainer(
+    id: String,
+    model: IModel<*>? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    behaviors: List<Behavior>? = null
+) = q(
+    KWebMarkupContainer(
+        id = id,
+        model = model,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        renderBodyOnly = renderBodyOnly,
+        escapeModelStrings = escapeModelStrings,
+        visible = visible,
+        enabled = enabled,
+        behaviors = behaviors
+    )
+)
 
 /**
  * [WebMarkupContainer] component with named and default constructor arguments.
@@ -30,6 +80,28 @@ open class KWebMarkupContainer(
     escapeModelStrings: Boolean? = null,
     behaviors: List<Behavior>? = null
 ) : WebMarkupContainer(id, model) {
+
+    constructor(
+        id: String,
+        model: IModel<*>? = null,
+        outputMarkupId: Boolean? = null,
+        outputMarkupPlaceholderTag: Boolean? = null,
+        visible: Boolean? = null,
+        enabled: Boolean? = null,
+        renderBodyOnly: Boolean? = null,
+        escapeModelStrings: Boolean? = null,
+        behavior: Behavior
+    ) : this(
+        id = id,
+        model = model,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        renderBodyOnly = renderBodyOnly,
+        escapeModelStrings = escapeModelStrings,
+        visible = visible,
+        enabled = enabled,
+        behaviors = listOf(behavior)
+    )
 
     init {
         init(

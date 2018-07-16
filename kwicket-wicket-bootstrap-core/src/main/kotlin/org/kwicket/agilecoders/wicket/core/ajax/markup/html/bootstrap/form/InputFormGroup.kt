@@ -32,6 +32,31 @@ fun <C: Component> WebMarkupContainer.inputFormGroup(
         )
     )
 
+fun <C: Component> WebMarkupContainer.inputFormGroup(
+    id: String,
+    useFormComponentLabel: Boolean? = null,
+    group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    behavior: Behavior,
+    field: (String) -> C
+) =
+    q(
+        InputFormGroup(
+            id = id,
+            useFormComponentLabel = useFormComponentLabel,
+            group = group,
+            field = field,
+            outputMarkupId = outputMarkupId,
+            outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+            visible = visible,
+            enabled = enabled,
+            behaviors = listOf(behavior)
+        )
+    )
+
 open class InputFormGroup<C : Component>(
     id: String,
     useFormComponentLabel: Boolean? = null,
@@ -50,6 +75,28 @@ open class InputFormGroup<C : Component>(
     enabled = enabled,
     behaviors = behaviors
 ) {
+
+    constructor(
+        id: String,
+        useFormComponentLabel: Boolean? = null,
+        group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },
+        outputMarkupId: Boolean? = null,
+        outputMarkupPlaceholderTag: Boolean? = null,
+        visible: Boolean? = null,
+        enabled: Boolean? = null,
+        behavior: Behavior,
+        field: (String) -> C
+    ) : this(
+        id = id,
+        useFormComponentLabel = useFormComponentLabel,
+        group = group,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        behaviors = listOf(behavior),
+        field = field
+    )
 
     val field: C
 

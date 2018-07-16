@@ -18,6 +18,28 @@ open class KFormGroup(
     behaviors: List<Behavior>? = null
 ) : FormGroup(id, label, help) {
 
+    constructor(
+        id: String,
+        label: IModel<String> = "".model(),
+        help: IModel<String> = "".model(),
+        outputMarkupId: Boolean? = null,
+        outputMarkupPlaceholderTag: Boolean? = null,
+        visible: Boolean? = null,
+        enabled: Boolean? = null,
+        useFormComponentLabel: Boolean? = null,
+        behavior: Behavior
+    ) : this(
+        id = id,
+        label = label,
+        help = help,
+        useFormComponentLabel = useFormComponentLabel,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        behaviors = listOf(behavior)
+    )
+
     init {
         init(
             outputMarkupId = outputMarkupId,

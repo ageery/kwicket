@@ -51,6 +51,28 @@ class SelectFormGroup<C : Component>(
     behaviors = behaviors
 ) {
 
+    constructor(
+        id: String,
+        useFormComponentLabel: Boolean? = null,
+        group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },
+        outputMarkupId: Boolean? = null,
+        outputMarkupPlaceholderTag: Boolean? = null,
+        visible: Boolean? = null,
+        enabled: Boolean? = null,
+        behavior: Behavior,
+        field: (String) -> C
+    ) : this(
+        id = id,
+        useFormComponentLabel = useFormComponentLabel,
+        group = group,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        behaviors = listOf(behavior),
+        field = field
+    )
+
     val field: C
 
     init {

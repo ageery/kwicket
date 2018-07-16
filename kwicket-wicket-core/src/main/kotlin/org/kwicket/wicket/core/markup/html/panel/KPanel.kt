@@ -32,6 +32,28 @@ abstract class KPanel(
     behaviors: List<Behavior>? = null
 ) : Panel(id, model) {
 
+    constructor(
+        id: String,
+        model: IModel<*>? = null,
+        outputMarkupId: Boolean? = null,
+        outputMarkupPlaceholderTag: Boolean? = null,
+        visible: Boolean? = null,
+        enabled: Boolean? = null,
+        renderBodyOnly: Boolean? = null,
+        escapeModelStrings: Boolean? = null,
+        behavior: Behavior
+    ) : this(
+        id = id,
+        model = model,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        escapeModelStrings = escapeModelStrings,
+        renderBodyOnly = renderBodyOnly,
+        behaviors = listOf(behavior)
+    )
+
     init {
         init(
             outputMarkupId = outputMarkupId,

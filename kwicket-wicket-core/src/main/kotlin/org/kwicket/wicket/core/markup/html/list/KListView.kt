@@ -1,10 +1,68 @@
 package org.kwicket.wicket.core.markup.html.list
 
+import org.apache.wicket.MarkupContainer
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.list.ListItem
 import org.apache.wicket.markup.html.list.ListView
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
+import org.kwicket.component.q
+
+fun <T, C : List<T>> MarkupContainer.listView(
+    id: String,
+    model: IModel<C>? = null,
+    reuseItems: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    behaviors: List<Behavior>? = null,
+    populate: ListItem<T>.() -> Unit
+) = q(
+    KListView(
+        id = id,
+        model = model,
+        reuseItems = reuseItems,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        renderBodyOnly = renderBodyOnly,
+        escapeModelStrings = escapeModelStrings,
+        behaviors = behaviors,
+        populate = { populate(it) }
+    )
+)
+
+//fun <T, C : List<T>> MarkupContainer.listView(
+//    id: String,
+//    model: IModel<C>? = null,
+//    reuseItems: Boolean? = null,
+//    outputMarkupId: Boolean? = null,
+//    outputMarkupPlaceholderTag: Boolean? = null,
+//    visible: Boolean? = null,
+//    enabled: Boolean? = null,
+//    renderBodyOnly: Boolean? = null,
+//    escapeModelStrings: Boolean? = null,
+//    behaviors: List<Behavior>? = null,
+//    populate: (ListItem<T>) -> Unit
+//) = q(
+//    KListView(
+//        id = id,
+//        model = model,
+//        reuseItems = reuseItems,
+//        outputMarkupId = outputMarkupId,
+//        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+//        visible = visible,
+//        enabled = enabled,
+//        renderBodyOnly = renderBodyOnly,
+//        escapeModelStrings = escapeModelStrings,
+//        behaviors = behaviors,
+//        populate = populate
+//    )
+//)
 
 /**
  * [ListView] with named and default constructor arguments.
@@ -24,7 +82,6 @@ import org.kwicket.component.init
 open class KListView<T, C : List<T>>(
     id: String,
     model: IModel<C>? = null,
-    val populate: (ListItem<T>) -> Unit,
     reuseItems: Boolean? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
@@ -32,7 +89,8 @@ open class KListView<T, C : List<T>>(
     enabled: Boolean? = null,
     renderBodyOnly: Boolean? = null,
     escapeModelStrings: Boolean? = null,
-    behaviors: List<Behavior>? = null
+    behaviors: List<Behavior>? = null,
+    val populate: (ListItem<T>) -> Unit
 ) : ListView<T>(id, model) {
 
     init {
