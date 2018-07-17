@@ -7,6 +7,30 @@ import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 import org.kwicket.component.q
 
+fun label(
+    model: IModel<*>? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    behaviors: List<Behavior>? = null
+): (String) -> Label = {
+    KLabel(
+        id = it,
+        model = model,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        escapeModelStrings = escapeModelStrings,
+        renderBodyOnly = renderBodyOnly,
+        behaviors = behaviors
+    )
+}
+
+
 fun WebMarkupContainer.label(
     id: String,
     model: IModel<*>? = null,

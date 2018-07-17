@@ -72,6 +72,7 @@ fun FlowOrPhrasingContent.span(
         consumer = consumer
     ).visit(block)
 
+// FIXME: make the builder the first parameter
 fun FlowOrPhrasingContent.span(
     id: String? = null,
     builder: ((String) -> Component),

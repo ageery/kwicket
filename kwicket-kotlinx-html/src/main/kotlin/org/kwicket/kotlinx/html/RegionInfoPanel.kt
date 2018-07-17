@@ -31,6 +31,26 @@ fun <T> inlinePanel(
     region = { region().panel { panel(model) } }
 )
 
+fun <T> inlinePanel(
+    id: String,
+    model: IModel<T>,
+    visible: Boolean? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    behavior: Behavior,
+    panel: PANEL.(IModel<T>) -> Unit
+) = inlinePanel(
+    id = id,
+    model = model,
+    visible = visible,
+    outputMarkupId = outputMarkupId,
+    outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+    renderBodyOnly = renderBodyOnly,
+    behaviors = listOf(behavior),
+    panel = panel
+)
+
 open class RegionInfoPanel<T>(
     id: String,
     model: IModel<T>,
