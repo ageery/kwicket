@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer
 import org.kwicket.component.q
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 
+@Deprecated(message = "Use method in the queued package", replaceWith = ReplaceWith(expression = "org.wicket.agilecoders.queued.inputFormGroup"))
 fun <C: Component> WebMarkupContainer.inputFormGroup(
     id: String,
     useFormComponentLabel: Boolean? = null,
@@ -32,6 +33,7 @@ fun <C: Component> WebMarkupContainer.inputFormGroup(
         )
     )
 
+@Deprecated(message = "Use method in the queued package", replaceWith = ReplaceWith(expression = "org.wicket.agilecoders.queued.inputFormGroup"))
 fun <C: Component> WebMarkupContainer.inputFormGroup(
     id: String,
     useFormComponentLabel: Boolean? = null,

@@ -9,6 +9,7 @@ import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 import org.kwicket.component.q
 
+@Deprecated(replaceWith = ReplaceWith("org.kwicket.agilecoders.queued.bootstrapForm"), message = "Use in different package")
 fun <T> WebMarkupContainer.bootstrapForm(
     id: String,
     model: IModel<T>? = null,

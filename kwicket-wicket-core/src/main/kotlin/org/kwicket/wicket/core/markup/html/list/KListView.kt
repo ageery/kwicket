@@ -8,6 +8,7 @@ import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 import org.kwicket.component.q
 
+@Deprecated(message = "Use the method in teh queued package", replaceWith = ReplaceWith(expression = "org.kwicket.wicket.core.queued.listView"))
 fun <T, C : List<T>> MarkupContainer.listView(
     id: String,
     model: IModel<C>? = null,

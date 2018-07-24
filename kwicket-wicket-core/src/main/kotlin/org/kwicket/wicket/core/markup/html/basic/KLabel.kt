@@ -7,6 +7,10 @@ import org.apache.wicket.model.IModel
 import org.kwicket.component.init
 import org.kwicket.component.q
 
+@Deprecated(
+    message = "Use the method in the lambda package",
+    replaceWith = ReplaceWith(expression = "org.kwicket.wicket.core.lambda.label")
+)
 fun label(
     model: IModel<*>? = null,
     outputMarkupId: Boolean? = null,
@@ -30,7 +34,10 @@ fun label(
     )
 }
 
-
+@Deprecated(
+    message = "Use the method in the queued package",
+    replaceWith = ReplaceWith(expression = "org.kwicket.wicket.core.queued.label")
+)
 fun WebMarkupContainer.label(
     id: String,
     model: IModel<*>? = null,
@@ -55,6 +62,10 @@ fun WebMarkupContainer.label(
     )
 )
 
+@Deprecated(
+    message = "Use the method in the queued package",
+    replaceWith = ReplaceWith(expression = "org.kwicket.wicket.core.queued.label")
+)
 fun WebMarkupContainer.label(
     id: String,
     model: IModel<*>? = null,
@@ -82,9 +93,7 @@ fun WebMarkupContainer.label(
 /**
  * [Label] with named and default constructor arguments.
  */
-open
-
-class KLabel(
+open class KLabel(
     id: String,
     model: IModel<*>? = null,
     outputMarkupId: Boolean? = null,

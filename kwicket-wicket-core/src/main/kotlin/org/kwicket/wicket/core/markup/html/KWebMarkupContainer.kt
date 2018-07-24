@@ -31,6 +31,7 @@ fun MarkupContainer.webMarkupContainer(
     )
 )
 
+@Deprecated(message = "Use the one in the queued package", replaceWith = ReplaceWith("org.kwicket.wicket.core.queued.webMarkupContainer"))
 fun MarkupContainer.webMarkupContainer(
     id: String,
     model: IModel<*>? = null,

@@ -21,15 +21,21 @@ open class OnConfigureBehavior(val handler: (Component) -> Unit) : Behavior() {
 
 }
 
-inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
-                               onlyWhenVisible: Boolean = true,
-                               crossinline handler: (T, Component) -> Unit) =
+@Deprecated(message = "Use handleEvent instead", replaceWith = ReplaceWith(expression = "org.kwicket.behavior.handleEvent"))
+inline fun <reified T> onEvent(
+    outputMarkupId: Boolean? = null,
+    onlyWhenVisible: Boolean = true,
+    crossinline handler: (T, Component) -> Unit
+) =
     onEvent(outputMarkupId = outputMarkupId, handler = handler, guard = { true }, onlyWhenVisible = onlyWhenVisible)
 
-inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
-                               onlyWhenVisible: Boolean = true,
-                               crossinline guard: (T) -> Boolean,
-                               crossinline handler: (T, Component) -> Unit) =
+@Deprecated(message = "Use handleEvent instead", replaceWith = ReplaceWith(expression = "org.kwicket.behavior.handleEvent"))
+inline fun <reified T> onEvent(
+    outputMarkupId: Boolean? = null,
+    onlyWhenVisible: Boolean = true,
+    crossinline guard: (T) -> Boolean,
+    crossinline handler: (T, Component) -> Unit
+) =
     object : Behavior() {
 
         override fun bind(component: Component) {
@@ -53,15 +59,51 @@ inline fun <reified T> onEvent(outputMarkupId: Boolean? = null,
 
     }
 
-class VisibleWhen(val isVisibleModel: IModel<Boolean>) : OnConfigureBehavior(handler = { c -> c.isVisible = isVisibleModel.value }) {
+inline fun <reified P, reified E> Component.handleEvent(
+    crossinline transform: (P) -> E?,
+    onlyWhenVisible: Boolean = true,
+    stop: Boolean = false,
+    dontBroadcastDeeper: Boolean = false,
+    crossinline handler: (P, E, Component) -> Unit
+) =
+    add(
+        object : Behavior() {
 
-    constructor(isVisible: () -> Boolean): this(IModel<Boolean> { isVisible() })
+            override fun onEvent(component: Component, event: IEvent<*>) {
+                val payload = event.payload
+                if ((!onlyWhenVisible) || component.isVisible) {
+                    if (payload is P) {
+                        transform(payload)?.apply {
+                            handler(payload, this, component)
+                            if (stop) event.stop()
+                            if (dontBroadcastDeeper) event.dontBroadcastDeeper()
+                        }
+                    }
+                }
+            }
+        }
+
+    )
+
+inline fun <reified E> Component.handleEvent(
+    onlyWhenVisible: Boolean = true,
+    stop: Boolean = false,
+    dontBroadcastDeeper: Boolean = false,
+    crossinline handler: (E, Component) -> Unit
+) = handleEvent<E, E>(transform = { it }, handler = { p, _, c -> handler(p, c) }, onlyWhenVisible = onlyWhenVisible,
+    stop = stop, dontBroadcastDeeper = dontBroadcastDeeper)
+
+class VisibleWhen(val isVisibleModel: IModel<Boolean>) :
+    OnConfigureBehavior(handler = { c -> c.isVisible = isVisibleModel.value }) {
+
+    constructor(isVisible: () -> Boolean) : this(IModel<Boolean> { isVisible() })
 
 }
 
-class EnabledWhen(isEnabledModel: IModel<Boolean>) : OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabledModel.value }) {
+class EnabledWhen(isEnabledModel: IModel<Boolean>) :
+    OnConfigureBehavior(handler = { c -> c.isEnabled = isEnabledModel.value }) {
 
-    constructor(isEnabled: () -> Boolean): this(IModel<Boolean> { isEnabled() })
+    constructor(isEnabled: () -> Boolean) : this(IModel<Boolean> { isEnabled() })
 
 }
 
@@ -73,7 +115,7 @@ class RequiredWhen(isRequiredModel: IModel<Boolean>) : OnConfigureBehavior(handl
 
 }) {
 
-    constructor(isRequired: () -> Boolean): this(IModel<Boolean> { isRequired() })
+    constructor(isRequired: () -> Boolean) : this(IModel<Boolean> { isRequired() })
 
 }
 

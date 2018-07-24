@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer
 import org.kwicket.component.q
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 
+@Deprecated(message = "Use the method in the queued package", replaceWith = ReplaceWith(expression = "org.kwicket.agilecoders.queued.selectFormGroup"))
 fun <C : Component> WebMarkupContainer.selectFormGroup(
     id: String,
     useFormComponentLabel: Boolean? = null,

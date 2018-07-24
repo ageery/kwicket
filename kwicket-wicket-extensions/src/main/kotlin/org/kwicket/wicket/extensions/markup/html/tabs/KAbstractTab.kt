@@ -7,8 +7,8 @@ import org.kwicket.model.model
 import org.kwicket.model.value
 
 open class KAbstractTab(model: IModel<String>,
-                        private val panel: (String) -> WebMarkupContainer,
-                        private val visibleModel: IModel<Boolean> = true.model()) : AbstractTab(model) {
+                        private val visibleModel: IModel<Boolean> = true.model(),
+                        private val panel: (String) -> WebMarkupContainer) : AbstractTab(model) {
 
     override fun getPanel(id: String): WebMarkupContainer {
         return panel.invoke(id)

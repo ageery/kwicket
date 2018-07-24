@@ -6,9 +6,9 @@ import org.apache.wicket.model.IModel
 abstract class KAbstractColumn<T, S>(
     displayModel: IModel<String>,
     sortProperty: S? = null,
-    private vararg val cssClasses: String
+    private val cssClasses: List<String>? = null
 ) : AbstractColumn<T, S>(displayModel, sortProperty) {
 
-    override fun getCssClass(): String? = cssClasses.joinToString(separator = " ")
+    override fun getCssClass(): String? = cssClasses?.joinToString(separator = " ")
 
 }

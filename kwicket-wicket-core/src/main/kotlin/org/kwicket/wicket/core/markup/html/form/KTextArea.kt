@@ -18,6 +18,24 @@ open class KTextArea<T>(
     behaviors: List<Behavior>? = null
 ) : TextArea<T>(id, model) {
 
+    constructor(
+        id: String,
+        model: IModel<T>,
+        required: Boolean? = null,
+        outputMarkupId: Boolean? = null,
+        outputMarkupPlaceholderTag: Boolean? = null,
+        label: IModel<String>? = null,
+        behavior: Behavior
+    ) : this(
+        id = id,
+        model = model,
+        required = required,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        label = label,
+        behaviors = listOf(behavior)
+    )
+
     init {
         init(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,

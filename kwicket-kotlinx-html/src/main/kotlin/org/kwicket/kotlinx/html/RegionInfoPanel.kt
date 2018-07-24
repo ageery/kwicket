@@ -11,6 +11,7 @@ import org.kwicket.wicket.core.markup.html.panel.KPanel
 
 data class RegionInfo(val markup: String, val rootComponentBuilders: List<ComponentBuilder>)
 
+//@Deprecated(message = "Use the method in the queued package", replaceWith = ReplaceWith(expression = "org.kwicket.kotlinx.html.queued.inlinePanel"))
 fun <T> inlinePanel(
     id: String,
     model: IModel<T>,
@@ -31,6 +32,7 @@ fun <T> inlinePanel(
     region = { region().panel { panel(model) } }
 )
 
+//@Deprecated(message = "Use the method in the queued package", replaceWith = ReplaceWith(expression = "org.kwicket.kotlinx.html.queued.inlinePanel"))
 fun <T> inlinePanel(
     id: String,
     model: IModel<T>,

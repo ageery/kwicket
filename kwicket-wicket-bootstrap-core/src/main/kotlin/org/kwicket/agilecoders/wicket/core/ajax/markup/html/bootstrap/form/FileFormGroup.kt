@@ -7,32 +7,7 @@ import org.apache.wicket.behavior.Behavior
 import org.kwicket.component.q
 import org.kwicket.wicket.core.markup.html.panel.KPanel
 
-@Deprecated(message = "Use the method in the queued package", replaceWith = ReplaceWith(expression = "org.kwicket.agilecoders.queued.textAreaGroup"))
-fun <C : Component> MarkupContainer.textAreaGroup(
-    id: String,
-    useFormComponentLabel: Boolean? = null,
-    group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },
-    field: (String) -> C,
-    outputMarkupId: Boolean? = null,
-    outputMarkupPlaceholderTag: Boolean? = null,
-    visible: Boolean? = null,
-    enabled: Boolean? = null,
-    behavior: Behavior
-) = q(
-    TextAreaGroup(
-        id = id,
-        useFormComponentLabel = useFormComponentLabel,
-        group = group,
-        field = field,
-        outputMarkupId = outputMarkupId,
-        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
-        visible = visible,
-        enabled = enabled,
-        behavior = behavior
-    )
-)
-
-class TextAreaGroup<C : Component>(
+class FileFormGroup<C : Component>(
     id: String,
     useFormComponentLabel: Boolean? = null,
     group: (String) -> FormGroup = { KFormGroup(id = it, useFormComponentLabel = useFormComponentLabel) },

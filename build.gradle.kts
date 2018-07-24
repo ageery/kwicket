@@ -41,6 +41,7 @@ buildscript {
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version org.kwicket.gradle.KwicketConfig.kotlinVersion
+    id("org.sonarqube") version "2.6"
 }
 
 allprojects {

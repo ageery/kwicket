@@ -1,10 +1,12 @@
 package org.kwicket.wicket.core.markup.html.form
 
+import org.apache.wicket.MarkupContainer
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.validation.IFormValidator
 import org.apache.wicket.model.IModel
 import org.kwicket.component.init
+import org.kwicket.component.q
 
 /**
  * [Form] with named and default constructor arguments.

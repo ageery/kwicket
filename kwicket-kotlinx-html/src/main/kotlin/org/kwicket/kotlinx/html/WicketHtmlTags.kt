@@ -141,6 +141,18 @@ fun FlowContent.div(
 fun FlowContent.p(id: String? = null, classes: String? = null, block: P.() -> Unit = {}): Unit =
     P(attributesMapOf("class", classes, wicketIdAttr, id), consumer).visit(block)
 
+fun FlowOrPhrasingContent.p(
+    model: IModel<*>,
+    classes: List<String>? = null,
+    block: WICKET_P.() -> Unit = {}
+): Unit =
+    WICKET_P(
+        id = null,
+        builder = { KLabel(id = it, model = model).init(behaviors = listOfNotNull(
+            classes?.let { AttributeAppender("class", classes.joinToString(" "), " ") })) },
+        consumer = consumer
+    ).visit(block)
+
 fun FlowOrInteractiveOrPhrasingContent.a(
     id: String? = null,
     classes: String? = null,
@@ -479,6 +491,14 @@ class WICKET_SPAN(
     initialAttributes: Map<String, String>,
     consumer: TagConsumer<*>
 ) : SPAN(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
+    WicketTag
+
+class WICKET_P(
+    override val id: String? = null,
+    override val builder: (String) -> Component,
+    initialAttributes: Map<String, String> = emptyMap(),
+    consumer: TagConsumer<*>
+) : P(initialAttributes = attrs(initialAttributes, id), consumer = consumer),
     WicketTag
 
 class WICKET_LABEL(
