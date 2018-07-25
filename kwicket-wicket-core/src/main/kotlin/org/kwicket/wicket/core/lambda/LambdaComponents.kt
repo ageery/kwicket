@@ -177,7 +177,7 @@ fun fileUpload(
 }
 
 fun fileUpload(
-    model: IModel<MutableList<FileUpload>>,
+    model: IModel<MutableList<FileUpload>>? = null,
     required: Boolean? = null,
     label: IModel<String>? = null,
     outputMarkupId: Boolean? = null,

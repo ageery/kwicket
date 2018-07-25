@@ -132,10 +132,10 @@ inline fun <reified P, reified T> eventHandler(
  * a non-null value derived from the event and the component the behavior is associated with
  */
 inline fun <reified P, reified T> Component.handleEvent(
+    crossinline transform: (P) -> T?,
     onlyWhenVisible: Boolean = true,
     stop: Boolean = false,
     dontBroadcastDeeper: Boolean = false,
-    crossinline transform: (P) -> T?,
     crossinline handler: (P, T, Component) -> Unit
 ) {
     add(

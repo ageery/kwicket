@@ -8,7 +8,7 @@ import org.kwicket.component.init
 
 open class KFileUploadField(
     id: String,
-    model: IModel<MutableList<FileUpload>>,
+    model: IModel<MutableList<FileUpload>>? = null,
     required: Boolean? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,

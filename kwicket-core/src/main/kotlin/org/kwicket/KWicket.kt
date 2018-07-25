@@ -1,11 +1,12 @@
 package org.kwicket
 
 import com.github.openjson.JSONObject
-import org.apache.wicket.Component
 import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.markup.head.CssHeaderItem
 import org.apache.wicket.request.cycle.RequestCycle
 import org.apache.wicket.request.handler.resource.ResourceReferenceRequestHandler
 import org.apache.wicket.request.mapper.parameter.PageParameters
+import org.apache.wicket.request.resource.CssResourceReference
 import org.apache.wicket.request.resource.PackageResourceReference
 import org.apache.wicket.request.resource.ResourceReference
 import org.apache.wicket.util.resource.StringResourceStream
@@ -71,5 +72,6 @@ fun List<Pair<String, *>>.toParams(): PageParameters {
 fun Pair<String, *>.toParams() = listOf(this).toParams()
 
 fun KClass<*>.resRef(path: String) = PackageResourceReference(java, path)
+fun KClass<*>.toCssHeader(path: String) = CssHeaderItem.forReference(CssResourceReference(java, path))
 fun ResourceReference.toUrl() = RequestCycle.get()
     .urlFor(ResourceReferenceRequestHandler(this)).toString()
