@@ -1,4 +1,4 @@
-import org.kwicket.gradle.KwicketConfig.wicketBootstrapVersion
+import org.kwicket.gradle.Versions.wicketBootstrapVersion
 
 dependencies {
     compile(project(":kwicket-core"))

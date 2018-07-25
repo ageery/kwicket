@@ -3,15 +3,15 @@ import com.jfrog.bintray.gradle.BintrayPlugin
 import org.gradle.jvm.tasks.Jar
 import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
 
-import org.kwicket.gradle.KwicketConfig.kotlinxHtmlVersion
-import org.kwicket.gradle.KwicketConfig.wicketBootstrapVersion
-import org.kwicket.gradle.KwicketConfig.wicketStuffVersion
-import org.kwicket.gradle.KwicketConfig.wicketVersion
+import org.kwicket.gradle.Versions.kotlinxHtmlVersion
+import org.kwicket.gradle.Versions.wicketBootstrapVersion
+import org.kwicket.gradle.Versions.wicketStuffVersion
+import org.kwicket.gradle.Versions.wicketVersion
 
 plugins {
-    val dependencyManagementVersion = org.kwicket.gradle.KwicketConfig.dependencyManagementVersion
-    val kotlinVersion = org.kwicket.gradle.KwicketConfig.kotlinVersion
-    val bootVersion = org.kwicket.gradle.KwicketConfig.bootVersion
+    val dependencyManagementVersion = org.kwicket.gradle.Versions.dependencyManagementVersion
+    val kotlinVersion = org.kwicket.gradle.Versions.kotlinVersion
+    val bootVersion = org.kwicket.gradle.Versions.bootVersion
     id("org.jetbrains.kotlin.jvm")
     id("io.spring.dependency-management") version dependencyManagementVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion

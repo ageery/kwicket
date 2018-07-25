@@ -1,6 +1,6 @@
 package org.kwicket.gradle
 
-object KwicketConfig {
+object Versions {
     val kotlinVersion = "1.2.50"
     val dokkaVersion = "0.9.16"
     val bintrayVersion = "1.7.3"

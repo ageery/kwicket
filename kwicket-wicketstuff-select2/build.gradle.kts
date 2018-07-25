@@ -1,5 +1,5 @@
-import org.kwicket.gradle.KwicketConfig.wicketStuffVersion
-import org.kwicket.gradle.KwicketConfig.wicketVersion
+import org.kwicket.gradle.Versions.wicketStuffVersion
+import org.kwicket.gradle.Versions.wicketVersion
 
 dependencies {
     compile(project(":kwicket-core"))

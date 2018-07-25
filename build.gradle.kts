@@ -14,17 +14,17 @@ import org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
 import org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention
 import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
-import org.kwicket.gradle.KwicketConfig.kotlinCoroutinesVersion
+import org.kwicket.gradle.Versions.kotlinCoroutinesVersion
 import java.net.URL
-import org.kwicket.gradle.KwicketConfig.kotlinVersion
-import org.kwicket.gradle.KwicketConfig.wicketVersion
+import org.kwicket.gradle.Versions.kotlinVersion
+import org.kwicket.gradle.Versions.wicketVersion
 
 buildscript {
 
-    val kotlinVersion = org.kwicket.gradle.KwicketConfig.kotlinVersion
-    val dokkaVersion = org.kwicket.gradle.KwicketConfig.dokkaVersion
-    val bintrayVersion = org.kwicket.gradle.KwicketConfig.bintrayVersion
-    val artifactoryVersion = org.kwicket.gradle.KwicketConfig.artifactoryVersion
+    val kotlinVersion = org.kwicket.gradle.Versions.kotlinVersion
+    val dokkaVersion = org.kwicket.gradle.Versions.dokkaVersion
+    val bintrayVersion = org.kwicket.gradle.Versions.bintrayVersion
+    val artifactoryVersion = org.kwicket.gradle.Versions.artifactoryVersion
 
     repositories {
         mavenCentral()
@@ -40,7 +40,7 @@ buildscript {
 }
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version org.kwicket.gradle.KwicketConfig.kotlinVersion
+    id("org.jetbrains.kotlin.jvm") version org.kwicket.gradle.Versions.kotlinVersion
     id("org.sonarqube") version "2.6"
 }
 

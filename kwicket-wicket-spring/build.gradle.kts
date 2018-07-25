@@ -1,8 +1,8 @@
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getValue
-import org.kwicket.gradle.KwicketConfig.servletApiVersion
-import org.kwicket.gradle.KwicketConfig.springVersion
-import org.kwicket.gradle.KwicketConfig.wicketVersion
+import org.kwicket.gradle.Versions.servletApiVersion
+import org.kwicket.gradle.Versions.springVersion
+import org.kwicket.gradle.Versions.wicketVersion
 
 dependencies {
     compileOnly("org.springframework:spring-web:$springVersion")

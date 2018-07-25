@@ -1,4 +1,4 @@
-import org.kwicket.gradle.KwicketConfig.wicketStuffVersion
+import org.kwicket.gradle.Versions.wicketStuffVersion
 
 dependencies {
     compileOnly("org.wicketstuff:wicketstuff-annotation:$wicketStuffVersion")
