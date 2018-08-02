@@ -107,6 +107,33 @@ inline fun <reified P, reified T> eventHandler(
     }
 
 /**
+ * Returns an event-handling [Behavior].
+ *
+ * The event will be handled by the [Behavior] if the type of the [IEvent] payload is P.
+ *
+ * @receiver [Component] to add an event handler to
+ * @param P payload of the [IEvent]
+ * @param onlyWhenVisible only invoke the handler if the associated [Component] is visible; by default, the value is true
+ * @param stop do not continue propagating the event; by default the value is false
+ * @param dontBroadcastDeeper do not allow the event to propagate any deeper; by default, the value is false
+ * @param handler lambda that defines how to handle the event; the lambda parameters are the event (e.g., SaveEvent),
+ * and the component the behavior is associated with
+ */
+inline fun <reified P> eventHandler(
+    onlyWhenVisible: Boolean = true,
+    stop: Boolean = false,
+    dontBroadcastDeeper: Boolean = false,
+    crossinline handler: (P, Component) -> Unit
+) = eventHandler<P, P>(
+    transform = { it },
+    handler = { p, _, c -> handler(p, c) },
+    onlyWhenVisible = onlyWhenVisible,
+    stop = stop,
+    dontBroadcastDeeper = dontBroadcastDeeper
+)
+
+
+/**
  * Adds an event-handling [Behavior] to the @receiver.
  *
  * The event will be handled by the [Behavior] if the [transform] lambda produces a non-null [T] object from the
@@ -167,12 +194,13 @@ inline fun <reified P> Component.handleEvent(
     stop: Boolean = false,
     dontBroadcastDeeper: Boolean = false,
     crossinline handler: (P, Component) -> Unit
-) = handleEvent<P, P>(
-    transform = { it },
-    handler = { p, _, c -> handler(p, c) },
-    onlyWhenVisible = onlyWhenVisible,
-    stop = stop,
-    dontBroadcastDeeper = dontBroadcastDeeper
+) = add(
+    eventHandler(
+        handler = handler,
+        onlyWhenVisible = onlyWhenVisible,
+        stop = stop,
+        dontBroadcastDeeper = dontBroadcastDeeper
+    )
 )
 
 /**
@@ -180,7 +208,7 @@ inline fun <reified P> Component.handleEvent(
  *
  * @param isVisibleModel [Boolean] model the value of which is used to set the visibility of the [Component]
  */
-class VisibleWhen(isVisibleModel: IModel<Boolean>) :
+class VisibleWhen(private val isVisibleModel: IModel<Boolean>) :
     OnConfigureBehavior(handler = { c -> c.isVisible = isVisibleModel.value }) {
 
     /**
@@ -188,7 +216,12 @@ class VisibleWhen(isVisibleModel: IModel<Boolean>) :
      *
      * @param isVisible lambda that will be wrapped in a LoadableDetachableModel
      */
-    constructor(isVisible: () -> Boolean) : this(isVisible.ldm())
+    constructor(isVisible: () -> Boolean) : this(IModel<Boolean> { isVisible() })
+
+    override fun detach(component: Component) {
+        super.detach(component)
+        isVisibleModel.detach()
+    }
 }
 
 /**

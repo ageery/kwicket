@@ -14,13 +14,13 @@ open class KNavbarAjaxLink<T>(
     model: IModel<T>? = null,
     label: IModel<String>? = "".model(),
     icon: IconType? = null,
-    private val onClick: (AjaxRequestTarget, KNavbarAjaxLink<T>) -> Unit,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,
     enabled: Boolean? = null,
     escapeModelStrings: Boolean? = null,
-    behaviors: List<Behavior>? = null
+    behaviors: List<Behavior>? = null,
+    private val onClick: (AjaxRequestTarget, KNavbarAjaxLink<T>) -> Unit
 ) : NavbarAjaxLink<T>(id, label) {
 
     init {
