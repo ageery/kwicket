@@ -1,3 +1,4 @@
+enableFeaturePreview("STABLE_PUBLISHING")
 rootProject.name = "org.kwicket"
 include(
     "kwicket-core",

@@ -30,6 +30,7 @@ buildscript {
         mavenCentral()
         jcenter()
     }
+
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayVersion")
@@ -41,12 +42,18 @@ buildscript {
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version org.kwicket.gradle.Versions.kotlinVersion
-    id("org.sonarqube") version "2.6"
+    id("org.sonarqube") version org.kwicket.gradle.Versions.sonarqubePluginVersion
+    id("net.researchgate.release") version org.kwicket.gradle.Versions.releasePluginVersion
 }
 
 allprojects {
     group = "org.kwicket"
     version = "0.0.3-SNAPSHOT"
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 }
 
 subprojects {
