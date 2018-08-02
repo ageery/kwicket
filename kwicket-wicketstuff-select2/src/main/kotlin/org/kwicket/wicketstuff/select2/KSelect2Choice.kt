@@ -13,6 +13,7 @@ open class KSelect2Choice<T>(
     choiceProvider: ChoiceProvider<T>,
     label: IModel<String>? = null,
     required: Boolean? = null,
+    enabled: Boolean? = null,
     width: String? = null,
     closeOnSelect: Boolean? = null,
     allowClear: Boolean? = null,
@@ -34,7 +35,8 @@ open class KSelect2Choice<T>(
             outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
             behaviors = behaviors,
             label = label,
-            required = required
+            required = required,
+            enabled = enabled
         )
     }
 
