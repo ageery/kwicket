@@ -3,8 +3,8 @@ package org.kwicket.gradle
 object Versions {
     val kotlinVersion = "1.2.60"
     val dokkaVersion = "0.9.16"
-    val bintrayVersion = "1.7.3"
-    val artifactoryVersion = "4.5.2"
+    val bintrayVersion = "1.8.4"
+    val artifactoryVersion = "4.7.5"
     val releasePluginVersion = "2.6.0"
     val sonarqubePluginVersion = "2.6"
 
