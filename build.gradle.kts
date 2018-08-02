@@ -48,7 +48,7 @@ plugins {
 
 allprojects {
     group = "org.kwicket"
-    version = "0.0.3-SNAPSHOT"
+    //version = "0.0.3-SNAPSHOT"
 
     repositories {
         mavenCentral()
