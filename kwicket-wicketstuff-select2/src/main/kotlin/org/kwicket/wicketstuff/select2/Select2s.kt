@@ -7,6 +7,24 @@ import org.kwicket.component.init
 import org.wicketstuff.select2.AbstractSelect2Choice
 import org.wicketstuff.select2.ISelect2Theme
 
+/**
+ * Extension method for initializing a [AbstractSelect2Choice] component.
+ *
+ * @param label label associated with the form field
+ * @param required whether it is required for an item to be selected in the dropdown
+ * @param enabled whether the dropdown is enabled
+ * @param width width of the dropdown
+ * @param closeOnSelect whether to close the dropdown after the user has made a selection
+ * @param allowClear whether to allow the user to unselect the item in the dropdown
+ * @param placeholder text to show when no item has been selected in the dropdown
+ * @param theme select2 theme
+ * @param outputMarkupId whether to output a markup id for the dropdown
+ * @param outputMarkupPlaceholderTag whether to output a placeholder tag if the dropdown is not initially visible
+ * @param behaviors list of [Behavior]s to add to the dropdown
+ * @param visible whether the component is visible
+ * @param escapeModelStrings whether to escape the strings in the model object
+ * @param renderBodyOnly whether to only render the component tag(s) and not render the tag containing the component
+ */
 fun AbstractSelect2Choice<*, *>.init(
     width: String? = null,
     placeholder: String? = null,
@@ -40,4 +58,3 @@ fun AbstractSelect2Choice<*, *>.init(
     allowClear?.let { settings.allowClear = it }
     theme?.let { settings.theme = it }
 }
-
