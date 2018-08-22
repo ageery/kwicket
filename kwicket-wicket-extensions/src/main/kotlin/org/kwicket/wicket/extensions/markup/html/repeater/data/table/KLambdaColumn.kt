@@ -11,6 +11,18 @@ private class KSerializableFunction<T, R>(val function: (T) -> R) : Serializable
     override fun apply(t: T): R = function(t)
 }
 
+/**
+ * [LambdaColumn] with named parameters.
+ *
+ * @param T type of data in a row of the data table
+ * @param S type of sort used in the data table
+ * @param displayModel model of the column header label
+ * @param sort sort object used for the column
+ * @param function lambda for creating a value for the column cell from the row value
+ * @param header lambda for creating the column header component
+ * @param cssClasses list of CSS classes to add to the column
+ * @param populateItem lambda for populating the column cell
+ */
 open class KLambdaColumn<T, S>(
     displayModel: IModel<String>,
     sort: S? = null,

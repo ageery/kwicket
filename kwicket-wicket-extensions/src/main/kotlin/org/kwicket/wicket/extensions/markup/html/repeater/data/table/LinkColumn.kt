@@ -6,7 +6,17 @@ import org.apache.wicket.markup.repeater.Item
 import org.apache.wicket.model.IModel
 import org.kwicket.wicket.core.markup.html.panel.LinkPanel
 
-class LinkColumn<T, S>(
+/**
+ * Table column where the column cell is a list of links.
+ *
+ * @param T type of data in a row of the table
+ * @param S type of the sort used in the table
+ * @param displayModel model of the table column header label
+ * @param sortProperty optional sort used for the column
+ * @param cssClasses list of CSS classes to add to the column
+ * @param links lambda to create a list of links to display in the table cell
+ */
+open class LinkColumn<T, S>(
     displayModel: IModel<String>,
     sortProperty: S? = null,
     cssClasses: List<String>? = null,

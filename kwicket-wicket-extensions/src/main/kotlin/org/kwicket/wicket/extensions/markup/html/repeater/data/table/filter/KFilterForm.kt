@@ -5,6 +5,20 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.Filte
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator
 import org.kwicket.component.init
 
+/**
+ * [FilterForm] with named parameters.
+ *
+ * @param T type of the model backing the component
+ * @param id Wicket component id
+ * @param locator filter state locator
+ * @param outputMarkupId whether to output a markup id for the [FilterForm]
+ * @param outputMarkupPlaceholderTag whether to output a placeholder tag even if the component is initially not visible
+ * @param visible whether the component is visible
+ * @param enabled whether the component is enabled
+ * @param renderBodyOnly whether to only render the component itself and not the tag the component is embedded in
+ * @param escapeModelStrings whether to escape model strings
+ * @param behaviors [Behavior]s to add to the component
+ */
 open class KFilterForm<T>(
     id: String,
     locator: IFilterStateLocator<T>,

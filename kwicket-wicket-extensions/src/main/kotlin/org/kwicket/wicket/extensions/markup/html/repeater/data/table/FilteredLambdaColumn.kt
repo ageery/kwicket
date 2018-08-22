@@ -7,7 +7,19 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilt
 import org.apache.wicket.markup.repeater.Item
 import org.apache.wicket.model.IModel
 
-// FIXME: is there a better name than "function" -- maybe display or displayFunction or label?
+/**
+ * A filterable data table column.
+ *
+ * @param T type of rows in the the data table
+ * @param S type of sort used in the data table
+ * @param displayModel model of the column header label
+ * @param sort optional sort for the column
+ * @param function lambda for converting a table row to a column cell value
+ * @property filter lambda for creating the column filter
+ * @param header lambda for creating the table header
+ * @param populateItem lambda for populating a column cell
+ * @param cssClasses list of CSS classes to add to the column
+ */
 open class FilteredLambdaColumn<T, S>(
     displayModel: IModel<String>,
     sort: S? = null,
