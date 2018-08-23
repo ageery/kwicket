@@ -16,16 +16,45 @@ import kotlin.coroutines.experimental.CoroutineContext
 
 private val LOGGER = LoggerFactory.getLogger(AsyncDataProvider::class.java)
 
+/**
+ * Asynchronous data provider.
+ */
 interface AsyncDataProvider<T, S> : ISortableDataProvider<T, S> {
+    /**
+     * Start the iterator method in the background.
+     *
+     * @param first offset into the result set
+     * @param size max number of results to load
+     */
     fun startAsyncLoad(first: Long, size: Long)
+
+    /**
+     * Stop any outstanding asynchronous loading.
+     */
     fun cancelAsyncLoad()
 }
 
-inline fun <T, U, R> suspend2(noinline block: suspend (T, U ) -> R): suspend (t: T, u: U) -> R = block
-public inline fun <R> suspend1(noinline block: suspend () -> R): suspend () -> R = block
+/**
+ * A two-parameter suspend function.
+ *
+ * @param T type of the first parameter
+ * @param U type of the second parameter
+ * @param R type of the return value
+ * @return two-parameter suspend function
+ */
+inline fun <T, U, R> suspend2(noinline block: suspend (T, U) -> R): suspend (t: T, u: U) -> R = block
+//public inline fun <R> suspend1(noinline block: suspend () -> R): suspend () -> R = block
 
-val xyz = suspend2 { start: Long, size: Long -> start + size }
-
+/**
+ * Sortable [AsyncDataProvider].
+ *
+ * @param T type of data in the table rows
+ * @param S type of sort in the table columns
+ * @param count lambda for getting the number of rows in the table
+ * @param items lambda for getting the rows in the table
+ * @param modeler lambda for creating a model of a row in the table
+ * @param context coroutine context
+ */
 open class KAsyncSortableDataProvider<T, S>(
     private val count: () -> Long,
     private val items: (Long, Long) -> Sequence<T>,
@@ -54,7 +83,7 @@ open class KAsyncSortableDataProvider<T, S>(
         _deferredCount.let {
             if (it == null) _deferredCount = async(context()) {
                 LOGGER.info("before count")
-                val x  = count()
+                val x = count()
                 LOGGER.info("after count")
                 x
             }
@@ -101,6 +130,9 @@ open class KAsyncSortableDataProvider<T, S>(
     }
 }
 
+/**
+ * [Behavior] to start the loading of any asynchronous data providers associated with data tables in the hierarchy.
+ */
 class AsyncTableDataProviderLoadBehavior : Behavior() {
 
     private fun startAsync(c: Component) {

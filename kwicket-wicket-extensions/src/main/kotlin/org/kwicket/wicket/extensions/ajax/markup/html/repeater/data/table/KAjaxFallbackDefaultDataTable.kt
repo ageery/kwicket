@@ -7,7 +7,22 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider
 import org.kwicket.component.init
 
-class KAjaxFallbackDefaultDataTable<T, S>(
+/**
+ * [AjaxFallbackDefaultDataTable] with named parameters.
+ *
+ * @param T type of the data in a row of the table
+ * @param S type of the sort used by columns in the table
+ * @param id Wicket component id
+ * @param columns list of columns in the table
+ * @param dataProvider provides the row data for the table
+ * @param rowsPerPage max number of rows to display in the table at a time
+ * @param outputMarkupId whether to output an HTML id for the tag the component is in
+ * @param outputMarkupPlaceholderTag whether to output a placeholder HTML tag if the component is not visible
+ * @param topToolbars lambda for creating the top toolbars for the table
+ * @param bottomToolbars lambda for creating the bottom toolbars for the table
+ * @param behaviors list of [Behavior]s to add to the component
+ */
+open class KAjaxFallbackDefaultDataTable<T, S>(
     id: String,
     columns: List<IColumn<T, S>>,
     dataProvider: ISortableDataProvider<T, S>,
