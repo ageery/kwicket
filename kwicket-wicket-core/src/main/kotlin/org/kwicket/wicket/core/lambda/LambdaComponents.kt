@@ -89,7 +89,7 @@ fun checkbox(
 }
 
 fun <T> textArea(
-    model: IModel<T>,
+    model: IModel<T?>,
     required: Boolean? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
@@ -108,7 +108,7 @@ fun <T> textArea(
 }
 
 fun <T> textArea(
-    model: IModel<T>,
+    model: IModel<T?>,
     required: Boolean? = null,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,

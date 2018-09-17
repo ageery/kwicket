@@ -71,6 +71,7 @@ fun List<Pair<String, *>>.toParams(): PageParameters {
 
 fun Pair<String, *>.toParams() = listOf(this).toParams()
 
+// FIXME: this is duplicated
 fun KClass<*>.resRef(path: String) = PackageResourceReference(java, path)
 fun KClass<*>.toCssHeader(path: String) = CssHeaderItem.forReference(CssResourceReference(java, path))
 fun ResourceReference.toUrl() = RequestCycle.get()

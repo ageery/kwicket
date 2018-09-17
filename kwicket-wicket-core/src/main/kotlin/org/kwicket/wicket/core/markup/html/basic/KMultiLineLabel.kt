@@ -21,7 +21,7 @@ import org.kwicket.component.init
  */
 open class KMultiLineLabel(
     id: String,
-    model: IModel<String>,
+    model: IModel<*>,
     outputMarkupId: Boolean? = null,
     outputMarkupPlaceholderTag: Boolean? = null,
     visible: Boolean? = null,

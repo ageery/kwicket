@@ -7,8 +7,11 @@ import org.kwicket.component.init
 import org.kwicket.component.q
 import org.kwicket.model.listModel
 import org.kwicket.model.value
-import org.kwicket.wicket.core.markup.html.list.KListView
+import org.kwicket.wicket.core.queued.listView
 
+/**
+ * I think this should be depreciated
+ */
 open class ButtonPanel(
     id: String,
     buttons: (String, Form<*>?) -> List<Button>,
@@ -32,10 +35,9 @@ open class ButtonPanel(
             renderBodyOnly = renderBodyOnly,
             behaviors = behaviors
         )
-        q(
-            KListView(id = "buttons", model = buttons("button", form).listModel(),
-                populate = { item -> item.q(item.model.value) })
-        )
+        listView(id = "buttons", model = buttons("button", form).listModel()) {
+            q(model.value)
+        }
     }
 
 }
