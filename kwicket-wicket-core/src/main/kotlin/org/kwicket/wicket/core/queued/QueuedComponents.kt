@@ -25,9 +25,62 @@ import org.kwicket.wicket.core.markup.html.image.KInlineImage
 import org.kwicket.wicket.core.markup.html.image.KPicture
 import org.kwicket.wicket.core.markup.html.image.KSource
 import org.kwicket.wicket.core.markup.html.link.KBookmarkablePageLink
+import org.kwicket.wicket.core.markup.html.link.KLink
 import org.kwicket.wicket.core.markup.html.list.KListView
 import org.kwicket.wicket.core.markup.html.panel.KFeedbackPanel
 import kotlin.reflect.KClass
+
+fun <T> MarkupContainer.link(
+    id: String,
+    model: IModel<T>,
+    params: PageParameters? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    behaviors: List<Behavior>? = null,
+    onClick: () -> Unit
+) = q(
+    KLink(
+        id = id,
+        model = model,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        behaviors = behaviors,
+        onClick = onClick,
+        renderBodyOnly = renderBodyOnly,
+        escapeModelStrings = escapeModelStrings
+    )
+)
+
+fun MarkupContainer.link(
+    id: String,
+    params: PageParameters? = null,
+    outputMarkupId: Boolean? = null,
+    outputMarkupPlaceholderTag: Boolean? = null,
+    visible: Boolean? = null,
+    enabled: Boolean? = null,
+    renderBodyOnly: Boolean? = null,
+    escapeModelStrings: Boolean? = null,
+    behaviors: List<Behavior>? = null,
+    onClick: () -> Unit
+) = q(
+    KLink<Unit>(
+        id = id,
+        outputMarkupId = outputMarkupId,
+        outputMarkupPlaceholderTag = outputMarkupPlaceholderTag,
+        visible = visible,
+        enabled = enabled,
+        behaviors = behaviors,
+        onClick = onClick,
+        renderBodyOnly = renderBodyOnly,
+        escapeModelStrings = escapeModelStrings
+    )
+)
 
 fun <T> MarkupContainer.form(
     id: String,

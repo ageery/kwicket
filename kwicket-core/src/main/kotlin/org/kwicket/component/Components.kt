@@ -2,11 +2,14 @@ package org.kwicket.component
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import org.apache.wicket.Page
 import org.apache.wicket.WicketRuntimeException
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
+import org.apache.wicket.request.mapper.parameter.PageParameters
+import kotlin.reflect.KClass
 
 /**
  * Returns a non-null [AjaxRequestTarget].
@@ -148,3 +151,5 @@ operator fun <T: Component> T.plus(behavior: Behavior): T {
     this.add(behavior)
     return this
 }
+
+fun <P: Page> Component.setResponsePage(page: KClass<P>, params: PageParameters? = null) = setResponsePage(page.java, params)
