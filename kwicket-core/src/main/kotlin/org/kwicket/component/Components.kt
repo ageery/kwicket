@@ -9,6 +9,7 @@ import org.apache.wicket.behavior.Behavior
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.model.IModel
 import org.apache.wicket.request.mapper.parameter.PageParameters
+import org.apache.wicket.validation.IValidator
 import kotlin.reflect.KClass
 
 /**
@@ -119,7 +120,7 @@ fun <C : Component> C.init(
  * @receiver the [FormComponent] to initialize
  * @return the initialized [FormComponent]
  */
-fun <C : FormComponent<*>> C.init(
+fun <T, C : FormComponent<T>> C.init(
     required: Boolean? = null,
     label: IModel<String>? = null,
     outputMarkupId: Boolean? = null,
@@ -128,6 +129,7 @@ fun <C : FormComponent<*>> C.init(
     enabled: Boolean? = null,
     escapeModelStrings: Boolean? = null,
     renderBodyOnly: Boolean? = null,
+    validators: List<IValidator<in T>>? = null,
     behaviors: List<Behavior>? = null
 ): C {
     (this as Component).init(
@@ -141,6 +143,7 @@ fun <C : FormComponent<*>> C.init(
     )
     required?.let { this.isRequired = it }
     label?.let { this.label = it }
+    validators?.let { it.forEach { validator -> add(validator) } }
     return this
 }
 

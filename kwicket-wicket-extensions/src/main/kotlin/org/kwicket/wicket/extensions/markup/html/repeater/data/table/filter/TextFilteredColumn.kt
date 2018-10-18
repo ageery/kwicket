@@ -38,7 +38,7 @@ open class TextFilteredColumn<T, S, F : Any>(
         { fieldId, fieldModel, fieldType ->
             KTextField(id = fieldId, model = fieldModel, type = fieldType)
         },
-    rhs: (String) -> Component,
+    rhs: (String) -> Component = { KWebMarkupContainer(id = it, visible = false) },
     header: ((String, IModel<String>) -> Component)? = null,
     populateItem: ((Item<ICellPopulator<T>>, String, IModel<T>, IModel<*>) -> Unit)? = null,
     cssClasses: List<String>? = null

@@ -28,12 +28,14 @@ open class Select2FilteredColumn<T, S, F>(
     function: (T) -> Any?,
     choiceProvider: ChoiceProvider<F>,
     select2: (Component, String, IModel<F?>, ChoiceProvider<F>) -> Component,
+    cssClasses: List<String>? = null,
     populateItem: ((Item<ICellPopulator<T>>, String, IModel<T>, IModel<*>) -> Unit)? = null
 ) : FilteredLambdaColumn<T, S>(
     displayModel = displayModel,
     sort = sort,
     function = function,
     populateItem = populateItem,
+    cssClasses = cssClasses,
     filter = { id, _ ->
         Select2ChoiceFilterPanel(
             id = id,
