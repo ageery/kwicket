@@ -25,7 +25,7 @@ import org.wicketstuff.select2.ISelect2Theme
  * @param escapeModelStrings whether to escape the strings in the model object
  * @param renderBodyOnly whether to only render the component tag(s) and not render the tag containing the component
  */
-fun AbstractSelect2Choice<*, *>.init(
+fun <T> AbstractSelect2Choice<*, T>.init(
     width: String? = null,
     placeholder: String? = null,
     closeOnSelect: Boolean? = null,
@@ -41,7 +41,7 @@ fun AbstractSelect2Choice<*, *>.init(
     renderBodyOnly: Boolean? = null,
     behaviors: List<Behavior>? = null
 ) {
-    (this as FormComponent<*>).init(
+    (this as FormComponent<T>).init(
         required = required,
         label = label,
         outputMarkupId = outputMarkupId,
